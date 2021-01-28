@@ -16,7 +16,7 @@
 			</div>
 			<div class="card-body">
 				<div class="row">
-					<div class="col-3">
+					<!-- <div class="col-3">
 						<img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="height:auto;width:100%" src=" <?= base_url('files/img/madziatul.png'); ?>" alt="">
 					</div>
 					<div class="col-8 mt-4">
@@ -24,7 +24,7 @@
 						<h5 class="text-left">NIP &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: 197602182005012001</h5>
 						<h5 class="text-left">E-Mail &nbsp;&nbsp;: madziatul.churiyah.fe@um.ac.id</h5>
 						<h5 class="text-left">Jabatan : Koordinator Program Studi S1 Pendidikan Administrasi Perkantoran FE</h5>
-					</div>
+					</div> -->
 					<div class="col-3">
 						<img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="height:auto;width:100%" src=" <?= base_url('files/img/NAILATUL.png'); ?>" alt="">
 					</div>
@@ -52,7 +52,8 @@
 				</div>
 				<div class="modal-body">
 					<div class="embed-responsive embed-responsive-16by9">
-						<iframe width="560" height="315" src="https://www.youtube.com/embed/NUFL0m3bPLM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+						<iframe width="560" height="315" src="https://www.youtube.com/embed/NUFL0m3bPLM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+					</div>
 				</div>
 
 			</div>

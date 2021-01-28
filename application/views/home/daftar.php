@@ -14,14 +14,20 @@
                 <form method="post" action="<?php echo base_url('auth/proses_daftar'); ?>">
                   <div class="form-group">
                     <div class="form-group">
-                      <input type="text" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Masukan Nama Anda" name="nama">
+                      <input type="text" class="form-control form-control-user" required id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Masukan Nama Anda" name="nama">
                     </div>
-                    <input type="text" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Masukan Username" name="username">
+
+                    <div class="form-group">
+                      <input type="text" class="form-control form-control-user" required id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Masukan Nomor Induk" name="username">
+                    </div>
+                    <div class="form-group">
+                      <input type="text" class="form-control form-control-user" required id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Masukan Kelas" name="kelas">
+                    </div>
+                    <div class="form-group">
+                      <input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Masukan Password" name="password">
+                    </div>
+                    <button class="btn btn-primary btn-user btn-block"> Daftar </button>
                   </div>
-                  <div class="form-group">
-                    <input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Masukan Password" name="password">
-                  </div>
-                  <button class="btn btn-primary btn-user btn-block"> Daftar </button>
               </div>
             </div>
           </div>
@@ -29,4 +35,3 @@
       </div>
     </div>
   </div>
-</div>
