@@ -18,6 +18,12 @@
           <span>Dashboard</span></a>
       </li>
       <li class="nav-item">
+        <a class="nav-link" href="<?php echo base_url('home/tugas') ?>">
+          <!-- <i class="fa fa-envelope-open-text"></i> -->
+          <img src="<?php echo base_url('files/img/'); ?>dashboard.png" alt="logo um" class="mr-2" width="20"></img>
+          <span>Tugas</span></a>
+      </li>
+      <li class="nav-item">
         <a class="nav-link" href="<?php echo base_url('home/laporan_suratmasuk') ?>">
           <!-- <i class="fa fa-envelope-open-text"></i> -->
           <img src="<?php echo base_url('files/img/'); ?>inbox.png" alt="logo um" class="mr-2" width="20"></img>

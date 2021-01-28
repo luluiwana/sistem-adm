@@ -3,11 +3,6 @@ td {
     padding-left: 15px;
 }
  </style>
- <div style="text-align:center; font-size:14; font-weight:bold">
-AGENDA KEGIATAN PIMPINAN
- </div>
- <br>
- <br>
  <table width="100%" cellspacing="0" border="1">
      <thead>
          <tr>

@@ -267,10 +267,12 @@ class M_data extends CI_Model
 
     public function proses_daftar()
     {
+        $pass = md5($this->input->post('password'));
         $data = [
             "username" => $this->input->post('username'),
             "nama" => $this->input->post('nama'),
-            "password" => $this->input->post('password'),
+            "password" => $pass,
+            "kelas" => $this->input->post('kelas'),
             "level" => 'user',
         ];
 
@@ -440,9 +442,9 @@ class M_data extends CI_Model
     }
     public function getRapatBy($time)
     {
-        if ($time=="Harian") {
+        if ($time == "Harian") {
             $query = $this->db->query("select * FROM surat_masuk as m JOIN user as u WHERE m.id_user=u.id AND m.surat_rapat=1 AND m.tgl_rapat=CURRENT_DATE UNION SELECT * FROM surat_keluar as k JOIN user as u WHERE k.id_user=u.id AND k.surat_rapat=1 AND k.tgl_rapat=CURRENT_DATE ORDER BY waktu_rapat ASC");
-        } elseif ($time=="Mingguan") {
+        } elseif ($time == "Mingguan") {
             $query = $this->db->query("select * FROM surat_masuk as m JOIN user as u WHERE m.id_user=u.id AND m.surat_rapat=1 AND yearweek(m.tgl_rapat, 1)=yearweek(CURRENT_DATE(), 1) UNION SELECT * FROM surat_keluar as k JOIN user as u WHERE k.id_user=u.id AND k.surat_rapat=1 AND yearweek(k.tgl_rapat, 1)=yearweek(CURRENT_DATE(), 1) ORDER BY tgl_rapat ASC");
         } else {
             $query = $this->db->query("select * FROM surat_masuk as m JOIN user as u WHERE m.id_user=u.id AND m.surat_rapat=1 AND (m.tgl_rapat between  DATE_FORMAT(NOW() ,'%Y-%m-01') AND NOW() ) UNION SELECT * FROM surat_keluar as k JOIN user as u WHERE k.id_user=u.id AND k.surat_rapat=1 AND(k.tgl_rapat between  DATE_FORMAT(NOW() ,'%Y-%m-01') AND NOW() ) ORDER BY tgl_rapat ASC");

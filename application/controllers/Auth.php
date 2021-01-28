@@ -29,7 +29,7 @@ class Auth extends CI_Controller
     public function proses_login()
     {
         $username = $this->input->post('username');
-        $password = $this->input->post('password');
+        $password = md5($this->input->post('password'));
         $this->load->model('M_data');
         $this->M_data->ambillogin($username, $password);
     }

@@ -64,7 +64,7 @@
 				<img id="img-hidden" src="<?= base_url('files/img/logo-um.png') ?>" class='d-none'>
 				<div class="form-group col-md-4">
 					<label for="exampleFormControlInput1">Scan Dokumen</label>
-					<button type="button" class="btn btn-primary form-control mb-3" data-toggle="modal" data-target="#myModal">Scan Dokumen</button>
+					<button type="button" class="btn btn-primary form-control mb-3" data-toggle="modal" data-target=".bd-example-modal-lg">Scan Dokumen</button>
 				</div>
 
 			</div>

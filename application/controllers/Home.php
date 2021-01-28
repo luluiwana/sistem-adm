@@ -911,4 +911,13 @@ class Home extends CI_Controller
         redirect("home/buku_agenda");
         # code...
     }
+    public function tugas()
+    {   // if ada tugas:tampilkan tugas, else: buat tugas baru
+        $data['data'] = 'bg';
+        $this->load->view('templates/header');
+        $this->load->view('templates/sidebar');
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('home/tugas');
+        $this->load->view('templates/footer');
+    }
 }
