@@ -914,10 +914,49 @@ class Home extends CI_Controller
     public function tugas()
     {   // if ada tugas:tampilkan tugas, else: buat tugas baru
         $data['data'] = 'bg';
+        $data['isTugas'] = $this->M_data->isTugas();
+        $data['getTugas'] = $this->M_data->getTugas();
         $this->load->view('templates/header');
         $this->load->view('templates/sidebar');
         $this->load->view('templates/topbar', $data);
         $this->load->view('home/tugas');
         $this->load->view('templates/footer');
+    }
+    public function tambahTugas()
+    {
+        $config['upload_path'] = './files/';
+        $config['allowed_types'] = 'gif|jpg|png|pdf';
+        $config['file_name'] = 'tugas';
+        $config['overwrite'] = TRUE;
+        $config['max_size'] = 20000;
+
+        $this->load->library('upload', $config);
+        $this->upload->initialize($config);
+        if (!$this->upload->do_upload('lampiran')) {
+            $error = array('error' => $this->upload->display_errors());
+            $this->load->view('home/tugas', $error);
+        } else {
+            $data = array('image_metadata' => $this->upload->data());
+            $lampiran =[
+                'judul_tugas' => $this->input->post('judul_tugas'),
+                'deskripsi_tugas' => $this->input->post('deskripsi_tugas')
+            ];
+            $this->M_data->addTugas($lampiran);
+            redirect('home/tugas'); 
+        }
+    }
+    public function editTugas($id)
+    {
+        $data['data'] = 'bg';
+        $data['getTugas'] = $this->M_data->getTugasById($id);
+        $this->load->view('templates/header');
+        $this->load->view('templates/sidebar');
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('home/edittugas');
+        $this->load->view('templates/footer');
+    }
+    public function lihatlampiran()
+    {
+        $this->load->view('home/lampiran');
     }
 }

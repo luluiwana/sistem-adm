@@ -59,7 +59,5 @@
                     <button class="btn btn-info" type="submit">SIMPAN </button>
                 </form>
             </div>
-
-
         </div>
         </div>

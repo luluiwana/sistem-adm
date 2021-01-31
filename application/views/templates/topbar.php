@@ -9,7 +9,7 @@
       <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
         <i class="fa fa-bars"></i>
       </button>
-      <h5>SISTEM KEARSIPAN ELEKTRONIK BERBASIS WEB CODEIGNITER (SIEREN)</h5>
+      <h5>Sistem Kearsipan Elektronik</h5>
       <!-- Topbar Navbar -->
       <ul class="navbar-nav ml-auto">
 
