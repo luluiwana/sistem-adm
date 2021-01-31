@@ -462,4 +462,32 @@ class M_data extends CI_Model
         $this->db->join('user', 'surat_keluar.id_user = user.id');
         return $this->db->get()->result_array();
     }
+    public function isTugas() //cek sudah buat tugas atau belum
+    {
+        $this->db->select('count(*) as jml');
+        $row = $this->db->get('tugas')->row();
+        if ($row->jml>0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public function addTugas($data)
+    {
+        $this->db->insert('tugas', $data);
+    }
+    public function getTugas()
+    {
+        $this->db->select('*');
+        $query = $this->db->get('tugas');
+        return $query->result();
+    }
+    public function getTugasById($id)
+    {
+        $this->db->select('*');
+        $this->db->where('id_tugas',$id);
+        $query = $this->db->get('tugas');
+        return $query->result();
+    }
+   
 }
