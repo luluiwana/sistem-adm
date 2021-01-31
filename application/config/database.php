@@ -82,7 +82,7 @@ $db['default'] = array(
 	// 'database' => 'u435716723_sieren',
 	'username' => 'root',
 	'password' => '',
-	'database' => 'pandaadmin',
+	'database' => 'sistem-adm',
 	// 'username' => 'id13926696_tester_db',
 	// 'password' => '@Hapis2121cintadamai',
 

@@ -23,7 +23,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://localhost/pandaadmin/';
+$config['base_url'] = 'http://localhost/sistem-adm/';
 // $config['base_url'] = 'http://adp.sieren-administrasi.ga/';
 // $config['base_url'] = 'https://cobageo.000webhostapp.com/';
 // $config['base_url'] = 'https://cobageo.000webhostapp.com/';

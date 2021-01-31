@@ -99,7 +99,7 @@
 			<div style="margin:0">
 				<input type="hidden" name="rapat" value="0" checked />
 				<label data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-					<input type="checkbox" name="rapat" id="rapat" value="1" /> 
+					<input type="checkbox" name="rapat" id="rapat" value="1" />
 					<span>Surat ini merupakan surat rapat</span>
 				</label>
 				<div id="collapseOne" aria-expanded="false" class="collapse">
@@ -191,9 +191,6 @@
 		</form>
 
 		<!-- Modal -->
-
-
-
 		<div id="scanner" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
 			<div class="modal-dialog modal-lg">
 				<div class="modal-content">

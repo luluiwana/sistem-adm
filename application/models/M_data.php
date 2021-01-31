@@ -454,9 +454,11 @@ class M_data extends CI_Model
 
     public function getSuratKeluar()
     {
+        $where = "surat_rapat=0 OR surat_rapat= 'NULL'";
         $this->db->select('*');
         $this->db->from('surat_keluar');
-        $this->db->where('surat_rapat', 0);
+        $this->db->where($where);
+        // $this->db->where('surat_rapat',);
         $this->db->join('user', 'surat_keluar.id_user = user.id');
         return $this->db->get()->result_array();
     }
