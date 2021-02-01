@@ -916,6 +916,7 @@ class Home extends CI_Controller
         $data['data'] = 'bg';
         $data['isTugas'] = $this->M_data->isTugas();
         $data['getTugas'] = $this->M_data->getTugas();
+        $data['getMhs'] = $this->M_data->getMhs();
         $this->load->view('templates/header');
         $this->load->view('templates/sidebar');
         $this->load->view('templates/topbar', $data);
@@ -958,5 +959,37 @@ class Home extends CI_Controller
     public function lihatlampiran()
     {
         $this->load->view('home/lampiran');
+    }
+     public function edit_Tugas($id)
+    {
+        $config['upload_path'] = './files/';
+        $config['allowed_types'] = 'gif|jpg|png|pdf';
+        $config['file_name'] = 'tugas';
+        $config['overwrite'] = TRUE;
+        $config['max_size'] = 20000;
+
+        $this->load->library('upload', $config);
+        $this->upload->initialize($config);
+        if (!$this->upload->do_upload('lampiran')) {
+             $lampiran =[
+                'judul_tugas' => $this->input->post('judul_tugas'),
+                'deskripsi_tugas' => $this->input->post('deskripsi_tugas')
+            ];
+            $this->M_data->UpdateTugas($lampiran, $id);
+            redirect('home/tugas');
+
+        } else {
+            $data = array('image_metadata' => $this->upload->data());
+            $lampiran =[
+                'judul_tugas' => $this->input->post('judul_tugas'),
+                'deskripsi_tugas' => $this->input->post('deskripsi_tugas')
+            ];
+            $this->M_data->UpdateTugas($lampiran, $id);
+            redirect('home/tugas'); 
+        }
+    }
+    public function hasil_tugas($username)
+    {
+        
     }
 }

@@ -8,8 +8,9 @@
                     echo $error;
                 }
             ?>
-                <?php echo form_open_multipart('home/tambahtugas');?>
-                <?php foreach ($getTugas as $row) :  ?>
+            <?php foreach ($getTugas as $row) :  ?>
+                <?php echo form_open_multipart('home/edit_tugas/'.$row->id_tugas);?>
+                
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Judul Tugas</label>
                     <div class="col-sm-10">
@@ -27,12 +28,7 @@
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Lampiran</label>
                     <input type="file" name="lampiran" id="">
-                    <div class="col-sm-10">
-
-                    </div>
                 </div>
-
-
                 <button type="submit" class="btn btn-primary btn-block">Edit Tugas</button>
                 <?php endforeach;?>
                 </form>

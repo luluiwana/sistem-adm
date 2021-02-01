@@ -301,6 +301,9 @@
 
   var table_pinjam = $('#pinjam').DataTable();
   table_pinjam.search("<?php if (!empty($this->session->flashdata('cari'))) echo $this->session->flashdata('cari'); ?>");
+ 
+  var table_user = $('#user_table').DataTable();
+  table_user.search("<?php if (!empty($this->session->flashdata('cari'))) echo $this->session->flashdata('cari'); ?>");
 </script>
 
 

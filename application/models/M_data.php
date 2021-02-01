@@ -487,5 +487,17 @@ class M_data extends CI_Model
         $query = $this->db->get('tugas');
         return $query->result();
     }
+    public function UpdateTugas($data, $id)
+    {
+        $this->db->where('id_tugas', $id);
+        $this->db->update('tugas', $data);
+    }
+    public function getMhs()
+    {
+        $this->db->select('*');
+        $this->db->where('level', 'user');
+        $query = $this->db->get('user');
+        return $query->result();    
+    }
    
 }

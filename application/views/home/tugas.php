@@ -13,24 +13,46 @@
                             <td><?=$row->deskripsi_tugas?></td>
                         </tr>
                         <tr>
-                            <td><a href="<?=base_url('home/lihatlampiran')?>" target="_blank" class="btn btn-sm btn-primary">Lihat Lampiran</a></td>
+                            <td><a href="<?=base_url('home/lihatlampiran')?>" target="_blank"
+                                    class="btn btn-sm btn-primary">Lihat Lampiran</a> <a
+                                    href="<?=base_url('home/edittugas/'.$row->id_tugas)?>"
+                                    class="btn btn-info btn-sm">Edit Tugas</a></td>
                         </tr>
                     </table>
-                </div>
-
-                <div class="col-md-4">
-                    <a href="<?=base_url('home/edittugas/'.$row->id_tugas)?>" class="btn btn-info btn-sm">Edit Tugas</a>
                 </div>
             </div>
             <?php endforeach; ?>
         </div>
-        <div class="card-footer">Footer</div>
+        <div class="card">
+            <div class="card-body" style="overflow-x:auto">
+                    <table class="table table-sm" id="user_table">
+                        <thead style="font-weight:bold">
+                            <td>NIM</td>
+                            <td>Nama</td>
+                            <td>Status</td>
+                            <td>Nilai</td>
+                            <td>Komentar</td>
+                            <td>Hasil</td>
+                        </thead>
+                        <?php foreach ($getMhs as $row) :?>
+                        <tr>
+                            <td><?=$row->username?></td>
+                            <td><?=$row->nama?></td>
+                            <td>Status</td>
+                            <td>Nilai</td>
+                            <td>Komentar</td>
+                            <td><a href="" class="btn btn-sm btn-primary">Lihat Hasil</a><?=$row->id?></td>
+                        </tr>
+                        <?php endforeach;?>
+                    </table>
+            </div>
+        </div>
         <?php else :?>
         <div class="card">
             <div class="card-header">Buat Tugas</div>
             <div class="card-body">
                 <?php
-                if (isset($error)){
+                if (isset($error)) {
                     echo $error;
                 }
             ?>
@@ -51,7 +73,7 @@
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Lampiran</label>
-                    <input type="file" name="lampiran" id="">
+                    <input type="file" name="lampiran" id="" required>
                     <div class="col-sm-10">
 
                     </div>
