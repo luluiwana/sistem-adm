@@ -550,7 +550,8 @@ class M_data extends CI_Model
     }
     public function getPenyusutanById($id)
     {
-        $this->db->where('id_user',$id);
+        $this->db->where('id_user', $id);
+
         return $this->db->get('penyusutan')->result();
 
     }

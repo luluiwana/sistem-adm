@@ -610,11 +610,12 @@ tr.hide-table-padding td {
                         </div>
                     </div>
                     <div class="tab-pane container fade" id="jdw_rapat"><br>
-                        <h5 class="text-center" style="font-weight:bold; color:black">Jadwal Rapat Pimpinan</h5>
-                        <div class="table-responsive">
-                            <table class="table table-sm table-bordered" width="100%" cellspacing="0">
+                    <div class="table-responsive" style="padding-top:20px">
+                            <h5 class="text-center" style="font-weight:bold; color:black">Jadwal Rapat Pimpinan</h5>
+                            <table class="table table-bordered" width="100%" cellspacing="0">
                                 <thead>
-                                    <td style="padding-left:22px">#</td>
+                                    <tr style="font-weight:bold">
+                                        <td style="padding-left:22px">#</td>
                                     <td>No</td>
                                     <td>Tanggal</td>
                                     <td>Pukul</td>
@@ -683,10 +684,10 @@ tr.hide-table-padding td {
                                     </tr>
 
                                     <?php $numb++; endforeach; ?>
-
                                 </tbody>
                             </table>
                         </div>
+                        
                     </div>
                 </div>
 
