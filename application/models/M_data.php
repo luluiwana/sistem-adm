@@ -431,7 +431,7 @@ class M_data extends CI_Model
     {
         $this->db->select('*');
         $this->db->from('surat_masuk');
-        $this->db->where('surat_rapat', 0);
+        // $this->db->where('surat_rapat', 0);
         $this->db->join('user', 'surat_masuk.id_user = user.id');
         return $this->db->get()->result_array();
     }
@@ -456,7 +456,7 @@ class M_data extends CI_Model
     {
         $this->db->select('*');
         $this->db->from('surat_keluar');
-        $this->db->where('surat_rapat', 0);
+        // $this->db->where('surat_rapat', 0);
         $this->db->join('user', 'surat_keluar.id_user = user.id');
         return $this->db->get()->result_array();
     }
@@ -494,10 +494,54 @@ class M_data extends CI_Model
     }
     public function getMhs()
     {
-        $this->db->select('*');
-        $this->db->where('level', 'user');
-        $query = $this->db->get('user');
+        $query = $this->db->query("SELECT * FROM user as u LEFT OUTER JOIN nilai as n ON u.id=n.id_user WHERE u.level='user'");
         return $query->result();    
+    }
+    public function getSuratMasukById($id)
+    {
+        $this->db->where('id_user', $id);
+        return $this->db->get('surat_masuk')->result();
+    }
+    public function getSuratKeluarById($id)
+    {
+        $this->db->where('id_user', $id);
+        return $this->db->get('surat_keluar')->result();
+    }
+    public function getSuratPinjamById($id)
+    {
+        $this->db->where('id_user', $id);
+        return $this->db->get('pinjam')->result();
+    }
+    public function getAgendaById($id)
+    {
+        $this->db->where('id_user', $id);
+        return $this->db->get('pinjam')->result();
+    }
+    public function getRapatById($id)
+    {
+        $query = $this->db->query("select * FROM surat_masuk as m JOIN user as u WHERE m.id_user=u.id AND m.surat_rapat=1 AND m.id_user=".$id." UNION SELECT * FROM surat_keluar as k JOIN user as u WHERE k.id_user=u.id AND k.surat_rapat=1 AND  k.id_user=".$id."  ORDER BY tgl_rapat DESC");
+        return $query->result();
+    }
+    public function getMhsById($id)
+    {
+        $query = $this->db->query("SELECT * FROM user as u LEFT OUTER JOIN nilai as n ON u.id=n.id_user WHERE u.id=".$id);
+        return $query->result();    
+    }
+    public function updateNilai($data,$id)
+    {
+        $this->db->where('id_user', $id);
+        $this->db->update('nilai', $data);
+    }
+    public function addNilai($data)
+    {
+        $this->db->insert('nilai',$data);
+    }
+    public function file_tugas()
+    {
+        $this->db->select('*');
+        $query = $this->db->get('tugas');
+        $row = $query->row();
+        return $row->lampiran;
     }
    
 }

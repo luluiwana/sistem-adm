@@ -350,4 +350,36 @@ class M_user extends CI_Model
         $this->db->join('user', 'surat_keluar.id_user = user.id');
         return $this->db->get()->result_array();
     }
+    public function getMhsById($id)
+    {
+        $query = $this->db->query("SELECT * FROM user as u LEFT OUTER JOIN nilai as n ON u.id=n.id_user WHERE u.id=".$id);
+        return $query->result();    
+    }
+     public function isTugas() //cek sudah ada tugas atau belum
+    {
+        $this->db->select('count(*) as jml');
+        $row = $this->db->get('tugas')->row();
+        if ($row->jml==0) {
+            return "none";
+        } else {
+            return "ada";
+        }
+    }
+    public function getTugas()
+    {
+        $this->db->select('*');
+        $query = $this->db->get('tugas');
+        return $query->result();
+    }
+    public function submit_tugas($data)
+    {
+        $this->db->insert('nilai',$data);
+    }
+    public function file_tugas()
+    {
+        $this->db->select('*');
+        $query = $this->db->get('tugas');
+        $row = $query->row();
+        return $row->lampiran;
+    }
 }

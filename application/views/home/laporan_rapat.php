@@ -74,8 +74,7 @@
                                 </td>
                                 <?php } ?>
                             </tr>
-                            <tr style="background-color:aquablue" class="collapse" id="collapseOne<?php echo $dt->no_urut;
-; ?>">
+                            <tr style="background-color:aquablue" class="collapse" id="collapseOne<?php echo $dt->no_urut; ?>">
                                 <td></td>
                                 <td colspan="3">
                                     <table class="table table-borderless table-sm">

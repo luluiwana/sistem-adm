@@ -25,9 +25,11 @@
                             required><?=$row->deskripsi_tugas?></textarea>
                     </div>
                 </div>
-                <div class="form-group row">
+                <div class="form-group">
                     <label class="col-sm-2 col-form-label">Lampiran</label>
-                    <input type="file" name="lampiran" id="">
+                    <input type="file" name="lampiran" id="" accept="application/pdf, application/zip, .rar" required> <br>
+                    <label class="col-sm-2 col-form-label"> </label>
+                    <span class="small">(Berkas dengan ekstensi .pdf, .zip, atau .rar)</span>
                 </div>
                 <button type="submit" class="btn btn-primary btn-block">Edit Tugas</button>
                 <?php endforeach;?>
