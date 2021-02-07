@@ -543,5 +543,16 @@ class M_data extends CI_Model
         $row = $query->row();
         return $row->lampiran;
     }
+    public function getRetensiById($id)
+    {
+        $this->db->where('id_user',$id);
+        return $this->db->get('retensi')->result();
+    }
+    public function getPenyusutanById($id)
+    {
+        $this->db->where('id_user',$id);
+        return $this->db->get('penyusutan')->result();
+
+    }
    
 }

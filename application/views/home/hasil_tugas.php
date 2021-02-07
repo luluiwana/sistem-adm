@@ -300,8 +300,58 @@ tr.hide-table-padding td {
                             </table>
                         </div>
                     </div>
-                    <div class="tab-pane container fade" id="retensi1">retensi</div>
-                    <div class="tab-pane container fade" id="penyusutan">penyusutan</div>
+                    <div class="tab-pane container fade" id="retensi1">
+                        <div class="table-responsive" style="padding-top:20px">
+                            <h5 class="text-center" style="font-weight:bold; color:black">Jadwal Retensi</h5>
+                            <table class="table table-bordered" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr style="font-weight:bold">
+                                        <td>No urut</td>
+                                        <td>Surat</td>
+                                        <td>Tanggal Mulai</td>
+                                        <td>Tanggal Berakhir</td>
+                                        <td>Selisih Peminjaman</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($retensi as $dt) : ?>
+                                    <tr>
+                                        <td><?php echo $row->no_urut; ?></td>
+                                        <td><?php echo $row->surat; ?></td>
+                                        <td><?php echo $row->tanggal_mulai; ?></td>
+                                        <td><?php echo $row->tanggal_berakhir; ?></td>
+                                        <td><?php $date = date_diff(date_create($row->tanggal_mulai), date_create($row->tanggal_berakhir)); echo  $date->format('%R%a Hari') ?>
+                                        </td>
+
+                                    </tr>
+
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="tab-pane container fade" id="penyusutan">
+                        <div class="table-responsive" style="padding-top:20px">
+                            <h5 class="text-center" style="font-weight:bold; color:black">Penyusutan</h5>
+                            <table class="table table-bordered" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr style="font-weight:bold">
+                                        <td>No urut</td>
+                                        <td>Surat</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($penyusutan as $dt) : ?>
+                                    <tr>
+                                        <td><?php echo $row->no_urut; ?></td>
+                                        <td><?php echo $row->surat; ?></td>
+                                    </tr>
+
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                     <div class="tab-pane container fade" id="peminjaman">
                         <div class="table-responsive" style="padding-top:20px">
                             <h5 class="text-center" style="font-weight:bold; color:black">Peminjaman</h5>

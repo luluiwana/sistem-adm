@@ -997,6 +997,8 @@ class Home extends CI_Controller
         $data['surat_keluar'] = $this->M_data->getSuratKeluarById($id);
         $data['surat_pinjam'] = $this->M_data->getSuratPinjamById($id);
         $data['surat_rapat'] = $this->M_data->getRapatById($id);
+        $data['retensi'] = $this->M_data->getRetensiById($id);
+        $data['penyusutan'] = $this->M_data->getPenyusutanById($id);
         $data['mhs'] = $this->M_data->getMhsById($id);
         $this->load->view('templates/header');
         $this->load->view('templates/sidebar');
