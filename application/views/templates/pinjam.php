@@ -22,9 +22,10 @@
                       <td>No Surat</td>
                       <td>Nama Peminjam</td>
                       <td>Tanggal Pinjam</td>
-                      <td>Tanggal Kembali</td>
+                      <td>Batas Waktu</td>
                       <td>Selisih Peminjaman</td>
                       <td>Dokumen Dipinjam</td>
+                      <td>Kondisi</td>
                       <td>Status</td>
                       <td>Aksi</td>
                     </tr>
@@ -40,11 +41,24 @@
                         <td><?php $date = date_diff(date_create($dtp['tanggal_pinjam']), date_create($dtp['tanggal_kembali']));
                             echo  $date->format('%R%a Hari') ?></td>
                         <td><?php echo $dtp['dokumen_dipinjam']; ?></td>
+                        <td><?= $dtp['nip']; ?></td>
                         <td><?= $dtp['status']; ?></td>
-                        <td><a href="<?php echo base_url() ?>home/update_pinjam/<?php echo $dtp['no_urut']; ?>" class="btn btn-danger btn-sm">Dikembalikan</a></td>
+                        <td>
+
+                          <?php
+                          if ($dtp['status'] != 'Sudah Dikembalikan') {
+                          ?>
+                            <button href="<?php echo base_url() ?>home/update_pinjam/<?php echo $dtp['no_urut']; ?>" class="btn btn-danger btn-sm">Dikembalikan</button>
+                          <?php
+                          } else {
+                          ?>
+                            <button href="<?php echo base_url() ?>home/update_pinjam/<?php echo $dtp['no_urut']; ?>" disabled class="btn btn-danger btn-sm">Dikembalikan</button>
+
+                        </td>
                       </tr>
 
-                    <?php endforeach; ?>
+                  <?php }
+                        endforeach; ?>
                   </tbody>
                 </table>
               </div>

@@ -1,6 +1,9 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+
 class Home extends CI_Controller
 {
     public function __construct()
@@ -61,10 +64,11 @@ class Home extends CI_Controller
     }
     public function rapat_exp($time)
     {
+        $data['instansi'] = $this->M_data->get_instansi();
         $data['surat_masuk'] = $this->M_data->getRapatBy($time);
         $this->load->library('pdf');
         $this->pdf->setPaper('A4', 'potrait');
-        $this->pdf->filename = "Jadwal Rapat ".$time.".pdf";
+        $this->pdf->filename = "Jadwal Rapat " . $time . ".pdf";
         //	$this->pdf->stream('laporan-data-siswa.pdf', array('Attachment' => 0));
         $this->pdf->load_view('home/export_rapat', $data);
         // $this->load->view("home/export_disposisi/temp_export");
@@ -105,6 +109,7 @@ class Home extends CI_Controller
     public function form_suratmasuk()
     {
         $data['surat_masuk'] = $this->M_data->Laporan_SuratMasuk();
+        $data['masalah'] = $this->M_data->getMasalah();
         $this->load->view('templates/header');
         $this->load->view('templates/sidebar');
         $this->load->view('templates/topbar');
@@ -115,6 +120,7 @@ class Home extends CI_Controller
     public function form_suratkeluar()
     {
         $data['surat_masuk'] = $this->M_data->Laporan_SuratKeluar();
+        $data['masalah'] = $this->M_data->getMasalah();
         $this->load->view('templates/header');
         $this->load->view('templates/sidebar');
         $this->load->view('templates/topbar');
@@ -180,7 +186,7 @@ class Home extends CI_Controller
         $temp = explode(".", $_FILES["file_dokumen"]["name"]);
         $newfilename = round(microtime(true)) . '.' . $temp[1];
 
-        $config['file_name']			= $newfilename;
+        $config['file_name']            = $newfilename;
         $config['upload_path']          = "lampiran/";
         $config['allowed_types']        = '*';
         $config['max_size']             = 10000;
@@ -216,7 +222,7 @@ class Home extends CI_Controller
         $temp = explode(".", $_FILES["file_dokumen"]["name"]);
         $newfilename = round(microtime(true)) . '.' . $temp[1];
 
-        $config['file_name']			= $newfilename;
+        $config['file_name']            = $newfilename;
         $config['upload_path']          = "lampiran/";
         $config['allowed_types']        = '*';
         $config['max_size']             = 10000;
@@ -239,6 +245,8 @@ class Home extends CI_Controller
     public function form_pinjamarsip()
     {
         $data['datakategoripinjam'] = $this->M_data->getpinjam();
+        $data['datakategoripinjam_2'] = $this->M_data->getpinjam_k();
+        $data['unit'] = $this->M_data->getUnit();
         $this->load->view('templates/header');
         $this->load->view('templates/sidebar');
         $this->load->view('templates/topbar');
@@ -327,7 +335,7 @@ class Home extends CI_Controller
             $temp = explode(".", $_FILES["file_dokumen"]["name"]);
             $newfilename = round(microtime(true)) . '.' . $temp[1];
 
-            $config['file_name']			= $newfilename;
+            $config['file_name']            = $newfilename;
             $config['upload_path']          = "lampiran/";
             $config['allowed_types']        = '*';
             $config['max_size']             = 10000;
@@ -410,7 +418,7 @@ class Home extends CI_Controller
             $temp = explode(".", $_FILES["file_dokumen"]["name"]);
             $newfilename = round(microtime(true)) . '.' . $temp[1];
 
-            $config['file_name']			= $newfilename;
+            $config['file_name']            = $newfilename;
             $config['upload_path']          = "lampiran/";
             $config['allowed_types']        = '*';
             $config['max_size']             = 10000;
@@ -512,7 +520,9 @@ class Home extends CI_Controller
     //pengaturan instansi
     public function pengaturan_instansi()
     {
-        $data = $this->M_data->get_instansi();
+        $data['instansi'] = $this->M_data->get_instansi();
+        $data['unit'] = $this->M_data->getUnit();
+        $data['pokok_masalah'] = $this->M_data->getMasalah();
 
         $this->load->view('templates/header');
         $this->load->view('templates/sidebar');
@@ -527,7 +537,7 @@ class Home extends CI_Controller
         $temp = explode(".", $_FILES["logo"]["name"]);
         $newfilename = round(microtime(true)) . '.' . $temp[1];
 
-        $config['file_name']			= $newfilename;
+        $config['file_name']            = $newfilename;
         $config['upload_path']          = "files/img/";
         $config['allowed_types']        = 'gif|jpg|png';
         $config['max_size']             = 10000;
@@ -547,6 +557,7 @@ class Home extends CI_Controller
                 "header_3" => $this->input->post("h3"),
                 "header_4" => $this->input->post("h4"),
                 "header_5" => $this->input->post("h5"),
+                "header_6" => $this->input->post("h6"),
                 "logo" => $newfilename,
             ];
             $this->db->update('instansi', $data);
@@ -911,6 +922,246 @@ class Home extends CI_Controller
         redirect("home/buku_agenda");
         # code...
     }
+
+    public function getCustomRapat()
+    {
+        $data['instansi'] = $this->M_data->get_instansi();
+        $data['surat_masuk'] = $this->M_data->getCustomRapat();
+        $this->load->library('pdf');
+        $this->pdf->setPaper('A4', 'potrait');
+        $this->pdf->filename = "Jadwal Rapat " . $this->input->post('date_a') . " - " . $this->input->post('date_b') . ".pdf";
+        //	$this->pdf->stream('laporan-data-siswa.pdf', array('Attachment' => 0));
+        $this->pdf->load_view('home/export_rapat', $data);
+        // $this->load->view("home/export_disposisi/temp_export");
+        # code...
+
+    }
+
+    public function export_excel()
+    {
+        $data_1 = $this->M_data->getSuratMasuk();
+        $data_2 = $this->M_data->getSuratKeluar();
+        $this->Format_Excel($data_1, $data_2);
+        # code...
+    }
+
+    public function Format_Excel($data, $data2)
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        $writer = new Xlsx($spreadsheet);
+
+        $spreadsheet->getActiveSheet()->getStyle('A:O')
+            ->getAlignment()->setHorizontal('center')->setWrapText('true')->setVertical('top');
+
+
+        $spreadsheet->getActiveSheet()->getColumnDimension('A')->setWidth(8);
+        $spreadsheet->getActiveSheet()->getColumnDimension('B')->setWidth(20);
+        $spreadsheet->getActiveSheet()->getColumnDimension('C')->setWidth(20);
+        $spreadsheet->getActiveSheet()->getColumnDimension('D')->setWidth(20);
+        $spreadsheet->getActiveSheet()->getColumnDimension('E')->setWidth(15);
+        $spreadsheet->getActiveSheet()->getColumnDimension('F')->setWidth(15);
+        $spreadsheet->getActiveSheet()->getColumnDimension('F')->setWidth(20);
+        $spreadsheet->getActiveSheet()->getColumnDimension('G')->setWidth(20);
+        $spreadsheet->getActiveSheet()->getColumnDimension('H')->setWidth(20);
+        $spreadsheet->getActiveSheet()->getColumnDimension('I')->setWidth(20);
+        $spreadsheet->getActiveSheet()->getColumnDimension('J')->setWidth(100);
+        $spreadsheet->getActiveSheet()->getColumnDimension('K')->setWidth(20);
+        $spreadsheet->getActiveSheet()->getColumnDimension('L')->setWidth(20);
+        $spreadsheet->getActiveSheet()->getColumnDimension('M')->setWidth(20);
+        $spreadsheet->getActiveSheet()->getColumnDimension('N')->setWidth(20);
+        $spreadsheet->getActiveSheet()->getColumnDimension('O')->setWidth(20);
+        // Add some data
+        $styleArray = array(
+            'borders' => array(
+                'outline' => array(
+                    'style' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK,
+                    'color' => array('argb' => 'FFFF0000'),
+                ),
+            ),
+        );
+
+        $spreadsheet->getActiveSheet()->getStyle('A3:o3')->getBorders()->getOutline()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+
+        $spreadsheet->getActiveSheet()->getStyle('A3:o3')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB(162, 222, 150);
+
+        $spreadsheet->setActiveSheetIndex(0)
+            ->setCellValue('A3', 'No')
+            ->setCellValue('B3', 'Editor')
+            ->setCellValue('C3', 'Dari / Kepada')
+            ->setCellValue('D3', 'Jenis Surat')
+            ->setCellValue('E3', 'Sistem')
+            ->setCellValue('F3', 'Tanggal Surat')
+            ->setCellValue('G3', 'Sistem')
+            ->setCellValue('H3', 'Kode Simpan')
+            ->setCellValue('I3', 'Tanggal Surat')
+            ->setCellValue('J3', 'Isi Ringkasan')
+            ->setCellValue('K3', 'Guide Primer')
+            ->setCellValue('L3', 'Guide Sekunder')
+            ->setCellValue('M3', 'Guide Tersier')
+            ->setCellValue('N3', 'Folder')
+            ->setCellValue('O3', 'Nomor Berkas');
+
+        // Miscellaneous glyphs, UTF-8
+        $i = 4;
+        $no = 1;
+
+        foreach ($data as $dt_masuk) {
+
+            $spreadsheet->setActiveSheetIndex(0)
+                ->setCellValue('A' . $i, $no)
+                ->setCellValue('B' . $i, $dt_masuk['nama'])
+                ->setCellValue('C' . $i, $dt_masuk['dari'])
+                ->setCellValue('D' . $i, 'Surat Masuk')
+                ->setCellValue('E' . $i, $dt_masuk['tanggal_surat'])
+                ->setCellValue('F' . $i, $dt_masuk['kategori'])
+                ->setCellValue('G' . $i, $dt_masuk['kode_simpan'])
+                ->setCellValue('H' . $i, $dt_masuk['tanggal_simpan'])
+                ->setCellValue('I' . $i, $dt_masuk['no_surat'])
+                ->setCellValue('J' . $i, strip_tags($dt_masuk['isi_ringkasan']))
+                ->setCellValue('K' . $i, $dt_masuk['laci'])
+                ->setCellValue('L' . $i, $dt_masuk['Guide'])
+                ->setCellValue('M' . $i, $dt_masuk['tersier'])
+                ->setCellValue('N' . $i, $dt_masuk['Map'])
+                ->setCellValue('O' . $i, $dt_masuk['nomor_berkas']);
+
+
+            $spreadsheet->getActiveSheet()->getStyle('A' . $i . ':O' . $i)->getBorders()->getOutline()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+            $i++;
+
+
+            $no++;
+        }
+        foreach ($data2 as $dt_keluar) {
+
+            $spreadsheet->setActiveSheetIndex(0)
+                ->setCellValue('A' . $i, $no)
+                ->setCellValue('B' . $i, $dt_keluar['nama'])
+                ->setCellValue('C' . $i, $dt_keluar['kepada'])
+                ->setCellValue('D' . $i, 'Surat Keluar')
+                ->setCellValue('E' . $i, $dt_keluar['tanggal_surat'])
+                ->setCellValue('F' . $i, $dt_keluar['kategori'])
+                ->setCellValue('G' . $i, $dt_keluar['kode_simpan'])
+                ->setCellValue('H' . $i, $dt_keluar['tanggal_simpan'])
+                ->setCellValue('I' . $i, $dt_keluar['no_surat'])
+                ->setCellValue('J' . $i, strip_tags($dt_keluar['isi_ringkasan']))
+                ->setCellValue('K' . $i, $dt_masuk['laci'])
+                ->setCellValue('L' . $i, $dt_masuk['Guide'])
+                ->setCellValue('M' . $i, $dt_masuk['tersier'])
+                ->setCellValue('N' . $i, $dt_masuk['Map'])
+                ->setCellValue('O' . $i, $dt_masuk['nomor_berkas']);
+
+
+            $spreadsheet->getActiveSheet()->getStyle('A' . $i . ':O' . $i)->getBorders()->getOutline()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+            $i++;
+            $no++;
+        }
+        // Rename worksheet
+        $spreadsheet->getActiveSheet()->setTitle('Report Excel ' . date('d-m-Y H'));
+        // Set active sheet index to the first sheet, so Excel opens this as the first sheet
+        $spreadsheet->setActiveSheetIndex(0);
+        $filename = 'Data Buku Agenda';
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="' . $filename . '.xlsx"');
+        header('Cache-Control: max-age=0');
+
+        ob_end_clean();
+        $writer->save('php://output');
+    }
+
+    public function addUnit()
+    {
+        $data = [
+            'unit' => $this->input->post('pokok')
+        ];
+        $status =  $this->M_data->addUnit($data);
+        if ($status == 1) {
+            $this->session->set_flashdata('unit', 'Berhasil Tambah Data');
+            redirect('home/pengaturan_instansi');
+        } else {
+            $this->session->set_flashdata('unit', 'Gagal Tambah Data');
+            redirect('home/pengaturan_instansi');
+        }
+    }
+
+    public function addMasalah()
+    {
+        $data = [
+            'masalah' => $this->input->post('masalah')
+        ];
+        $status =  $this->M_data->addMasalah($data);
+        if ($status == 1) {
+            $this->session->set_flashdata('unit', 'Berhasil Tambah Data');
+            redirect('home/pengaturan_instansi');
+        } else {
+            $this->session->set_flashdata('unit', 'Gagal Tambah Data');
+            redirect('home/pengaturan_instansi');
+        }
+    }
+
+    public function editUnit()
+    {
+        $data = [
+            'unit' => $this->input->post('pokok_2'),
+            'id' => $this->input->post('id_unit')
+        ];
+        $status =  $this->M_data->editUnit($data);
+        if ($status == 1) {
+            $this->session->set_flashdata('unit', 'Berhasil Tambah Data');
+            redirect('home/pengaturan_instansi');
+        } else {
+            $this->session->set_flashdata('unit', 'Gagal Tambah Data');
+            redirect('home/pengaturan_instansi');
+        }
+        # code...
+    }
+    public function editMasalah()
+    {
+        $data = [
+            'masalah' => $this->input->post('masalah_2'),
+            'id' => $this->input->post('id_masalah')
+        ];
+        $status =  $this->M_data->editMasalah($data);
+        if ($status == 1) {
+            $this->session->set_flashdata('unit', 'Berhasil Tambah Data');
+            redirect('home/pengaturan_instansi');
+        } else {
+            $this->session->set_flashdata('unit', 'Gagal Tambah Data');
+            redirect('home/pengaturan_instansi');
+        }
+        # code...
+    }
+
+    public function deleteUnit($id)
+    {
+
+        $status =  $this->M_data->deleteUnit($id);
+        if ($status == 1) {
+            $this->session->set_flashdata('unit', 'Berhasil Tambah Data');
+            redirect('home/pengaturan_instansi');
+        } else {
+            $this->session->set_flashdata('unit', 'Gagal Tambah Data');
+            redirect('home/pengaturan_instansi');
+        }
+        # code...
+    }
+    public function deleteMasalah($id)
+    {
+
+        $status =  $this->M_data->deleteMasalah($id);
+        if ($status == 1) {
+            $this->session->set_flashdata('unit', 'Berhasil Tambah Data');
+            redirect('home/pengaturan_instansi');
+        } else {
+            $this->session->set_flashdata('unit', 'Gagal Tambah Data');
+            redirect('home/pengaturan_instansi');
+        }
+        # code...
+    }
+
+
+
     public function tugas()
     {   // if ada tugas:tampilkan tugas, else: buat tugas baru
         $data['data'] = 'bg';
@@ -922,6 +1173,8 @@ class Home extends CI_Controller
         $this->load->view('home/tugas');
         $this->load->view('templates/footer');
     }
+
+
     public function tambahTugas()
     {
         $config['upload_path'] = './files/';
@@ -937,14 +1190,15 @@ class Home extends CI_Controller
             $this->load->view('home/tugas', $error);
         } else {
             $data = array('image_metadata' => $this->upload->data());
-            $lampiran =[
+            $lampiran = [
                 'judul_tugas' => $this->input->post('judul_tugas'),
                 'deskripsi_tugas' => $this->input->post('deskripsi_tugas')
             ];
             $this->M_data->addTugas($lampiran);
-            redirect('home/tugas'); 
+            redirect('home/tugas');
         }
     }
+
     public function editTugas($id)
     {
         $data['data'] = 'bg';
@@ -955,6 +1209,7 @@ class Home extends CI_Controller
         $this->load->view('home/edittugas');
         $this->load->view('templates/footer');
     }
+
     public function lihatlampiran()
     {
         $this->load->view('home/lampiran');

@@ -32,9 +32,10 @@
 <!-- Page level plugins -->
 <script src="<?php echo base_url('files/'); ?>vendor/datatables/jquery.dataTables.min.js"></script>
 <script src="<?php echo base_url('files/'); ?>vendor/datatables/dataTables.bootstrap4.min.js"></script>
-
 <!-- Page level custom scripts -->
 <script src="<?php echo base_url('files/'); ?>js/demo/datatables-demo.js"></script>
+
+
 <script src="<?= base_url('files/js/summernote/') ?>summernote.min.js"></script>
 <!-- <script src="<?= base_url('files/js/') ?>capture.js"></script> -->
 <script type="text/javascript" src="https://unpkg.com/webcam-easy/dist/webcam-easy.min.js"></script>
@@ -48,6 +49,8 @@
   console.log(base_url);
 </script>
 
+
+
 <script>
   function showImage(value) {
 
@@ -55,7 +58,6 @@
     console.log(link_gambar);
     url = '<?= base_url("lampiran/") ?>' + link_gambar;
     src = $('#gambar_bk').attr('src', url);
-
   }
 
 
@@ -139,6 +141,7 @@
       $("label[for='input_5']").text("Kode");
     }
   });
+
 
   $('#kategori').on('change', function() {
     let data = $('#kategori').val();
@@ -301,6 +304,19 @@
 
   var table_pinjam = $('#pinjam').DataTable();
   table_pinjam.search("<?php if (!empty($this->session->flashdata('cari'))) echo $this->session->flashdata('cari'); ?>");
+</script>
+
+<script>
+  $('#pinjam_surat').on('change', function() {
+    let nilai_pinjam = $(this).children("option:selected").val();
+    var data_pinjam = nilai_pinjam.split('$');
+    $(' input[name=id_kategori]').val(data_pinjam[0]);
+    $('input[name=nomor_peminjam]').val(data_pinjam[4]);
+    $('input[name=owner]').val(data_pinjam[3]);
+    $('input[name=tanggal_awal]').val(data_pinjam[2]);
+    $('input[name=alamat]').val(data_pinjam[1]);
+    console.log(nilai_pinjam);
+  });
 </script>
 
 

@@ -18,6 +18,8 @@
                     </div>
                 </div>
                 <hr>
+                <a href="<?= base_url('home/export_excel') ?>" class="btn btn-primary btn-md">Export Buku Agenda</a>
+                <hr>
                 <div class="table-responsive">
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>

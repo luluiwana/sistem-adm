@@ -24,11 +24,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
 |
 */
 $config['base_url'] = 'http://localhost/sistem-adm/';
-<<<<<<< HEAD
+
 // $config['base_url'] = 'http://adp.sieren-administrasi.ga/';
-=======
+
 // $config['base_url'] = 'https://sieren-administrasi.ga/';
->>>>>>> 0d6bf450b43f51fc7a51dc705d9a3acc96d56e95
+
 // $config['base_url'] = 'https://cobageo.000webhostapp.com/';
 // $config['base_url'] = 'https://cobageo.000webhostapp.com/';
 
