@@ -88,6 +88,8 @@ class Home extends CI_Controller
     public function form_penyusutan()
     {
         $data['penyusutan'] = $this->M_data->getpenyusutan();
+        $data['datakategoripinjam'] = $this->M_data->getpinjam();
+        $data['datakategoripinjam_2'] = $this->M_data->getpinjam_k();
         $this->load->view('templates/header');
         $this->load->view('templates/sidebar');
         $this->load->view('templates/topbar');
@@ -99,6 +101,8 @@ class Home extends CI_Controller
     {
         $data['penyusutan'] = $this->M_data->getpenyusutan();
         $data['retensi'] = $this->M_data->getretensi();
+        $data['datakategoripinjam'] = $this->M_data->getpinjam();
+        $data['datakategoripinjam_2'] = $this->M_data->getpinjam_k();
         $this->load->view('templates/header');
         $this->load->view('templates/sidebar');
         $this->load->view('templates/topbar');
@@ -141,6 +145,7 @@ class Home extends CI_Controller
     public function penyusutan()
     {
         $data['penyusutan'] = $this->M_data->Laporan_penyusutan();
+
         $this->load->view('templates/header');
         $this->load->view('templates/sidebar');
         $this->load->view('templates/topbar');
@@ -287,6 +292,8 @@ class Home extends CI_Controller
     public function update_penyusutan($no_urut)
     {
         $data['penyusutan'] = $this->M_data->Laporan_penyusutan($no_urut);
+        $data['datakategoripinjam'] = $this->M_data->getpinjam();
+        $data['datakategoripinjam_2'] = $this->M_data->getpinjam_k();
         $this->load->view('templates/header');
         $this->load->view('templates/sidebar');
         $this->load->view('templates/topbar');
@@ -296,6 +303,7 @@ class Home extends CI_Controller
 
     public function proses_penyusutan($no_urut)
     {
+
         $this->M_data->proses_updatepenyusutan($no_urut);
         redirect('home/penyusutan');
     }
@@ -1167,6 +1175,7 @@ class Home extends CI_Controller
         $data['data'] = 'bg';
         $data['isTugas'] = $this->M_data->isTugas();
         $data['getTugas'] = $this->M_data->getTugas();
+        $data['getMhs'] = $this->M_data->getMhs();
         $this->load->view('templates/header');
         $this->load->view('templates/sidebar');
         $this->load->view('templates/topbar', $data);
@@ -1178,10 +1187,10 @@ class Home extends CI_Controller
     public function tambahTugas()
     {
         $config['upload_path'] = './files/';
-        $config['allowed_types'] = 'gif|jpg|png|pdf';
+        $config['allowed_types'] = 'rar|zip|pdf';
         $config['file_name'] = 'tugas';
-        $config['overwrite'] = TRUE;
-        $config['max_size'] = 20000;
+        $config['overwrite'] = true;
+        // $config['max_size'] = 20000;
 
         $this->load->library('upload', $config);
         $this->upload->initialize($config);
@@ -1190,9 +1199,11 @@ class Home extends CI_Controller
             $this->load->view('home/tugas', $error);
         } else {
             $data = array('image_metadata' => $this->upload->data());
+            $ext = $this->upload->data('file_ext');
             $lampiran = [
                 'judul_tugas' => $this->input->post('judul_tugas'),
-                'deskripsi_tugas' => $this->input->post('deskripsi_tugas')
+                'deskripsi_tugas' => $this->input->post('deskripsi_tugas'),
+                'lampiran' => 'tugas' . $ext
             ];
             $this->M_data->addTugas($lampiran);
             redirect('home/tugas');
@@ -1213,5 +1224,78 @@ class Home extends CI_Controller
     public function lihatlampiran()
     {
         $this->load->view('home/lampiran');
+    }
+    public function edit_Tugas($id)
+    {
+        $config['upload_path'] = './files/';
+        $config['allowed_types'] = 'zip|pdf|rar';
+        $config['file_name'] = 'tugas';
+        $config['overwrite'] = true;
+        // $config['max_size'] = 20000;
+
+        $this->load->library('upload', $config);
+        $this->upload->initialize($config);
+        if (!$this->upload->do_upload('lampiran')) {
+            $lampiran = [
+                'judul_tugas' => $this->input->post('judul_tugas'),
+                'deskripsi_tugas' => $this->input->post('deskripsi_tugas')
+            ];
+            $this->M_data->UpdateTugas($lampiran, $id);
+            redirect('home/tugas');
+        } else {
+            $data = array('image_metadata' => $this->upload->data());
+            $ext = $this->upload->data('file_ext');
+            $lampiran = [
+                'judul_tugas' => $this->input->post('judul_tugas'),
+                'deskripsi_tugas' => $this->input->post('deskripsi_tugas'),
+                'lampiran' => 'tugas' . $ext
+            ];
+            $this->M_data->UpdateTugas($lampiran, $id);
+            redirect('home/tugas');
+        }
+    }
+    public function hasil_tugas($id)
+    {
+        $data['surat_masuk'] = $this->M_data->getSuratMasukById($id);
+        $data['surat_keluar'] = $this->M_data->getSuratKeluarById($id);
+        $data['surat_pinjam'] = $this->M_data->getSuratPinjamById($id);
+        $data['surat_rapat'] = $this->M_data->getRapatById($id);
+        $data['retensi'] = $this->M_data->getRetensiById($id);
+        $data['penyusutan'] = $this->M_data->getPenyusutanById($id);
+        $data['mhs'] = $this->M_data->getMhsById($id);
+        $this->load->view('templates/header');
+        $this->load->view('templates/sidebar');
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('home/hasil_tugas');
+        $this->load->view('templates/footer');
+    }
+    public function update_nilai($id)
+    {
+        $data = [
+            'nilai' => $this->input->post('nilai'),
+            'komentar' => $this->input->post('komentar')
+        ];
+        $this->M_data->updateNilai($data, $id);
+        redirect('home/tugas');
+    }
+    public function tambah_nilai()
+    {
+        date_default_timezone_set('Asia/Jakarta');
+        $data = [
+            'id_user' => $this->input->post('id_user'),
+            'nilai' => $this->input->post('nilai'),
+            'komentar' => $this->input->post('komentar'),
+            'status' => "Selesai",
+            'tgl_selesai' => date('Y-m-d H:i:s')
+        ];
+        $this->M_data->addNilai($data);
+        redirect('home/tugas');
+    }
+    public function download_tugas()
+    {
+        $this->load->helper('download');
+        $filename = $this->M_data->file_tugas();
+        $path = file_get_contents(base_url() . "files/" . $filename); // get file name
+        force_download($filename, $path); // start download`
     }
 }

@@ -21,7 +21,7 @@ class User extends CI_Controller
     }
     public function index()
     {
-        $data['data'] = 'bg';
+
         $a = $this->db->get_where('surat_masuk', array('id_user' => $this->id));
         $b = $this->db->get_where('surat_keluar', array('id_user' => $this->id));
         $c = $this->db->get_where('retensi', array('id_user' => $this->id));
@@ -31,6 +31,10 @@ class User extends CI_Controller
         $data['sk'] = $b->num_rows();
         $data['ret'] = $c->num_rows();
         $data['pin'] = $d->num_rows();
+        $data['mhs'] = $this->M_user->getMhsById($this->id);
+        $data['isTugas'] = $this->M_user->isTugas();
+        $data['getTugas'] = $this->M_user->getTugas();
+
         $this->load->view('templates_user/header');
         $this->load->view('templates_user/sidebar');
         $this->load->view('templates_user/topbar', $data);
@@ -41,6 +45,7 @@ class User extends CI_Controller
     public function laporan_suratmasuk()
     {
         $data['surat_masuk'] = $this->m_user->getSuratMasuk($this->id);
+
         $this->load->view('templates_user/header');
         $this->load->view('templates_user/sidebar');
         $this->load->view('templates_user/topbar');
@@ -49,22 +54,22 @@ class User extends CI_Controller
     }
     public function rapat_pimpinan()
     {
-        $data['surat_masuk'] = $this->M_user->getRapat();
-        $this->load->view('templates/header');
-        $this->load->view('templates/sidebar');
-        $this->load->view('templates/topbar');
+        $data['surat_masuk'] = $this->M_user->getRapat($this->id);
+        $this->load->view('templates_user/header');
+        $this->load->view('templates_user/sidebar');
+        $this->load->view('templates_user/topbar');
         $this->load->view('user/laporan_rapat', $data);
-        $this->load->view('templates/footer');
+        $this->load->view('templates_user/footer');
     }
     public function rapat_exp($time)
     {
         $data['surat_masuk'] = $this->M_user->getRapatBy($time);
         $this->load->library('pdf');
         $this->pdf->setPaper('A4', 'potrait');
-        $this->pdf->filename = "Jadwal Rapat ".$time.".pdf";
+        $this->pdf->filename = "Jadwal Rapat " . $time . ".pdf";
         //	$this->pdf->stream('laporan-data-siswa.pdf', array('Attachment' => 0));
         $this->pdf->load_view('user/export_rapat', $data);
-        // $this->load->view("home/export_disposisi/temp_export");
+        // $this->load->view("user/export_disposisi/temp_export");
         # code...
     }
 
@@ -81,6 +86,7 @@ class User extends CI_Controller
     public function form_suratmasuk()
     {
         $data['surat_masuk'] = $this->m_user->Laporan_SuratMasuk($this->id);
+        $data['masalah'] = $this->M_data->getMasalah();
         $this->load->view('templates_user/header');
         $this->load->view('templates_user/sidebar');
         $this->load->view('templates_user/topbar');
@@ -91,6 +97,7 @@ class User extends CI_Controller
     public function form_suratkeluar()
     {
         $data['surat_masuk'] = $this->m_user->Laporan_SuratKeluar($this->id);
+        $data['masalah'] = $this->M_data->getMasalah();
         $this->load->view('templates_user/header');
         $this->load->view('templates_user/sidebar');
         $this->load->view('templates_user/topbar');
@@ -347,7 +354,7 @@ class User extends CI_Controller
 
     public function pinjam()
     {
-        $data['pinjam'] = $this->m_user->suratdipinjam();
+        $data['pinjam'] = $this->m_user->suratdipinjam($this->id);
         $this->load->view('templates_user/header');
         $this->load->view('templates_user/sidebar');
         $this->load->view('templates_user/topbar');
@@ -407,6 +414,8 @@ class User extends CI_Controller
     public function form_penyusutan()
     {
         $data['penyusutan'] = $this->m_user->getpenyusutan();
+        $data['datakategoripinjam'] = $this->m_user->getpinjam($this->id);
+        $data['datakategoripinjam_2'] = $this->m_user->getpinjam_k($this->id);
         $this->load->view('templates_user/header');
         $this->load->view('templates_user/sidebar');
         $this->load->view('templates_user/topbar');
@@ -417,6 +426,8 @@ class User extends CI_Controller
     public function form_jadwalretensi()
     {
         $data['penyusutan'] = $this->m_user->getpenyusutan();
+        $data['datakategoripinjam'] = $this->m_user->getpinjam($this->id);
+        $data['datakategoripinjam_2'] = $this->m_user->getpinjam_k($this->id);
         $this->load->view('templates_user/header');
         $this->load->view('templates_user/sidebar');
         $this->load->view('templates_user/topbar');
@@ -438,7 +449,9 @@ class User extends CI_Controller
 
     public function form_pinjamarsip()
     {
-        $data['datakategoripinjam'] = $this->m_user->getpinjam();
+        $data['datakategoripinjam'] = $this->m_user->getpinjam($this->id);
+        $data['datakategoripinjam_2'] = $this->m_user->getpinjam_k($this->id);
+        $data['unit'] = $this->M_data->getUnit();
         $this->load->view('templates_user/header');
         $this->load->view('templates_user/sidebar');
         $this->load->view('templates_user/topbar');
@@ -505,6 +518,8 @@ class User extends CI_Controller
     public function pengaturan_instansi()
     {
         $data = $this->m_user->get_instansi();
+        $data['unit'] = $this->M_data->getUnit();
+        $data['pokok_masalah'] = $this->M_data->getMasalah();
 
         $this->load->view('templates_user/header');
         $this->load->view('templates_user/sidebar');
@@ -567,6 +582,96 @@ class User extends CI_Controller
     {
         $this->m_user->hapus_dataretensi($no_urut);
         redirect('user/jadwal_retensi');
+    }
+
+    public function addUnit()
+    {
+        $data = [
+            'unit' => $this->input->post('pokok')
+        ];
+        $status =  $this->M_data->addUnit($data);
+        if ($status == 1) {
+            $this->session->set_flashdata('unit', 'Berhasil Tambah Data');
+            redirect('user/pengaturan_instansi');
+        } else {
+            $this->session->set_flashdata('unit', 'Gagal Tambah Data');
+            redirect('user/pengaturan_instansi');
+        }
+    }
+
+    public function addMasalah()
+    {
+        $data = [
+            'masalah' => $this->input->post('masalah')
+        ];
+        $status =  $this->M_data->addMasalah($data);
+        if ($status == 1) {
+            $this->session->set_flashdata('unit', 'Berhasil Tambah Data');
+            redirect('user/pengaturan_instansi');
+        } else {
+            $this->session->set_flashdata('unit', 'Gagal Tambah Data');
+            redirect('user/pengaturan_instansi');
+        }
+    }
+
+    public function editUnit()
+    {
+        $data = [
+            'unit' => $this->input->post('pokok_2'),
+            'id' => $this->input->post('id_unit')
+        ];
+        $status =  $this->M_data->editUnit($data);
+        if ($status == 1) {
+            $this->session->set_flashdata('unit', 'Berhasil Tambah Data');
+            redirect('user/pengaturan_instansi');
+        } else {
+            $this->session->set_flashdata('unit', 'Gagal Tambah Data');
+            redirect('user/pengaturan_instansi');
+        }
+        # code...
+    }
+    public function editMasalah()
+    {
+        $data = [
+            'masalah' => $this->input->post('masalah_2'),
+            'id' => $this->input->post('id_masalah')
+        ];
+        $status =  $this->M_data->editMasalah($data);
+        if ($status == 1) {
+            $this->session->set_flashdata('unit', 'Berhasil Tambah Data');
+            redirect('user/pengaturan_instansi');
+        } else {
+            $this->session->set_flashdata('unit', 'Gagal Tambah Data');
+            redirect('user/pengaturan_instansi');
+        }
+        # code...
+    }
+
+    public function deleteUnit($id)
+    {
+
+        $status =  $this->M_data->deleteUnit($id);
+        if ($status == 1) {
+            $this->session->set_flashdata('unit', 'Berhasil Tambah Data');
+            redirect('user/pengaturan_instansi');
+        } else {
+            $this->session->set_flashdata('unit', 'Gagal Tambah Data');
+            redirect('user/pengaturan_instansi');
+        }
+        # code...
+    }
+    public function deleteMasalah($id)
+    {
+
+        $status =  $this->M_data->deleteMasalah($id);
+        if ($status == 1) {
+            $this->session->set_flashdata('unit', 'Berhasil Tambah Data');
+            redirect('user/pengaturan_instansi');
+        } else {
+            $this->session->set_flashdata('unit', 'Gagal Tambah Data');
+            redirect('user/pengaturan_instansi');
+        }
+        # code...
     }
 
 
@@ -871,5 +976,23 @@ class User extends CI_Controller
         $this->db->update('surat_keluar', $data);
         redirect("user/buku_agenda");
         # code...
+    }
+    public function submit_tugas()
+    {
+        date_default_timezone_set('Asia/Jakarta');
+        $data = [
+            'id_user' => $this->id,
+            'status' => "Selesai",
+            'tgl_selesai' => date('Y-m-d H:i:s')
+        ];
+        $this->M_user->submit_tugas($data);
+        redirect('user');
+    }
+    public function download_tugas()
+    {
+        $this->load->helper('download');
+        $filename = $this->M_user->file_tugas();
+        $path = file_get_contents(base_url() . "files/" . $filename); // get file name
+        force_download($filename, $path); // start download`
     }
 }

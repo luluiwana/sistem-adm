@@ -75,12 +75,18 @@ class M_data extends CI_Model
 
     public function Laporan_dataretensi()
     {
-        return $this->db->get('retensi')->result_array();
+        $this->db->select('*');
+        $this->db->from('retensi');
+        $this->db->join('user', 'retensi.id_user = user.id');
+        return $this->db->get()->result_array();
     }
 
     public function Laporan_penyusutan()
     {
-        return $this->db->get('penyusutan')->result_array();
+        $this->db->select('*');
+        $this->db->from('penyusutan');
+        $this->db->join('user', 'penyusutan.id_user = user.id');
+        return $this->db->get()->result_array();
     }
 
     public function proses_tambahpenyusutan()
@@ -470,7 +476,7 @@ class M_data extends CI_Model
     {
         $this->db->select('*');
         $this->db->from('surat_masuk');
-        $this->db->where('surat_rapat', 0);
+        // $this->db->where('surat_rapat', 0);
         $this->db->join('user', 'surat_masuk.id_user = user.id');
         return $this->db->get()->result_array();
     }
@@ -601,5 +607,72 @@ class M_data extends CI_Model
         $this->db->where('id_tugas', $id);
         $query = $this->db->get('tugas');
         return $query->result();
+    }
+    public function UpdateTugas($data, $id)
+    {
+        $this->db->where('id_tugas', $id);
+        $this->db->update('tugas', $data);
+    }
+    public function getMhs()
+    {
+        $query = $this->db->query("SELECT * FROM user as u LEFT OUTER JOIN nilai as n ON u.id=n.id_user WHERE u.level='user'");
+        return $query->result();
+    }
+    public function getSuratMasukById($id)
+    {
+        $this->db->where('id_user', $id);
+        return $this->db->get('surat_masuk')->result();
+    }
+    public function getSuratKeluarById($id)
+    {
+        $this->db->where('id_user', $id);
+        return $this->db->get('surat_keluar')->result();
+    }
+    public function getSuratPinjamById($id)
+    {
+        $this->db->where('id_user', $id);
+        return $this->db->get('pinjam')->result();
+    }
+    public function getAgendaById($id)
+    {
+        $this->db->where('id_user', $id);
+        return $this->db->get('pinjam')->result();
+    }
+    public function getRapatById($id)
+    {
+        $query = $this->db->query("select * FROM surat_masuk as m JOIN user as u WHERE m.id_user=u.id AND m.surat_rapat=1 AND m.id_user=" . $id . " UNION SELECT * FROM surat_keluar as k JOIN user as u WHERE k.id_user=u.id AND k.surat_rapat=1 AND  k.id_user=" . $id . "  ORDER BY tgl_rapat DESC");
+        return $query->result();
+    }
+    public function getMhsById($id)
+    {
+        $query = $this->db->query("SELECT * FROM user as u LEFT OUTER JOIN nilai as n ON u.id=n.id_user WHERE u.id=" . $id);
+        return $query->result();
+    }
+    public function updateNilai($data, $id)
+    {
+        $this->db->where('id_user', $id);
+        $this->db->update('nilai', $data);
+    }
+    public function addNilai($data)
+    {
+        $this->db->insert('nilai', $data);
+    }
+    public function file_tugas()
+    {
+        $this->db->select('*');
+        $query = $this->db->get('tugas');
+        $row = $query->row();
+        return $row->lampiran;
+    }
+    public function getRetensiById($id)
+    {
+        $this->db->where('id_user', $id);
+        return $this->db->get('retensi')->result();
+    }
+    public function getPenyusutanById($id)
+    {
+        $this->db->where('id_user', $id);
+
+        return $this->db->get('penyusutan')->result();
     }
 }

@@ -302,6 +302,19 @@
 </script>
 
 <script>
+  $('#pinjam_surat').on('change', function() {
+    let nilai_pinjam = $(this).children("option:selected").val();
+    var data_pinjam = nilai_pinjam.split('$');
+    $(' input[name=id_kategori]').val(data_pinjam[0]);
+    $('input[name=nomor_peminjam]').val(data_pinjam[4]);
+    $('input[name=owner]').val(data_pinjam[3]);
+    $('input[name=tanggal_awal]').val(data_pinjam[2]);
+    $('input[name=alamat]').val(data_pinjam[1]);
+    console.log(nilai_pinjam);
+  });
+</script>
+
+<script>
   var table_sm = $('#surat_masuk').DataTable();
   table_sm.search("<?php if (!empty($this->session->flashdata('cari'))) echo $this->session->flashdata('cari'); ?>");
 

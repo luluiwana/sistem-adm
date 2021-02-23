@@ -99,7 +99,7 @@
 			<div style="margin:0">
 				<input type="hidden" name="rapat" value="0" checked />
 				<label data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-					<input type="checkbox" name="rapat" id="rapat" value="1" /> 
+					<input type="checkbox" name="rapat" id="rapat" value="1" />
 					<span>Surat ini merupakan surat rapat</span>
 				</label>
 				<div id="collapseOne" aria-expanded="false" class="collapse">
@@ -155,7 +155,12 @@
 								</div>
 								<div class="form-group col-md-4 d-none" id="subjek">
 									<label for="exampleFormControlInput1">Pokok Soal</label>
-									<input type="text" class="form-control" placeholder="Masukan Pokok Soal" name="pokok_soal">
+									<select name="pokok_soal" id="unit_kerja" class="form-control">
+										<option value="">Pilih Dibawah ini ... </option>
+										<?php foreach ($masalah as $key) : ?>
+											<option value="<?= $key['masalah'] ?>"><?= $key['masalah'] ?></option>
+										<?php endforeach ?>
+									</select>
 								</div>
 							</div>
 							<div class="d-none" id='mod'>

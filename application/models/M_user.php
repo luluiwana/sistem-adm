@@ -189,9 +189,15 @@ class M_user extends CI_Model
         $query = $this->db->query("SELECT * FROM surat_masuk where id_user = $this->id ORDER BY perihal ASC  ");
         return $query->result();
     }
-    public function getpinjam()
+    public function getpinjam($id)
     {
-        $query = $this->db->query("SELECT * FROM surat_masuk where id_user = $this->id ORDER BY perihal ASC");
+        $query = $this->db->query("SELECT * FROM surat_masuk where id_user = $id ORDER BY perihal ASC");
+        return $query->result();
+    }
+
+    public function getpinjam_k($id)
+    {
+        $query = $this->db->query("SELECT * FROM surat_keluar where id_user = $id ORDER BY perihal ASC");
         return $query->result();
     }
 
@@ -210,6 +216,25 @@ class M_user extends CI_Model
         ];
 
         $this->db->insert('pinjam', $data);
+
+        $data2 = [
+
+            "tanggal_pinjam" => $this->input->post('tanggal_pinjam'),
+            "nomor_peminjam" => $this->input->post('nomor_peminjam'),
+            "nama_peminjam" => $this->input->post('nama_peminjam'),
+            "unit_kerja" => $this->input->post('unit_kerja_2'),
+            "tanggal_kembali" => $this->input->post('tanggal_kembali'),
+            "dokumen_dipinjam" => $this->input->post('id_kategori'),
+            "owner" => $this->input->post('owner'),
+            "tanggal_awal" => $this->input->post('tanggal_awal'),
+            "alamat" => $this->input->post('alamat'),
+
+        ];
+        $this->load->library('pdf');
+        $this->pdf->setPaper('A4', 'potrait');
+        $this->pdf->filename = "Bukti Peminjaman.pdf";
+        //	$this->pdf->stream('laporan-data-siswa.pdf', array('Attachment' => 0));
+        $this->pdf->load_view('home/export_pinjam', $data2);
     }
 
     public function get_instansi()
@@ -317,24 +342,27 @@ class M_user extends CI_Model
         $this->db->delete('penyusutan');
     }
 
-    public function getSuratMasuk()
+    public function getSuratMasuk($id)
     {
         $this->db->select('*');
         $this->db->from('surat_masuk');
         $this->db->where('surat_rapat', 0);
-        $this->db->join('user', 'surat_masuk.id_user = user.id');
+        $this->db->where('id_user', $id);
+        $this->db->join('user', 'surat_masuk.id_user = user.id ');
         return $this->db->get()->result_array();
     }
-    public function getRapat()
+    public function getRapat($id)
     {
-        $query = $this->db->query("select * FROM surat_masuk as m JOIN user as u WHERE m.id_user=u.id AND m.surat_rapat=1 UNION SELECT * FROM surat_keluar as k JOIN user as u WHERE k.id_user=u.id AND k.surat_rapat=1 ORDER BY tgl_rapat DESC");
+        $query = $this->db->query("select * FROM surat_masuk as m JOIN user as u WHERE m.id_user=u.id AND m.surat_rapat=1 AND m.id_user=$id  UNION SELECT * FROM surat_keluar as k JOIN user as u WHERE k.id_user=u.id AND k.surat_rapat=1 and k.id_user=$id ORDER BY tgl_rapat  DESC ");
+
+
         return $query->result();
     }
     public function getRapatBy($time)
     {
-        if ($time=="Harian") {
+        if ($time == "Harian") {
             $query = $this->db->query("select * FROM surat_masuk as m JOIN user as u WHERE m.id_user=u.id AND m.surat_rapat=1 AND m.tgl_rapat=CURRENT_DATE UNION SELECT * FROM surat_keluar as k JOIN user as u WHERE k.id_user=u.id AND k.surat_rapat=1 AND k.tgl_rapat=CURRENT_DATE ORDER BY waktu_rapat ASC");
-        } elseif ($time=="Mingguan") {
+        } elseif ($time == "Mingguan") {
             $query = $this->db->query("select * FROM surat_masuk as m JOIN user as u WHERE m.id_user=u.id AND m.surat_rapat=1 AND yearweek(m.tgl_rapat, 1)=yearweek(CURRENT_DATE(), 1) UNION SELECT * FROM surat_keluar as k JOIN user as u WHERE k.id_user=u.id AND k.surat_rapat=1 AND yearweek(k.tgl_rapat, 1)=yearweek(CURRENT_DATE(), 1) ORDER BY tgl_rapat ASC");
         } else {
             $query = $this->db->query("select * FROM surat_masuk as m JOIN user as u WHERE m.id_user=u.id AND m.surat_rapat=1 AND (m.tgl_rapat between  DATE_FORMAT(NOW() ,'%Y-%m-01') AND NOW() ) UNION SELECT * FROM surat_keluar as k JOIN user as u WHERE k.id_user=u.id AND k.surat_rapat=1 AND(k.tgl_rapat between  DATE_FORMAT(NOW() ,'%Y-%m-01') AND NOW() ) ORDER BY tgl_rapat ASC");
@@ -342,12 +370,103 @@ class M_user extends CI_Model
         return $query->result();
     }
 
-    public function getSuratKeluar()
+    public function getSuratKeluar($id)
     {
         $this->db->select('*');
         $this->db->from('surat_keluar');
         $this->db->where('surat_rapat', 0);
-        $this->db->join('user', 'surat_keluar.id_user = user.id');
+        $this->db->where('id_user', $id);
+        $this->db->join('user', 'surat_keluar.id_user = user.id ');
         return $this->db->get()->result_array();
+    }
+    public function getMhsById($id)
+    {
+        $query = $this->db->query("SELECT * FROM user as u LEFT OUTER JOIN nilai as n ON u.id=n.id_user WHERE u.id=" . $id);
+        return $query->result();
+    }
+    public function isTugas() //cek sudah ada tugas atau belum
+    {
+        $this->db->select('count(*) as jml');
+        $row = $this->db->get('tugas')->row();
+        if ($row->jml == 0) {
+            return "none";
+        } else {
+            return "ada";
+        }
+    }
+    public function getTugas()
+    {
+        $this->db->select('*');
+        $query = $this->db->get('tugas');
+        return $query->result();
+    }
+    public function submit_tugas($data)
+    {
+        $this->db->insert('nilai', $data);
+    }
+    public function file_tugas()
+    {
+        $this->db->select('*');
+        $query = $this->db->get('tugas');
+        $row = $query->row();
+        return $row->lampiran;
+    }
+
+    public function getUnit()
+    {
+        $data  = $this->db->get('unit_kerja')->result_array();
+        return $data;
+        # code...
+    }
+    public function getMasalah()
+    {
+        $data  = $this->db->get('pokok_masalah')->result_array();
+        return $data;
+        # code...
+    }
+
+    public function addUnit($data)
+
+    {
+        $this->db->insert('unit_kerja', $data);
+        return  $this->db->affected_rows();
+        # code...
+    }
+
+    public function addMasalah($data)
+
+    {
+        $this->db->insert('pokok_masalah', $data);
+        return  $this->db->affected_rows();
+        # code...
+    }
+
+    public function editUnit($data)
+    {
+        $this->db->where('id', $data['id']);
+        $this->db->update('unit_kerja', $data);
+        return  $this->db->affected_rows();
+    }
+
+    public function editMasalah($data)
+    {
+        $this->db->where('id', $data['id']);
+        $this->db->update('pokok_masalah', $data);
+        return  $this->db->affected_rows();
+    }
+
+
+    public function deleteUnit($id)
+    {
+        $this->db->where('id', $id);
+        $this->db->delete('unit_kerja');
+        return  $this->db->affected_rows();
+    }
+
+    public function deleteMasalah($id)
+    {
+        $this->db->where('id', $id);
+        $this->db->delete('pokok_masalah');
+        return  $this->db->affected_rows();
     }
 }

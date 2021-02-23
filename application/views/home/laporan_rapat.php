@@ -53,12 +53,13 @@
                     <table class="table table-hover" id="jadwal_rapat" width="100%" cellspacing="0">
                         <thead>
                             <tr>
+                                <td style="padding-right:22px">#</td>
                                 <td>No</td>
                                 <td>Tanggal</td>
                                 <td>Pukul</td>
                                 <td>Kegiatan</td>
                                 <td>Tempat</td>
-                                <td>Keterangan</td>
+
                                 <td colspan="1">Setting</td>
                             </tr>
                         </thead>
@@ -67,12 +68,13 @@
                             $numb = 1;
                             foreach ($surat_masuk as $dt) : ?>
                                 <tr data-toggle="collapse" data-target="#collapseOne<?php echo $dt->no_urut; ?>">
+                                    <td><i class="fa fa-arrow-circle-down" aria-hidden="true"></i></td>
                                     <td><?php echo $numb; ?></td>
                                     <td><?php echo tgl_indo($dt->tgl_rapat); ?></td>
                                     <td><?php echo $dt->waktu_rapat; ?></td>
                                     <td><?php echo $dt->perihal; ?></td>
                                     <td><?php echo $dt->tempat_rapat; ?></td>
-                                    <td><?php echo $dt->isi_ringkasan; ?></td>
+
                                     <?php if ($dt->dari == "" || $dt->dari == "-") { ?>
                                         <td>
                                             <a href="<?php echo base_url() ?>home/update_datakeluar/<?php echo $dt->no_urut; ?>" class="badge badge-primary"> Edit </a>
@@ -85,7 +87,7 @@
                                         </td>
                                     <?php } ?>
                                 </tr>
-                                <tr style="background-color:aquablue" class="collapse" id="collapseOne<?php echo $dt->no_urut;; ?>">
+                                <tr style="background-color:aquablue" class="collapse" id="collapseOne<?php echo $dt->no_urut; ?>">
                                     <td></td>
                                     <td colspan="3">
                                         <table class="table table-borderless table-sm">
@@ -109,10 +111,6 @@
                                                 <td>:</td>
                                                 <td><?php echo $dt->alamat; ?></td>
                                             </tr>
-                                        </table>
-                                    </td>
-                                    <td colspan="3">
-                                        <table class="table table-borderless table-sm">
                                             <tr>
                                                 <td style="width:28%">Lampiran</td>
                                                 <td>:</td>
@@ -133,9 +131,24 @@
                                                 <td>:</td>
                                                 <td><?php echo $dt->kategori; ?></td>
                                             </tr>
+                                            <tr>
+                                                <td><b>Isi Ringkasan</b></td>
+                                                <td>:</td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="3">
+                                                    <?= $dt->isi_ringkasan ?>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <td colspan="4">
+                                        <table class="table table-borderless table-sm">
+
                                         </table>
                                     </td>
                                 </tr>
+
 
                             <?php $numb++;
                             endforeach; ?>
