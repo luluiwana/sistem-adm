@@ -8,6 +8,20 @@ class M_data extends CI_Model
         return $this->db->get('surat_masuk')->result_array();
     }
 
+    public function suratMasuk_id($id)
+    {
+        $this->db->where('no_urut', $id);
+        $data =  $this->db->get('surat_masuk')->result_array();
+        return $data;
+    }
+    public function suratKeluar_id($id)
+    {
+
+        $this->db->where('no_urut', $id);
+        $data =  $this->db->get('surat_keluar')->result_array();
+        return $data;
+    }
+
     public function cariSm($query)
     {
         $this->db->like('perihal', $query);
@@ -61,12 +75,18 @@ class M_data extends CI_Model
 
     public function Laporan_dataretensi()
     {
-        return $this->db->get('retensi')->result_array();
+        $this->db->select('*');
+        $this->db->from('retensi');
+        $this->db->join('user', 'retensi.id_user = user.id');
+        return $this->db->get()->result_array();
     }
 
     public function Laporan_penyusutan()
     {
-        return $this->db->get('penyusutan')->result_array();
+        $this->db->select('*');
+        $this->db->from('penyusutan');
+        $this->db->join('user', 'penyusutan.id_user = user.id');
+        return $this->db->get()->result_array();
     }
 
     public function proses_tambahpenyusutan()
@@ -207,6 +227,25 @@ class M_data extends CI_Model
         ];
 
         $this->db->insert('pinjam', $data);
+
+        $data2 = [
+
+            "tanggal_pinjam" => $this->input->post('tanggal_pinjam'),
+            "nomor_peminjam" => $this->input->post('nomor_peminjam'),
+            "nama_peminjam" => $this->input->post('nama_peminjam'),
+            "unit_kerja" => $this->input->post('unit_kerja_2'),
+            "tanggal_kembali" => $this->input->post('tanggal_kembali'),
+            "dokumen_dipinjam" => $this->input->post('id_kategori'),
+            "owner" => $this->input->post('owner'),
+            "tanggal_awal" => $this->input->post('tanggal_awal'),
+            "alamat" => $this->input->post('alamat'),
+
+        ];
+        $this->load->library('pdf');
+        $this->pdf->setPaper('A4', 'potrait');
+        $this->pdf->filename = "Bukti Peminjaman.pdf";
+        //	$this->pdf->stream('laporan-data-siswa.pdf', array('Attachment' => 0));
+        $this->pdf->load_view('home/export_pinjam', $data2);
     }
 
     public function getretensi()
@@ -224,6 +263,12 @@ class M_data extends CI_Model
     public function getpinjam()
     {
         $query = $this->db->query("SELECT * FROM surat_masuk ORDER BY perihal ASC");
+        return $query->result();
+    }
+
+    public function getpinjam_k()
+    {
+        $query = $this->db->query("SELECT * FROM surat_keluar ORDER BY perihal ASC");
         return $query->result();
     }
 
@@ -455,11 +500,87 @@ class M_data extends CI_Model
         return $query->result();
     }
 
+    public function getCustomRapat()
+    {
+
+        $date_a = $this->input->post('date_a');
+        $date_1 = date('Y-m-d', strtotime($date_a));
+        $date_b = $this->input->post('date_b');
+        $date_2 = date('Y-m-d', strtotime($date_b));
+
+        $query = $this->db->query("select * FROM surat_masuk as m JOIN user as u WHERE m.id_user=u.id AND m.surat_rapat=1 AND m.tgl_rapat BETWEEN '$date_1' AND '$date_2'  UNION SELECT * FROM surat_keluar as k JOIN user as u WHERE k.id_user=u.id AND k.surat_rapat=1 AND k.tgl_rapat BETWEEN '$date_1' AND '$date_2'");
+
+        return $query->result();
+    }
+
+    public function getUnit()
+    {
+        $data  = $this->db->get('unit_kerja')->result_array();
+        return $data;
+        # code...
+    }
+    public function getMasalah()
+    {
+        $data  = $this->db->get('pokok_masalah')->result_array();
+        return $data;
+        # code...
+    }
+
+    public function addUnit($data)
+
+    {
+        $this->db->insert('unit_kerja', $data);
+        return  $this->db->affected_rows();
+        # code...
+    }
+
+    public function addMasalah($data)
+
+    {
+        $this->db->insert('pokok_masalah', $data);
+        return  $this->db->affected_rows();
+        # code...
+    }
+
+    public function editUnit($data)
+    {
+        $this->db->where('id', $data['id']);
+        $this->db->update('unit_kerja', $data);
+        return  $this->db->affected_rows();
+    }
+
+    public function editMasalah($data)
+    {
+        $this->db->where('id', $data['id']);
+        $this->db->update('pokok_masalah', $data);
+        return  $this->db->affected_rows();
+    }
+
+
+    public function deleteUnit($id)
+    {
+        $this->db->where('id', $id);
+        $this->db->delete('unit_kerja');
+        return  $this->db->affected_rows();
+    }
+
+    public function deleteMasalah($id)
+    {
+        $this->db->where('id', $id);
+        $this->db->delete('pokok_masalah');
+        return  $this->db->affected_rows();
+    }
+
+
+
+
     public function getSuratKeluar()
     {
+        $where = "surat_rapat=0 OR surat_rapat= 'NULL'";
         $this->db->select('*');
         $this->db->from('surat_keluar');
-        // $this->db->where('surat_rapat', 0);
+        $this->db->where($where);
+        // $this->db->where('surat_rapat',);
         $this->db->join('user', 'surat_keluar.id_user = user.id');
         return $this->db->get()->result_array();
     }
@@ -467,7 +588,7 @@ class M_data extends CI_Model
     {
         $this->db->select('count(*) as jml');
         $row = $this->db->get('tugas')->row();
-        if ($row->jml>0) {
+        if ($row->jml > 0) {
             return true;
         } else {
             return false;
@@ -503,7 +624,7 @@ class M_data extends CI_Model
     public function getTugasById($id)
     {
         $this->db->select('*');
-        $this->db->where('id_tugas',$id);
+        $this->db->where('id_tugas', $id);
         $query = $this->db->get('tugas');
         return $query->result();
     }
@@ -561,7 +682,7 @@ class M_data extends CI_Model
     }
     public function getRapatById($id)
     {
-        $query = $this->db->query("select * FROM surat_masuk as m JOIN user as u WHERE m.id_user=u.id AND m.surat_rapat=1 AND m.id_user=".$id." UNION SELECT * FROM surat_keluar as k JOIN user as u WHERE k.id_user=u.id AND k.surat_rapat=1 AND  k.id_user=".$id."  ORDER BY tgl_rapat DESC");
+        $query = $this->db->query("select * FROM surat_masuk as m JOIN user as u WHERE m.id_user=u.id AND m.surat_rapat=1 AND m.id_user=" . $id . " UNION SELECT * FROM surat_keluar as k JOIN user as u WHERE k.id_user=u.id AND k.surat_rapat=1 AND  k.id_user=" . $id . "  ORDER BY tgl_rapat DESC");
         return $query->result();
     }
     public function getMhsById($id,$id_tugas)
@@ -569,14 +690,14 @@ class M_data extends CI_Model
         $query = $this->db->query("SELECT *, tugas.id_tugas as id_tgs FROM tugas,user as u LEFT OUTER JOIN nilai as n ON u.id=n.id_user WHERE u.id=$id AND tugas.id_tugas=$id_tugas");
         return $query->result();    
     }
-    public function updateNilai($data,$id)
+    public function updateNilai($data, $id)
     {
         $this->db->where('id_user', $id);
         $this->db->update('nilai', $data);
     }
     public function addNilai($data)
     {
-        $this->db->insert('nilai',$data);
+        $this->db->insert('nilai', $data);
     }
     public function file_tugas($id)
     {
@@ -586,7 +707,7 @@ class M_data extends CI_Model
     }
     public function getRetensiById($id)
     {
-        $this->db->where('id_user',$id);
+        $this->db->where('id_user', $id);
         return $this->db->get('retensi')->result();
     }
     public function getPenyusutanById($id)
@@ -594,7 +715,5 @@ class M_data extends CI_Model
         $this->db->where('id_user', $id);
 
         return $this->db->get('penyusutan')->result();
-
     }
-   
 }

@@ -1,14 +1,18 @@
 <div class="container-fluid">
 	<div class="alert alert-success" role="alert">
-		form jadwal retensi
+		Form Jadwal Retensi
 	</div>
 
 	<form method="post" action="<?php echo base_url('user/proses_tambahdataretensi'); ?>">
 		<div class="form-group">
 			<label for="exampleFormControlInput1">Surat yang Dipinjam</label>
 			<select name="surat" class="form-control">
-				<?php foreach ($penyusutan as $kunci) : ?>
-					<option value="<?php echo $kunci->perihal ?>"> <?php echo $kunci->perihal ?> </option>
+				<option value="">Pilih Dibawah ini ...</option>
+				<?php foreach ($datakategoripinjam as $key) : ?>
+					<option id="<?= $key->no_urut  ?>" value="<?php echo $key->perihal ?>"><?php echo '(Surat Masuk) [No. Surat ' . $key->no_surat . ".]   Perihal : " . $key->perihal  ?></option>
+				<?php endforeach ?>
+				<?php foreach ($datakategoripinjam_2 as $key) : ?>
+					<option id="k.<?= $key->no_urut ?>" value="<?php echo $key->perihal ?>"><?php echo '(Surat Keluar) [No. Surat ' . $key->no_surat . ".]   Perihal : " . $key->perihal  ?></option>
 				<?php endforeach ?>
 			</select>
 

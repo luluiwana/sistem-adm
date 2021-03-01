@@ -8,8 +8,11 @@
 			<label for="exampleFormControlInput1">penyusutan</label>
 			<select name="surat" class="form-control" required>
 				<option value="">Pilih Dibawah ini ...</option>
-				<?php foreach ($penyusutan as $kunci) : ?>
-					<option value="<?php echo $kunci->perihal ?>"> <?php echo $kunci->perihal ?> </option>
+				<?php foreach ($datakategoripinjam as $key) : ?>
+					<option id="<?= $key->no_urut  ?>" value="<?php echo $key->perihal ?>"><?php echo '(Surat Masuk) [No. Surat ' . $key->no_surat . ".]   Perihal : " . $key->perihal  ?></option>
+				<?php endforeach ?>
+				<?php foreach ($datakategoripinjam_2 as $key) : ?>
+					<option id="k.<?= $key->no_urut ?>" value="<?php echo $key->perihal ?>"><?php echo '(Surat Keluar) [No. Surat ' . $key->no_surat . ".]   Perihal : " . $key->perihal  ?></option>
 				<?php endforeach ?>
 			</select>
 		</div>
@@ -18,6 +21,7 @@
 			<button type="submit" class="btn btn-primary">Tambah</button>
 		</div>
 	</form>
+</div>
 </div>
 
 <!--<?php //echo base_url('home/dashboard') 

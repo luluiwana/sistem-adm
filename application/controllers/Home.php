@@ -1,6 +1,9 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+
 class Home extends CI_Controller
 {
     public function __construct()
@@ -65,7 +68,7 @@ class Home extends CI_Controller
         $data['surat_masuk'] = $this->M_data->getRapatBy($time);
         $this->load->library('pdf');
         $this->pdf->setPaper('A4', 'potrait');
-        $this->pdf->filename = "Jadwal Rapat ".$time.".pdf";
+        $this->pdf->filename = "Jadwal Rapat " . $time . ".pdf";
         //	$this->pdf->stream('laporan-data-siswa.pdf', array('Attachment' => 0));
         $this->pdf->load_view('home/export_rapat', $data);
         // $this->load->view("home/export_disposisi/temp_export");
@@ -189,7 +192,7 @@ class Home extends CI_Controller
         $temp = explode(".", $_FILES["file_dokumen"]["name"]);
         $newfilename = round(microtime(true)) . '.' . $temp[1];
 
-        $config['file_name']			= $newfilename;
+        $config['file_name']            = $newfilename;
         $config['upload_path']          = "lampiran/";
         $config['allowed_types']        = '*';
         $config['max_size']             = 10000;
@@ -225,7 +228,7 @@ class Home extends CI_Controller
         $temp = explode(".", $_FILES["file_dokumen"]["name"]);
         $newfilename = round(microtime(true)) . '.' . $temp[1];
 
-        $config['file_name']			= $newfilename;
+        $config['file_name']            = $newfilename;
         $config['upload_path']          = "lampiran/";
         $config['allowed_types']        = '*';
         $config['max_size']             = 10000;
@@ -299,6 +302,7 @@ class Home extends CI_Controller
 
     public function proses_penyusutan($no_urut)
     {
+
         $this->M_data->proses_updatepenyusutan($no_urut);
         redirect('home/penyusutan');
     }
@@ -340,7 +344,7 @@ class Home extends CI_Controller
             $temp = explode(".", $_FILES["file_dokumen"]["name"]);
             $newfilename = round(microtime(true)) . '.' . $temp[1];
 
-            $config['file_name']			= $newfilename;
+            $config['file_name']            = $newfilename;
             $config['upload_path']          = "lampiran/";
             $config['allowed_types']        = '*';
             $config['max_size']             = 10000;
@@ -424,7 +428,7 @@ class Home extends CI_Controller
             $temp = explode(".", $_FILES["file_dokumen"]["name"]);
             $newfilename = round(microtime(true)) . '.' . $temp[1];
 
-            $config['file_name']			= $newfilename;
+            $config['file_name']            = $newfilename;
             $config['upload_path']          = "lampiran/";
             $config['allowed_types']        = '*';
             $config['max_size']             = 10000;
@@ -541,7 +545,7 @@ class Home extends CI_Controller
         $temp = explode(".", $_FILES["logo"]["name"]);
         $newfilename = round(microtime(true)) . '.' . $temp[1];
 
-        $config['file_name']			= $newfilename;
+        $config['file_name']            = $newfilename;
         $config['upload_path']          = "files/img/";
         $config['allowed_types']        = 'gif|jpg|png';
         $config['max_size']             = 10000;
@@ -561,6 +565,7 @@ class Home extends CI_Controller
                 "header_3" => $this->input->post("h3"),
                 "header_4" => $this->input->post("h4"),
                 "header_5" => $this->input->post("h5"),
+                "header_6" => $this->input->post("h6"),
                 "logo" => $newfilename,
             ];
             $this->db->update('instansi', $data);
@@ -1000,7 +1005,7 @@ class Home extends CI_Controller
         } else {
             $data = array('image_metadata' => $this->upload->data());
             $ext = $this->upload->data('file_ext');
-            $lampiran =[
+            $lampiran = [
                 'judul_tugas' => $this->input->post('judul_tugas'),
                 'deskripsi_tugas' => $this->input->post('deskripsi_tugas'),
                 'dateline' => $this->input->post('dateline'),
@@ -1011,6 +1016,7 @@ class Home extends CI_Controller
             redirect('home/akses_kelas/'.$id_kelas);
         }
     }
+
     public function editTugas($id)
     {
         $data['title'] = 'Edit Tugas';
@@ -1031,7 +1037,7 @@ class Home extends CI_Controller
         $this->load->library('upload', $config);
         $this->upload->initialize($config);
         if (!$this->upload->do_upload('lampiran')) {
-            $lampiran =[
+            $lampiran = [
                 'judul_tugas' => $this->input->post('judul_tugas'),
                 'dateline' => $this->input->post('dateline'),
                 'deskripsi_tugas' => $this->input->post('deskripsi_tugas')
@@ -1041,7 +1047,7 @@ class Home extends CI_Controller
         } else {
             $data = array('image_metadata' => $this->upload->data());
             $ext = $this->upload->data('file_ext');
-            $lampiran =[
+            $lampiran = [
                 'judul_tugas' => $this->input->post('judul_tugas'),
                 'dateline' => $this->input->post('dateline'),
                 'deskripsi_tugas' => $this->input->post('deskripsi_tugas'),
@@ -1103,7 +1109,7 @@ class Home extends CI_Controller
             'nilai' => $this->input->post('nilai'),
             'komentar' => $this->input->post('komentar'),
             'status' => "Selesai",
-            'tgl_selesai'=>date('Y-m-d H:i:s')
+            'tgl_selesai' => date('Y-m-d H:i:s')
         ];
         $this->M_data->addNilai($data);
         redirect('home/lihat_tugas/'.$data['id_tugas']);

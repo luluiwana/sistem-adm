@@ -15,25 +15,29 @@
         <a class="nav-link" href="<?php echo base_url('home') ?>">
           <!-- <i class="fa fa-envelope-open-text"></i> -->
           <img src="<?php echo base_url('files/img/'); ?>dashboard.png" alt="logo um" class="mr-2" width="20"></img>
-          <span>Dashboard</span></a>
+          <span>Dashboard</span>
+        </a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="<?php echo base_url('home/tugas') ?>">
           <!-- <i class="fa fa-envelope-open-text"></i> -->
-          <img src="<?php echo base_url('files/img/'); ?>dashboard.png" alt="logo um" class="mr-2" width="20"></img>
-          <span>Tugas</span></a>
+          <img src="<?php echo base_url('files/img/'); ?>tugas.png" alt="logo um" class="mr-2" width="20"></img>
+          <span>Tugas</span>
+        </a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="<?php echo base_url('home/laporan_suratmasuk') ?>">
           <!-- <i class="fa fa-envelope-open-text"></i> -->
           <img src="<?php echo base_url('files/img/'); ?>inbox.png" alt="logo um" class="mr-2" width="20"></img>
-          <span> Surat Masuk</span></a>
+          <span> Surat Masuk</span>
+        </a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="<?php echo base_url('home/laporan_suratkeluar') ?>">
           <!-- <i class="fa fa-envelope"></i> -->
           <img src="<?php echo base_url('files/img/'); ?>outbox.png" alt="logo um" class=" mr-2" width="20"></img>
-          <span> Surat Keluar</span></a>
+          <span> Surat Keluar</span>
+        </a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="<?php echo base_url('home/jadwal_retensi') ?>">
@@ -45,11 +49,7 @@
           <img src="<?php echo base_url('files/img/'); ?>susut.png" alt="logo um" class=" mr-2" width="20px"></img>
           <span>Penyusutan</span></a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="<?php echo base_url('home/form_pinjamarsip') ?>">
-          <img src="<?php echo base_url('files/img/'); ?>paper.png" alt="logo um" class=" mr-2" width="20px"></img>
-          <span>Lembar Pinjam Arsip</span></a>
-      </li>
+
       <li class="nav-item">
         <a class="nav-link" href="<?php echo base_url('home/pinjam') ?>">
           <img src="<?php echo base_url('files/img/'); ?>peminjaman.png" alt="logo um" class=" mr-2" width="20px"></img>
@@ -61,6 +61,11 @@
           <span>Buku Agenda </span></a>
       </li>
       <li class="nav-item">
+        <a class="nav-link" href="<?php echo base_url('home/rapat_pimpinan') ?>">
+          <img src="<?php echo base_url('files/img/'); ?>rapat.png" alt="logo um" class=" mr-2" width="20px"></img>
+          <span>Buku Agenda Rapat</span></a>
+      </li>
+      <li class="nav-item">
         <a class="nav-link" href="<?php echo base_url('home/pengaturan_instansi') ?>">
           <img src="<?php echo base_url('files/img/'); ?>building.png" alt="logo um" class=" mr-2" width="20px"></img>
           <span>Pengaturan Instansi</span></a>
@@ -70,11 +75,7 @@
           <img src="<?php echo base_url('files/img/'); ?>add-friend.png" alt="logo um" class=" mr-2" width="20px"></img>
           <span>Sunting Profil</span></a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="<?php echo base_url('home/rapat_pimpinan') ?>">
-          <img src="<?php echo base_url('files/img/'); ?>rapat.png" alt="logo um" class=" mr-2" width="20px"></img>
-          <span>Buku Agenda Rapat</span></a>
-      </li>
+
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
       <li class="nav-item">

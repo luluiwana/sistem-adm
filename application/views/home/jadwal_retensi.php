@@ -17,7 +17,8 @@
         <table class="table table-bordered" id="retensi" width="100%" cellspacing="0">
           <thead>
             <tr>
-              <td>no urut</td>
+              <td>No urut</td>
+              <td>Editor</td>
               <td>Surat</td>
               <td>Tanggal Mulai</td>
               <td>Tanggal Berakhir</td>
@@ -29,6 +30,7 @@
             <?php foreach ($retensi as $dt) : ?>
               <tr>
                 <td><?php echo $dt['no_urut']; ?></td>
+                <td><?php echo $dt['nama']; ?></td>
                 <td><?php echo $dt['surat']; ?></td>
                 <td><?php echo $dt['tanggal_mulai']; ?></td>
                 <td><?php echo $dt['tanggal_berakhir']; ?></td>
