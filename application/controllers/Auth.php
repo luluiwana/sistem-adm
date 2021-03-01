@@ -14,31 +14,33 @@ class Auth extends CI_Controller
 
     public function login()
     {
-        $this->load->view('templates/header');
-        $this->load->view('home/login');
+        $data['title'] = "Login";
+        $this->load->view('templates/invisible-header',$data);
+        $this->load->view('templates/login');
     }
 
     public function index()
     {
-        $this->load->view('templates/header');
-        $this->load->view('templates/topbar');
-        $this->load->view('home/pertama');
-        $this->load->view('templates/footer');
+        $this->load->view('templates/landing-page');
+        $this->load->model('M_data');
+
     }
 
     public function proses_login()
     {
         $username = $this->input->post('username');
         $password = md5($this->input->post('password'));
-        $this->load->model('M_data');
+        
         $this->M_data->ambillogin($username, $password);
     }
 
     public function daftar()
     {
-        $this->load->view('templates/header');
-        $this->load->view('templates/topbar');
-        $this->load->view('home/daftar');
+        $data['title'] = "Buat Akun Baru";
+        $data['kelas']=$this->M_data->getKelas();
+        $this->load->view('templates/invisible-header',$data);
+        $this->load->view('templates/daftar');
+
     }
 
     public function proses_daftar()
@@ -47,7 +49,7 @@ class Auth extends CI_Controller
         $this->form_validation->set_rules('password', 'password', 'required');
         $this->form_validation->set_rules('nama', 'nama', 'required');
         $data['user'] = $this->M_data->proses_daftar();
-        $this->session->set_flashdata('login-failed', 'Daftar Berhasil Silahkan Masukkan Username dan Password tersebut kembali');
+        $this->session->set_flashdata('login-failed', 'Pendaftaran Berhasil, Silahkan login menggunakan username dan password');
         redirect('auth/login');
     }
 

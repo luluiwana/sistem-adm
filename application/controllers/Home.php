@@ -9,9 +9,10 @@ class Home extends CI_Controller
         parent::__construct();
         if (!$this->session->userdata('level')) {
             redirect('auth/login');
-        } elseif ($this->session->userdata('level') == 'admin') {
+        } elseif ($this->session->userdata('level')== 'admin') {
             $this->load->model('M_data');
             $username = $this->session->userdata('username');
+            $nama = $this->session->userdata('nama');
         } else {
             redirect('auth/login');
         }
@@ -23,44 +24,44 @@ class Home extends CI_Controller
         $data['sk'] = $this->db->count_all('surat_keluar');
         $data['ret'] = $this->db->count_all('retensi');
         $data['ar'] = $this->db->count_all('pinjam');
-        $data['data'] = 'bg';
-        $this->load->view('templates/header');
-        $this->load->view('templates/sidebar');
-        $this->load->view('templates/topbar', $data);
-        $this->load->view('home/index', $data);
+        $data['title'] = 'Dashboard';
+        $this->load->view('templates/header', $data);
+        $this->load->view('home/sidebar');
+        $this->load->view('home/index');
         $this->load->view('templates/footer');
     }
 
     public function dashboard()
     {
-        $data['data'] = 'bg';
-        $this->load->view('templates/header');
-        $this->load->view('templates/sidebar');
-        $this->load->view('templates/topbar', $data);
+        $data['title'] = 'bg';
+        $this->load->view('templates/header', $data);
+        $this->load->view('home/sidebar');
         $this->load->view('home/index');
         $this->load->view('templates/footer');
     }
 
     public function laporan_suratmasuk()
     {
+        $data['title'] = 'Surat Masuk';
         $data['surat_masuk'] = $this->M_data->getSuratMasuk();
-        $this->load->view('templates/header');
-        $this->load->view('templates/sidebar');
-        $this->load->view('templates/topbar');
-        $this->load->view('home/laporan_suratmasuk', $data);
+        $this->load->view('templates/header', $data);
+        $this->load->view('home/sidebar');
+        $this->load->view('home/laporan_suratmasuk');
         $this->load->view('templates/footer');
     }
     public function rapat_pimpinan()
     {
+        $data['title'] = 'Buku Agenda Rapat';
         $data['surat_masuk'] = $this->M_data->getRapat();
-        $this->load->view('templates/header');
-        $this->load->view('templates/sidebar');
-        $this->load->view('templates/topbar');
-        $this->load->view('home/laporan_rapat', $data);
+        $this->load->view('templates/header', $data);
+        $this->load->view('home/sidebar');
+         
+        $this->load->view('home/laporan_rapat');
         $this->load->view('templates/footer');
     }
     public function rapat_exp($time)
     {
+        $data['title'] = 'Ekspor Buku Agenda Rapat';
         $data['surat_masuk'] = $this->M_data->getRapatBy($time);
         $this->load->library('pdf');
         $this->pdf->setPaper('A4', 'potrait');
@@ -73,93 +74,101 @@ class Home extends CI_Controller
 
     public function laporan_suratkeluar()
     {
+        $data['title'] = 'Surat Keluar';
         $data['surat_keluar'] = $this->M_data->getSuratKeluar();
-        $this->load->view('templates/header');
-        $this->load->view('templates/sidebar');
-        $this->load->view('templates/topbar');
-        $this->load->view('home/laporan_suratkeluar', $data);
+        $this->load->view('templates/header', $data);
+        $this->load->view('home/sidebar');
+         
+        $this->load->view('home/laporan_suratkeluar');
         $this->load->view('templates/footer');
     }
 
     public function form_penyusutan()
     {
+        $data['title'] = 'Tambah Penyusutan';
         $data['penyusutan'] = $this->M_data->getpenyusutan();
-        $this->load->view('templates/header');
-        $this->load->view('templates/sidebar');
-        $this->load->view('templates/topbar');
-        $this->load->view('home/form_penyusutan', $data);
+        $this->load->view('templates/header', $data);
+        $this->load->view('home/sidebar');
+         
+        $this->load->view('home/form_penyusutan');
         $this->load->view('templates/footer');
     }
 
     public function form_jadwalretensi()
     {
+        $data['title'] = 'Tambah Retensi Arsip';
         $data['penyusutan'] = $this->M_data->getpenyusutan();
         $data['retensi'] = $this->M_data->getretensi();
-        $this->load->view('templates/header');
-        $this->load->view('templates/sidebar');
-        $this->load->view('templates/topbar');
-        $this->load->view('home/form_jadwalretensi', $data);
+        $this->load->view('templates/header', $data);
+        $this->load->view('home/sidebar');
+         
+        $this->load->view('home/form_jadwalretensi');
         $this->load->view('templates/footer');
     }
 
     public function form_suratmasuk()
     {
+        $data['title'] = 'Tambah Surat Masuk';
         $data['surat_masuk'] = $this->M_data->Laporan_SuratMasuk();
-        $this->load->view('templates/header');
-        $this->load->view('templates/sidebar');
-        $this->load->view('templates/topbar');
-        $this->load->view('home/form_suratmasuk', $data);
+        $this->load->view('templates/header', $data);
+        $this->load->view('home/sidebar');
+         
+        $this->load->view('home/form_suratmasuk');
         $this->load->view('templates/footer');
     }
 
     public function form_suratkeluar()
     {
+        $data['title'] = 'Tambah Surat Keluar';
         $data['surat_masuk'] = $this->M_data->Laporan_SuratKeluar();
-        $this->load->view('templates/header');
-        $this->load->view('templates/sidebar');
-        $this->load->view('templates/topbar');
-        $this->load->view('home/form_suratkeluar', $data);
+        $this->load->view('templates/header', $data);
+        $this->load->view('home/sidebar');
+         
+        $this->load->view('home/form_suratkeluar');
         $this->load->view('templates/footer');
     }
 
     public function jadwal_retensi()
     {
+        $data['title'] = 'Jadwal Retensi Arsip';
         $data['retensi'] = $this->M_data->Laporan_dataretensi();
-        $this->load->view('templates/header');
-        $this->load->view('templates/sidebar');
-        $this->load->view('templates/topbar');
-        $this->load->view('home/jadwal_retensi', $data);
+        $this->load->view('templates/header', $data);
+        $this->load->view('home/sidebar');
+         
+        $this->load->view('home/jadwal_retensi');
         $this->load->view('templates/footer');
     }
 
     public function penyusutan()
     {
+        $data['title'] = 'Penyusutan';
         $data['penyusutan'] = $this->M_data->Laporan_penyusutan();
-        $this->load->view('templates/header');
-        $this->load->view('templates/sidebar');
-        $this->load->view('templates/topbar');
-        $this->load->view('home/penyusutan', $data);
+        $this->load->view('templates/header', $data);
+        $this->load->view('home/sidebar');
+         
+        $this->load->view('home/penyusutan');
         $this->load->view('templates/footer');
     }
 
     public function disposisi($id)
     {
         $data['id'] = $id;
-
-        $this->load->view('templates/header');
-        $this->load->view('templates/sidebar');
-        $this->load->view('templates/topbar');
+        $data['title'] = '';
+        $this->load->view('templates/header', $data);
+        $this->load->view('home/sidebar');
+         
         $this->load->view('home/disposisi', $data);
         $this->load->view('templates/footer');
     }
 
     public function pinjam()
     {
+        $data['title'] = 'Rekap Surat Dipinjam';
         $data['pinjam'] = $this->M_data->suratdipinjam();
-        $this->load->view('templates/header');
-        $this->load->view('templates/sidebar');
-        $this->load->view('templates/topbar');
-        $this->load->view('templates/pinjam', $data);
+        $this->load->view('templates/header', $data);
+        $this->load->view('home/sidebar');
+         
+        $this->load->view('templates/pinjam');
         $this->load->view('templates/footer');
     }
 
@@ -238,10 +247,11 @@ class Home extends CI_Controller
 
     public function form_pinjamarsip()
     {
+        $data['title'] = 'Form Pinjam Arsip';
         $data['datakategoripinjam'] = $this->M_data->getpinjam();
-        $this->load->view('templates/header');
-        $this->load->view('templates/sidebar');
-        $this->load->view('templates/topbar');
+        $this->load->view('templates/header', $data);
+        $this->load->view('home/sidebar');
+         
         $this->load->view('home/form_pinjamarsip', $data);
         $this->load->view('templates/footer');
     }
@@ -278,10 +288,11 @@ class Home extends CI_Controller
 
     public function update_penyusutan($no_urut)
     {
+        $data['title'] = 'Edit Penyusutan';
         $data['penyusutan'] = $this->M_data->Laporan_penyusutan($no_urut);
-        $this->load->view('templates/header');
-        $this->load->view('templates/sidebar');
-        $this->load->view('templates/topbar');
+        $this->load->view('templates/header', $data);
+        $this->load->view('home/sidebar');
+         
         $this->load->view('home/penyusutan', $data);
         $this->load->view('templates/footer');
     }
@@ -294,10 +305,11 @@ class Home extends CI_Controller
 
     public function update_dataretensi($no_urut)
     {
+        $data['title'] = 'Edit Retensi Arsip';
         $data['retensi'] = $this->M_data->Laporan_dataretensi($no_urut);
-        $this->load->view('templates/header');
-        $this->load->view('templates/sidebar');
-        $this->load->view('templates/topbar');
+        $this->load->view('templates/header', $data);
+        $this->load->view('home/sidebar');
+         
         $this->load->view('home/jadwal_retensi', $data);
         $this->load->view('templates/footer');
     }
@@ -310,11 +322,12 @@ class Home extends CI_Controller
 
     public function update_datamasuk($no_urut)
     {
+        $data['title'] = 'Edit Surat Masuk';
         $data['surat_masuk'] = $this->M_data->update_datamasuk($no_urut);
         $data['text'] = $this->M_data->update_datamasuk($no_urut);
-        $this->load->view('templates/header');
-        $this->load->view('templates/sidebar');
-        $this->load->view('templates/topbar');
+        $this->load->view('templates/header', $data);
+        $this->load->view('home/sidebar');
+         
         $this->load->view('home/update_suratmasuk', $data);
         $this->load->view('templates/footer', $data);
     }
@@ -393,11 +406,12 @@ class Home extends CI_Controller
 
     public function update_datakeluar($no_urut)
     {
+        $data['title'] = 'Edit Surat Keluar';
         $data['surat_masuk'] = $this->M_data->update_datakeluar($no_urut);
         $data['text'] = $this->M_data->update_datakeluar($no_urut);
-        $this->load->view('templates/header');
-        $this->load->view('templates/sidebar');
-        $this->load->view('templates/topbar');
+        $this->load->view('templates/header', $data);
+        $this->load->view('home/sidebar');
+         
         $this->load->view('home/update_suratkeluar', $data);
         $this->load->view('templates/footer', $data);
     }
@@ -513,10 +527,10 @@ class Home extends CI_Controller
     public function pengaturan_instansi()
     {
         $data = $this->M_data->get_instansi();
-
-        $this->load->view('templates/header');
-        $this->load->view('templates/sidebar');
-        $this->load->view('templates/topbar');
+        $data['title'] = 'Pengaturan Instansi';
+        $this->load->view('templates/header', $data);
+        $this->load->view('home/sidebar');
+         
         $this->load->view('home/set_instansi', $data);
         $this->load->view('templates/footer');
     }
@@ -559,12 +573,13 @@ class Home extends CI_Controller
 
     public function buku_agenda()
     {
+        $data['title'] = 'Buku Agenda';
         $data['surat_masuk'] = $this->M_data->getSuratMasuk();
         $data['surat_keluar'] = $this->M_data->getSuratKeluar();
         $data['instansi'] = $this->M_data->get_instansi();
-        $this->load->view('templates/header');
-        $this->load->view('templates/sidebar');
-        $this->load->view('templates/topbar');
+        $this->load->view('templates/header', $data);
+        $this->load->view('home/sidebar');
+         
         $this->load->view('home/buku_agenda', $data);
         $this->load->view('templates/footer');
     }
@@ -573,22 +588,24 @@ class Home extends CI_Controller
 
     public function edit_lokasi($id)
     {
+        $data['title'] = 'Edit Lokasi';
         $data['val'] = $this->M_data->update_datamasuk($id);
         $data['value'] = $id;
-        $this->load->view('templates/header');
-        $this->load->view('templates/sidebar');
-        $this->load->view('templates/topbar');
+        $this->load->view('templates/header', $data);
+        $this->load->view('home/sidebar');
+         
         $this->load->view('home/edit_map', $data);
         $this->load->view('templates/footer');
         # code...
     }
     public function edit_lokasi_sk($id)
     {
+        $data['title'] = 'Edit Lokasi Surat Keluar';
         $data['value'] = $id;
         $data['val'] = $this->M_data->update_datakeluar($id);
-        $this->load->view('templates/header');
-        $this->load->view('templates/sidebar');
-        $this->load->view('templates/topbar');
+        $this->load->view('templates/header', $data);
+        $this->load->view('home/sidebar');
+         
         $this->load->view('home/edit_map_sk', $data);
         $this->load->view('templates/footer');
         # code...
@@ -610,6 +627,7 @@ class Home extends CI_Controller
 
     public function edit_profil()
     {
+        $data['title']="Edit Profil";
         $this->form_validation->set_rules('name', 'Username', 'required|trim');
         $this->form_validation->set_rules('password1', 'Password', 'required|trim');
         $this->form_validation->set_rules('password2', 'Password', 'required|trim|min_length[3]|matches[password3]', [
@@ -620,9 +638,8 @@ class Home extends CI_Controller
         //    $this->form_validation->set_rules('file', 'File', 'required|trim');
 
         if ($this->form_validation->run() == false) {
-            $this->load->view('templates/header');
-            $this->load->view('templates/sidebar');
-            $this->load->view('templates/topbar');
+            $this->load->view('templates/header', $data);
+            $this->load->view('home/sidebar');
             $this->load->view('home/sunting');
             $this->load->view('templates/footer');
         } else {
@@ -676,7 +693,7 @@ class Home extends CI_Controller
         if ($data->num_rows() > 0  && !empty($query)) {
             $output .= '
 				<div class="col-lg-12 mb-2 p-0">
-				<div class="card bg-primary text-white shadow">
+				<div class="card bg-info text-white shadow">
 				<div class="card-body">
 				<div class="row">
 				<div class="col-8">
@@ -684,9 +701,9 @@ class Home extends CI_Controller
 				  <div class="text-white-50 medium">Telah Ditemukan ' . $total . ' Data Terkait</div>
 				  </div>
 				  <div class="col-4">
-				  <a href="' . base_url('home/laporan_suratmasuk') . '" class="btn float-right btn-lg btn-warning ">
+				  <a href="' . base_url('home/laporan_suratmasuk') . '" class="btn float-right btn-sm btn-dark ">
 				  <span class="icon text-white-50">
-					<i class="fas fa-arrow-right"></i>
+					<i class="mdi mdi-arrow-right"></i>
 				  </span>	
 				</a>
 				  </div>
@@ -697,7 +714,7 @@ class Home extends CI_Controller
     ';
         } else {
             $output .= '<div class="col-lg-12 mb-2 p-0">
-			<div class="card bg-primary text-white shadow">
+			<div class="card bg-info text-white shadow">
 			  <div class="card-body">
 			  <div class="row">
 			  <div class="col-6">
@@ -729,7 +746,7 @@ class Home extends CI_Controller
         if ($data->num_rows() > 0  && !empty($query)) {
             $output .= '
 			<div class="col-lg-12 mb-2 p-0">
-			<div class="card bg-success text-white shadow">
+			<div class="card bg-info text-white shadow">
 			<div class="card-body">
 			<div class="row">
 			<div class="col-8">
@@ -737,10 +754,10 @@ class Home extends CI_Controller
 			  <div class="text-white-50 medium">Telah Ditemukan ' . $total . ' Data Terkait</div>
 			  </div>
 			  <div class="col-4">
-			  <a href="' . base_url('home/laporan_suratkeluar') . '" class="btn float-right btn-lg btn-warning ">
-			  <span class="icon text-white-50">
-				<i class="fas fa-arrow-right"></i>
-			  </span>	
+			  <a href="' . base_url('home/laporan_suratkeluar') . '" class="btn float-right btn-sm btn-dark ">
+				  <span class="icon text-white-50">
+					<i class="mdi mdi-arrow-right"></i>
+				  </span>	
 			</a>
 			  </div>
 			  </div>
@@ -750,7 +767,7 @@ class Home extends CI_Controller
     ';
         } else {
             $output .= '<div class="col-lg-12 mb-2 p-0">
-			<div class="card bg-success text-white shadow">
+			<div class="card bg-info text-white shadow">
 			  <div class="card-body">
 				Pencarian di Surat Keluar
 				<div class="text-white-50 medium">Telah Ditemukan 0 Data</div>
@@ -785,10 +802,10 @@ class Home extends CI_Controller
 			  <div class="text-white-50 medium">Telah Ditemukan ' . $total . ' Data Terkait</div>
 			  </div>
 			  <div class="col-4">
-			  <a href="' . base_url('home/jadwal_retensi') . '" class="btn float-right btn-lg btn-warning ">
-			  <span class="icon text-white-50">
-				<i class="fas fa-arrow-right"></i>
-			  </span>	
+			  <a href="' . base_url('home/jadwal_retensi') . '" class="btn float-right btn-sm btn-dark ">
+				  <span class="icon text-white-50">
+					<i class="mdi mdi-arrow-right"></i>
+				  </span>	
 			</a>
 			  </div>
 			  </div>
@@ -823,7 +840,7 @@ class Home extends CI_Controller
         if ($data->num_rows() > 0  && !empty($query)) {
             $output .= '
 			<div class="col-lg-12 mb-2 p-0">
-			<div class="card bg-secondary text-white shadow">
+			<div class="card bg-info text-white shadow">
 			<div class="card-body">
 			<div class="row">
 			<div class="col-8">
@@ -831,10 +848,10 @@ class Home extends CI_Controller
 			  <div class="text-white-50 medium">Telah Ditemukan ' . $total . ' Data Terkait</div>
 			  </div>
 			  <div class="col-4">
-			  <a href="' . base_url('home/pinjam') . '" class="btn float-right btn-lg btn-warning ">
-			  <span class="icon text-white-50">
-				<i class="fas fa-arrow-right"></i>
-			  </span>	
+			  <a href="' . base_url('home/pinjam') .'" class="btn float-right btn-sm btn-dark ">
+				  <span class="icon text-white-50">
+					<i class="mdi mdi-arrow-right"></i>
+				  </span>	
 			</a>
 			  </div>
 			  </div>
@@ -844,7 +861,7 @@ class Home extends CI_Controller
     ';
         } else {
             $output .= '<div class="col-lg-12 mb-2 p-0">
-			<div class="card bg-secondary text-white shadow">
+			<div class="card bg-info text-white shadow">
 			  <div class="card-body">
 				Pencarian di Surat Dipinjam
 				<div class="text-white-50 medium">Telah Ditemukan 0 Data</div>
@@ -861,22 +878,24 @@ class Home extends CI_Controller
 
     public function edit_klasisfikasi_sm($id)
     {
+        $data['title'] = 'Edit Klasifikasi Surat Masuk';
         $data['value'] = $id;
         $data['val'] = $this->M_data->update_datamasuk($id);
-        $this->load->view('templates/header');
-        $this->load->view('templates/sidebar');
-        $this->load->view('templates/topbar');
+        $this->load->view('templates/header', $data);
+        $this->load->view('home/sidebar');
+         
         $this->load->view('home/klasifikasi_sm', $data);
         $this->load->view('templates/footer');
         # code...
     }
     public function edit_klasisfikasi_sk($id)
     {
+        $data['title'] = 'Edit Klasifikasi Surat Keluar';
         $data['value'] = $id;
         $data['val'] = $this->M_data->update_datakeluar($id);
-        $this->load->view('templates/header');
-        $this->load->view('templates/sidebar');
-        $this->load->view('templates/topbar');
+        $this->load->view('templates/header', $data);
+        $this->load->view('home/sidebar');
+         
         $this->load->view('home/klasifikasi_sk', $data);
         $this->load->view('templates/footer');
         # code...
@@ -911,23 +930,65 @@ class Home extends CI_Controller
         redirect("home/buku_agenda");
         # code...
     }
-    public function tugas()
+    public function add_kelas()
+    {
+        $data = [
+            'nama_kelas'=>$this->input->post('nama_kelas'),
+            'status'=>1
+        ];
+        
+        $this->db->insert('kelas', $data);
+        redirect('home/kelas');
+    }
+    public function update_kelas($id)
+    {
+        $data = [
+            'nama_kelas'=>$this->input->post('nama_kelas')
+        ];
+        $this->db->where('id_kelas', $id);
+        $this->db->update('kelas', $data);
+        redirect('home/kelas');
+    }
+    public function delete_kelas($id)
+    {
+        $this->db->where('id_kelas', $id);
+        $this->db->delete('kelas');
+        redirect('home/kelas');
+    }
+    public function kelas()
     {   // if ada tugas:tampilkan tugas, else: buat tugas baru
-        $data['data'] = 'bg';
-        $data['isTugas'] = $this->M_data->isTugas();
-        $data['getTugas'] = $this->M_data->getTugas();
-        $data['getMhs'] = $this->M_data->getMhs();
-        $this->load->view('templates/header');
-        $this->load->view('templates/sidebar');
-        $this->load->view('templates/topbar', $data);
-        $this->load->view('home/tugas');
+        $data['title'] = 'Kelas';
+        $data['kelas']=$this->M_data->getKelas();
+        $this->load->view('templates/header', $data);
+        $this->load->view('home/sidebar');
+        $this->load->view('home/kelas');
         $this->load->view('templates/footer');
     }
-    public function tambahTugas()
+    public function akses_kelas($id)
     {
-        $config['upload_path'] = './files/';
+        $data['title']=$this->M_data->getNamaKelasById($id);
+        $data['mhs']=$this->M_data->getMhsByKelas($id);
+        $data['id_kelas']=$id;
+        $data['tugas']=$this->M_data->getTugas($id);
+        $this->load->view('templates/header', $data);
+        $this->load->view('home/sidebar');
+        $this->load->view('home/akses_kelas');
+        $this->load->view('templates/footer');
+    }
+    public function tambah_tugas($id_kelas)
+    {
+        $data['title']="Tambah Tugas";
+        $data['id_kelas']=$id_kelas;
+        $this->load->view('templates/header', $data);
+        $this->load->view('home/sidebar');
+        $this->load->view('home/tambah_tugas');
+        $this->load->view('templates/footer');
+    }
+    public function tambahTugas($id_kelas)
+    {
+        $config['upload_path'] = './files/tugas/';
         $config['allowed_types'] = 'rar|zip|pdf';
-        $config['file_name'] = 'tugas';
+        $config['file_name'] = 'tugas'.$id_kelas.$this->M_data->lastTugas();
         $config['overwrite'] = true;
         // $config['max_size'] = 20000;
 
@@ -942,31 +1003,28 @@ class Home extends CI_Controller
             $lampiran =[
                 'judul_tugas' => $this->input->post('judul_tugas'),
                 'deskripsi_tugas' => $this->input->post('deskripsi_tugas'),
-                'lampiran' => 'tugas'.$ext
+                'dateline' => $this->input->post('dateline'),
+                'lampiran' => 'tugas'.$id_kelas.$this->M_data->lastTugas().$ext,
+                'id_kelas' => $id_kelas
             ];
             $this->M_data->addTugas($lampiran);
-            redirect('home/tugas');
+            redirect('home/akses_kelas/'.$id_kelas);
         }
     }
     public function editTugas($id)
     {
-        $data['data'] = 'bg';
+        $data['title'] = 'Edit Tugas';
         $data['getTugas'] = $this->M_data->getTugasById($id);
-        $this->load->view('templates/header');
-        $this->load->view('templates/sidebar');
-        $this->load->view('templates/topbar', $data);
+        $this->load->view('templates/header', $data);
+        $this->load->view('home/sidebar');
         $this->load->view('home/edittugas');
         $this->load->view('templates/footer');
     }
-    public function lihatlampiran()
-    {
-        $this->load->view('home/lampiran');
-    }
     public function edit_Tugas($id)
     {
-        $config['upload_path'] = './files/';
+        $config['upload_path'] = './files/tugas/';
         $config['allowed_types'] = 'zip|pdf|rar';
-        $config['file_name'] = 'tugas';
+        $config['file_name'] = 'tugas'.$this->M_data->getKelasByTugas($id).$id;
         $config['overwrite'] = true;
         // $config['max_size'] = 20000;
 
@@ -975,34 +1033,55 @@ class Home extends CI_Controller
         if (!$this->upload->do_upload('lampiran')) {
             $lampiran =[
                 'judul_tugas' => $this->input->post('judul_tugas'),
+                'dateline' => $this->input->post('dateline'),
                 'deskripsi_tugas' => $this->input->post('deskripsi_tugas')
             ];
             $this->M_data->UpdateTugas($lampiran, $id);
-            redirect('home/tugas');
+            redirect('home/lihat_tugas/'.$id);
         } else {
             $data = array('image_metadata' => $this->upload->data());
             $ext = $this->upload->data('file_ext');
             $lampiran =[
                 'judul_tugas' => $this->input->post('judul_tugas'),
+                'dateline' => $this->input->post('dateline'),
                 'deskripsi_tugas' => $this->input->post('deskripsi_tugas'),
-                'lampiran' => 'tugas'.$ext
+                'lampiran' => 'tugas'.$this->M_data->getKelasByTugas($id).$id.$ext
             ];
             $this->M_data->UpdateTugas($lampiran, $id);
-            redirect('home/tugas');
+            redirect('home/lihat_tugas/'.$id);
         }
     }
-    public function hasil_tugas($id)
+    public function delete_tugas($id)
     {
+        $id_kelas=$this->M_data->getKelasByTugas($id);
+        $this->db->where('id_tugas', $id);
+        $this->db->delete('tugas');
+        redirect('home/akses_kelas/'.$id_kelas);
+    }
+    public function lihat_tugas($id_tugas)
+    {
+        $data['title']="Lihat Tugas";
+        $data['tugas']=$this->M_data->getTugasById($id_tugas);
+        $data['kelas']=$this->M_data->getKelasByTugas($id_tugas);
+        $data['mhs']=$this->M_data->getMhsByTugas($id_tugas,$data['kelas']);
+        $this->load->view('templates/header', $data);
+        $this->load->view('home/sidebar');
+        $this->load->view('home/lihat_tugas');
+        $this->load->view('templates/footer');
+    }
+    public function hasil_tugas($id,$id_tugas)
+    {
+        $data['id_tugas']=$id_tugas;
+        $data['title']="Hasil Tugas";
         $data['surat_masuk'] = $this->M_data->getSuratMasukById($id);
         $data['surat_keluar'] = $this->M_data->getSuratKeluarById($id);
         $data['surat_pinjam'] = $this->M_data->getSuratPinjamById($id);
         $data['surat_rapat'] = $this->M_data->getRapatById($id);
         $data['retensi'] = $this->M_data->getRetensiById($id);
         $data['penyusutan'] = $this->M_data->getPenyusutanById($id);
-        $data['mhs'] = $this->M_data->getMhsById($id);
-        $this->load->view('templates/header');
-        $this->load->view('templates/sidebar');
-        $this->load->view('templates/topbar', $data);
+        $data['mhs'] = $this->M_data->getMhsById($id,$id_tugas);
+        $this->load->view('templates/header', $data);
+        $this->load->view('home/sidebar');
         $this->load->view('home/hasil_tugas');
         $this->load->view('templates/footer');
     }
@@ -1013,26 +1092,58 @@ class Home extends CI_Controller
             'komentar' => $this->input->post('komentar')
         ];
         $this->M_data->updateNilai($data, $id);
-        redirect('home/tugas');
+                redirect('home/lihat_tugas/'.$data['id_tugas']);
     }
     public function tambah_nilai()
     {
         date_default_timezone_set('Asia/Jakarta');
         $data = [
             'id_user' => $this->input->post('id_user'),
+            'id_tugas' => $this->input->post('id_tugas'),
             'nilai' => $this->input->post('nilai'),
             'komentar' => $this->input->post('komentar'),
             'status' => "Selesai",
             'tgl_selesai'=>date('Y-m-d H:i:s')
         ];
         $this->M_data->addNilai($data);
-        redirect('home/tugas');
+        redirect('home/lihat_tugas/'.$data['id_tugas']);
     }
-    public function download_tugas()
+    public function download_tugas($id_tugas)
     {
         $this->load->helper('download');
-        $filename = $this->M_data->file_tugas();
-        $path = file_get_contents(base_url()."files/".$filename); // get file name
+        $filename = $this->M_data->file_tugas($id_tugas);
+        $path = file_get_contents(base_url()."files/tugas/".$filename); // get file name
         force_download($filename, $path); // start download`
+    }
+    public function get_data_user()
+    {
+        $list = $this->Serverside->get_datatables();
+        $data = array();
+        $no = $_POST['start'];
+        foreach ($list as $field) {
+            $no++;
+            $row = array();
+            $row[]=$field->no_urut;
+            $row[]=$field->nama;
+            $row[]=$field->dari;
+            $row[]=$field->alamat;
+            $row[]=$field->no_surat;
+            $row[]=$field->lampiran;
+            $row[]=$field->tanggal_surat;
+            $row[]=$field->perihal;
+            $row[]=$field->tanggal_simpan;
+            $row[]=$field->kategori;
+            $row[]=$field->isi_ringkasan;
+            $data[] = $row;
+        }
+ 
+        $output = array(
+            "draw" => $_POST['draw'],
+            "recordsTotal" => $this->User_model->count_all(),
+            "recordsFiltered" => $this->User_model->count_filtered(),
+            "data" => $data,
+        );
+        //output dalam format JSON
+        echo json_encode($output);
     }
 }

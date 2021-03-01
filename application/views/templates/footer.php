@@ -1,54 +1,35 @@
-<!-- Footer -->
-<footer class="sticky-footer bg-white" style="height: 30px;padding:0px">
-    <div class="container my-auto">
-        <div class="copyright text-center my-auto">
-            <span></span>
-        </div>
-    </div>
-</footer>
-<!-- End of Footer -->
+ <!-- content viewport ends -->
+ <!-- partial:partials/_footer.html -->
 
-</div>
-<!-- End of Content Wrapper -->
+ <!-- partial -->
+ </div>
+ <!-- page content ends -->
+ </div>
+ <!--page body ends -->
 
-</div>
-<!-- End of Page Wrapper -->
-
-<!-- Scroll to Top Button-->
-<a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-</a>
-
-<!-- Bootstrap core JavaScript-->
-<script src="<?php echo base_url('files/'); ?>vendor/jquery/jquery.min.js"></script>
-<script src="<?php echo base_url('files/'); ?>vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-<!-- Core plugin JavaScript-->
-<script src="<?php echo base_url('files/'); ?>vendor/jquery-easing/jquery.easing.min.js"></script>
-
-<!-- Custom scripts for all pages-->
-<script src="<?php echo base_url('files/'); ?>js/sb-admin-2.min.js"></script>
-
-<!-- Page level plugins -->
-<script src="<?php echo base_url('files/'); ?>vendor/datatables/jquery.dataTables.min.js"></script>
+ <script src="<?=base_url('assets/vendors/js/core.js')?>"></script>
+ <!-- endinject -->
+ <!-- Vendor Js For This Page Ends-->
+ <script src="<?=base_url('assets/vendors/apexcharts/apexcharts.min.js')?>"></script>
+ <script src="<?=base_url('assets/vendors/chartjs/Chart.min.js')?>"></script>
+ <script src="<?=base_url('assets/js/charts/chartjs.addon.js')?>"></script>
+ <!-- Vendor Js For This Page Ends-->
+ <script src="<?php echo base_url('files/'); ?>vendor/datatables/jquery.dataTables.min.js"></script>
 <script src="<?php echo base_url('files/'); ?>vendor/datatables/dataTables.bootstrap4.min.js"></script>
+ <!-- build:js -->
+ <script src="<?=base_url('assets/js/template.js')?>"></script>
+ <script src="<?=base_url('assets/js/dashboard.js')?>"></script>
 
-<!-- Page level custom scripts -->
-<script src="<?php echo base_url('files/'); ?>js/demo/datatables-demo.js"></script>
+ 
 <script src="<?= base_url('files/js/summernote/') ?>summernote.min.js"></script>
-<!-- <script src="<?= base_url('files/js/') ?>capture.js"></script> -->
-<script type="text/javascript" src="https://unpkg.com/webcam-easy/dist/webcam-easy.min.js"></script>
-<script src="<?= base_url('files/js/') ?>camera.js"></script>
+<script src="<?php echo base_url('files/'); ?>js/demo/datatables-demo.js"></script>
 
-
-</body>
-
-<script>
+ <script>
 window.base_url = <?php echo json_encode(base_url()); ?>;
-console.log(base_url);
-</script>
+// console.log(base_url);
+ </script>
 
-<script>
+ <script>
 function showImage(value) {
 
     link_gambar = $('#bt_' + value).val();
@@ -68,9 +49,9 @@ $('#btn2').click(function() {
     $('#ipladder').attr('action', 'location2.php');
     $('#ipladder').submit();
 });
-</script>
+ </script>
 
-<script>
+ <script>
 $('#summernote').summernote({
     // placeholder: 'Masukkan Isi',
     tabsize: 2,
@@ -78,16 +59,16 @@ $('#summernote').summernote({
 });
 
 $("#summernote").summernote("code", "<?php if (!empty($text['isi_ringkasan'])) echo $text['isi_ringkasan']; ?>");
-</script>
+ </script>
 
-<script>
+ <script>
 $('#myModal').on('hide.bs.modal', function(e) {
     // do something...
     webcam.stop();
 })
-</script>
+ </script>
 
-<script>
+ <script>
 let data = $('#kategori').val();
 
 $(document).ready(function() {
@@ -186,9 +167,9 @@ $('#kategori').on('change', function() {
         $("label[for='input_5']").text("Kode");
     }
 });
-</script>
+ </script>
 
-<script>
+ <script>
 $('#disposisi_category').on('change', function() {
     let data = $('#disposisi_category').val();
 
@@ -207,9 +188,9 @@ $('#disposisi_category').on('change', function() {
     }
 
 });
-</script>
+ </script>
 
-<script>
+ <script>
 function load_data() {
     $('#hasil').addClass('d-none');
 }
@@ -283,12 +264,12 @@ $('#search_text').keyup(function() {
         load_data();
     }
 });
-</script>
+ </script>
 
 
-<script>
-var table_sm = $('#surat_masuk').DataTable();
-table_sm.search("<?php if (!empty($this->session->flashdata('cari'))) echo $this->session->flashdata('cari'); ?>");
+ <script>
+// var table_sm = $('#surat_masuk').DataTable();
+// table_sm.search("<?php if (!empty($this->session->flashdata('cari'))) echo $this->session->flashdata('cari'); ?>");
 
 var table_sr = $('#jadwal_rapat').DataTable();
 table_sr.search("<?php if (!empty($this->session->flashdata('cari'))) echo $this->session->flashdata('cari'); ?>");
@@ -304,6 +285,7 @@ table_pinjam.search("<?php if (!empty($this->session->flashdata('cari'))) echo $
 
 var table_user = $('#user_table').DataTable();
 table_user.search("<?php if (!empty($this->session->flashdata('cari'))) echo $this->session->flashdata('cari'); ?>");
-</script>
+ </script>
+ </body>
 
-</html>
+ </html>

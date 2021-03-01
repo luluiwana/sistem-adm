@@ -244,6 +244,7 @@ class M_data extends CI_Model
                         'username' => $rw->username,
                         'password' => $rw->password,
                         'level' => $rw->level,
+                        'nama' => $rw->nama,
                         'id' => $rw->id
                     );
                     $this->session->set_userdata($sess);
@@ -253,6 +254,7 @@ class M_data extends CI_Model
                         'username' => $rw->username,
                         'password' => $rw->password,
                         'level' => $rw->level,
+                        'nama' => $rw->nama,
                         'id' => $rw->id
                     );
                     $this->session->set_userdata($sess);
@@ -273,6 +275,7 @@ class M_data extends CI_Model
             "nama" => $this->input->post('nama'),
             "password" => $pass,
             "kelas" => $this->input->post('kelas'),
+            "whatsapp" => $this->input->post('whatsapp'),
             "level" => 'user',
         ];
 
@@ -474,11 +477,28 @@ class M_data extends CI_Model
     {
         $this->db->insert('tugas', $data);
     }
-    public function getTugas()
+    public function getTugas($id_kelas)
     {
-        $this->db->select('*');
+        $this->db->where('id_kelas',$id_kelas);
+        $this->db->order_by('id_tugas','desc');
         $query = $this->db->get('tugas');
         return $query->result();
+    }
+    public function getKelas()
+    {   
+        // SELECT *,count(user.username) FROM kelas LEFT OUTER JOIN user ON kelas.id_kelas=user.kelas GROUP BY kelas.id_kelas
+        $this->db->select('*, count(user.username) as jml');
+        $this->db->join('user','kelas.id_kelas=user.kelas','left outer');
+        $this->db->group_by('kelas.id_kelas');
+        $this->db->order_by('id_kelas','desc');
+        return $this->db->get('kelas')->result();
+    }
+    public function getNamaKelasById($id)
+    {
+        $this->db->select('nama_kelas');
+        $this->db->where('id_kelas',$id);
+        $row = $this->db->get('kelas')->row();
+        return $row->nama_kelas;
     }
     public function getTugasById($id)
     {
@@ -487,15 +507,37 @@ class M_data extends CI_Model
         $query = $this->db->get('tugas');
         return $query->result();
     }
+    public function getKelasByTugas($id_tugas)
+    {   
+        $this->db->where('id_tugas',$id_tugas);
+        $row=$this->db->get('tugas')->row();
+        return $row->id_kelas;
+    }
     public function UpdateTugas($data, $id)
     {
         $this->db->where('id_tugas', $id);
         $this->db->update('tugas', $data);
     }
-    public function getMhs()
+    public function getMhsByTugas($id_tugas,$id_kelas)
     {
-        $query = $this->db->query("SELECT * FROM user as u LEFT OUTER JOIN nilai as n ON u.id=n.id_user WHERE u.level='user'");
-        return $query->result();    
+        // SELECT * FROM tugas,user left OUTER JOIN nilai ON user.id=nilai.id_user WHERE user.kelas=1 AND tugas.id_tugas=12
+        $this->db->select("*, tugas.id_tugas as id_tgs");
+       $this->db->join("nilai","user.id=nilai.id_user","left outer");
+        $this->db->where("user.kelas",$id_kelas);
+        $this->db->where("tugas.id_tugas",$id_tugas);
+        return $this->db->get("tugas, user")->result();
+    }
+    public function lastTugas()
+    {
+        $this->db->select('max(id_tugas)+1 as maks');
+        $row=$this->db->get('tugas')->row();
+        return $row->maks;
+    }
+    public function getMhsByKelas($id)
+    {
+        $this->db->where('kelas',$id);
+        $this->db->order_by('nama','asc');
+        return $this->db->get('user')->result();
     }
     public function getSuratMasukById($id)
     {
@@ -522,9 +564,9 @@ class M_data extends CI_Model
         $query = $this->db->query("select * FROM surat_masuk as m JOIN user as u WHERE m.id_user=u.id AND m.surat_rapat=1 AND m.id_user=".$id." UNION SELECT * FROM surat_keluar as k JOIN user as u WHERE k.id_user=u.id AND k.surat_rapat=1 AND  k.id_user=".$id."  ORDER BY tgl_rapat DESC");
         return $query->result();
     }
-    public function getMhsById($id)
+    public function getMhsById($id,$id_tugas)
     {
-        $query = $this->db->query("SELECT * FROM user as u LEFT OUTER JOIN nilai as n ON u.id=n.id_user WHERE u.id=".$id);
+        $query = $this->db->query("SELECT *, tugas.id_tugas as id_tgs FROM tugas,user as u LEFT OUTER JOIN nilai as n ON u.id=n.id_user WHERE u.id=$id AND tugas.id_tugas=$id_tugas");
         return $query->result();    
     }
     public function updateNilai($data,$id)
@@ -536,11 +578,10 @@ class M_data extends CI_Model
     {
         $this->db->insert('nilai',$data);
     }
-    public function file_tugas()
+    public function file_tugas($id)
     {
-        $this->db->select('*');
-        $query = $this->db->get('tugas');
-        $row = $query->row();
+        $this->db->where('id_tugas',$id);
+        $row=$this->db->get('tugas')->row();
         return $row->lampiran;
     }
     public function getRetensiById($id)

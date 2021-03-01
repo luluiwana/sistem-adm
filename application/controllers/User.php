@@ -21,6 +21,7 @@ class User extends CI_Controller
     }
     public function index()
     {
+        $data["title"]="Dashboard";
         $a = $this->db->get_where('surat_masuk', array('id_user' => $this->id));
         $b = $this->db->get_where('surat_keluar', array('id_user' => $this->id));
         $c = $this->db->get_where('retensi', array('id_user' => $this->id));
@@ -34,28 +35,30 @@ class User extends CI_Controller
         $data['isTugas'] = $this->M_user->isTugas();
         $data['getTugas'] = $this->M_user->getTugas();
 
-        $this->load->view('templates_user/header');
-        $this->load->view('templates_user/sidebar');
-        $this->load->view('templates_user/topbar', $data);
+        $this->load->view('templates/header',$data);
+        $this->load->view('user/sidebar');
+        
         $this->load->view('user/index', $data);
         $this->load->view('templates_user/footer');
     }
 
     public function laporan_suratmasuk()
     {
+        $data["title"]="Surat Masuk";
         $data['surat_masuk'] = $this->m_user->getSuratMasuk($this->id);
-        $this->load->view('templates_user/header');
-        $this->load->view('templates_user/sidebar');
-        $this->load->view('templates_user/topbar');
+        $this->load->view('templates/header',$data);
+        $this->load->view('user/sidebar');
+       
         $this->load->view('user/laporan_suratmasuk', $data);
         $this->load->view('templates_user/footer');
     }
     public function rapat_pimpinan()
     {
+        $data["title"]="Buku Agenda Rapat";
         $data['surat_masuk'] = $this->M_user->getRapat();
-        $this->load->view('templates/header');
-        $this->load->view('templates/sidebar');
-        $this->load->view('templates/topbar');
+        $this->load->view('templates/header',$data);
+        $this->load->view('user/sidebar');
+        
         $this->load->view('user/laporan_rapat', $data);
         $this->load->view('templates/footer');
     }
@@ -73,30 +76,33 @@ class User extends CI_Controller
 
     public function laporan_suratkeluar()
     {
+        $data["title"]="Surat Keluar";
         $data['surat_keluar'] = $this->m_user->getSuratKeluar($this->id);
-        $this->load->view('templates_user/header');
-        $this->load->view('templates_user/sidebar');
-        $this->load->view('templates_user/topbar');
+        $this->load->view('templates/header',$data);
+        $this->load->view('user/sidebar');
+       
         $this->load->view('user/laporan_suratkeluar', $data);
         $this->load->view('templates_user/footer');
     }
 
     public function form_suratmasuk()
     {
+        $data["title"]="Tambah Surat Masuk";
         $data['surat_masuk'] = $this->m_user->Laporan_SuratMasuk($this->id);
-        $this->load->view('templates_user/header');
-        $this->load->view('templates_user/sidebar');
-        $this->load->view('templates_user/topbar');
+        $this->load->view('templates/header',$data);
+        $this->load->view('user/sidebar');
+       
         $this->load->view('user/form_suratmasuk', $data);
         $this->load->view('templates_user/footer');
     }
 
     public function form_suratkeluar()
     {
+        $data["title"]="Tambah Surat Keluar";
         $data['surat_masuk'] = $this->m_user->Laporan_SuratKeluar($this->id);
-        $this->load->view('templates_user/header');
-        $this->load->view('templates_user/sidebar');
-        $this->load->view('templates_user/topbar');
+        $this->load->view('templates/header',$data);
+        $this->load->view('user/sidebar');
+       
         $this->load->view('user/form_suratkeluar', $data);
         $this->load->view('templates_user/footer');
     }
@@ -284,32 +290,35 @@ class User extends CI_Controller
 
     public function update_datakeluar($no_urut)
     {
+        $data["title"]="Edit Surat Keluar";
         $data['surat_masuk'] = $this->m_user->update_datakeluar($no_urut);
         $data['text'] = $this->m_user->update_datakeluar($no_urut);
-        $this->load->view('templates_user/header');
-        $this->load->view('templates_user/sidebar');
-        $this->load->view('templates_user/topbar');
+        $this->load->view('templates/header',$data);
+        $this->load->view('user/sidebar');
+       
         $this->load->view('user/update_suratkeluar', $data);
         $this->load->view('templates_user/footer', $data);
     }
 
     public function update_datamasuk($no_urut)
     {
+        $data["title"]="Edit Surat Masuk";
         $data['surat_masuk'] = $this->m_user->update_datamasuk($no_urut);
         $data['text'] = $this->m_user->update_datamasuk($no_urut);
-        $this->load->view('templates_user/header');
-        $this->load->view('templates_user/sidebar');
-        $this->load->view('templates_user/topbar');
+        $this->load->view('templates/header',$data);
+        $this->load->view('user/sidebar');
+       
         $this->load->view('user/update_suratmasuk', $data);
         $this->load->view('templates_user/footer', $data);
     }
 
     public function disposisi($id)
     {
+        $data["title"]="Disposisi";
         $data['id'] = $id;
-        $this->load->view('templates_user/header');
-        $this->load->view('templates_user/sidebar');
-        $this->load->view('templates_user/topbar');
+        $this->load->view('templates/header',$data);
+        $this->load->view('user/sidebar');
+       
         $this->load->view('user/disposisi', $data);
         $this->load->view('templates_user/footer');
     }
@@ -350,10 +359,11 @@ class User extends CI_Controller
 
     public function pinjam()
     {
+        $data["title"]="Rekap Surat Dipinjam";
         $data['pinjam'] = $this->m_user->suratdipinjam();
-        $this->load->view('templates_user/header');
-        $this->load->view('templates_user/sidebar');
-        $this->load->view('templates_user/topbar');
+        $this->load->view('templates/header',$data);
+        $this->load->view('user/sidebar');
+       
         $this->load->view('templates_user/pinjam', $data);
         $this->load->view('templates_user/footer');
     }
@@ -389,40 +399,44 @@ class User extends CI_Controller
 
     public function jadwal_retensi()
     {
+        $data["title"]="Jadwal Retensi Arsip";
         $data['retensi'] = $this->m_user->Laporan_dataretensi($this->id);
-        $this->load->view('templates_user/header');
-        $this->load->view('templates_user/sidebar');
-        $this->load->view('templates_user/topbar');
+        $this->load->view('templates/header',$data);
+        $this->load->view('user/sidebar');
+       
         $this->load->view('user/jadwal_retensi', $data);
         $this->load->view('templates_user/footer');
     }
 
     public function penyusutan()
     {
+        $data["title"]="Penyusutan";
         $data['penyusutan'] = $this->m_user->Laporan_penyusutan($this->id);
-        $this->load->view('templates_user/header');
-        $this->load->view('templates_user/sidebar');
-        $this->load->view('templates_user/topbar');
+        $this->load->view('templates/header',$data);
+        $this->load->view('user/sidebar');
+       
         $this->load->view('user/penyusutan', $data);
         $this->load->view('templates_user/footer');
     }
 
     public function form_penyusutan()
     {
+        $data["title"]="Tambah Penyusutan";
         $data['penyusutan'] = $this->m_user->getpenyusutan();
-        $this->load->view('templates_user/header');
-        $this->load->view('templates_user/sidebar');
-        $this->load->view('templates_user/topbar');
+        $this->load->view('templates/header',$data);
+        $this->load->view('user/sidebar');
+       
         $this->load->view('user/form_penyusutan', $data);
         $this->load->view('templates_user/footer');
     }
 
     public function form_jadwalretensi()
     {
+        $data["title"]="Tambah Retensi";
         $data['penyusutan'] = $this->m_user->getpenyusutan();
-        $this->load->view('templates_user/header');
-        $this->load->view('templates_user/sidebar');
-        $this->load->view('templates_user/topbar');
+        $this->load->view('templates/header',$data);
+        $this->load->view('user/sidebar');
+       
         $this->load->view('user/form_jadwalretensi', $data);
         $this->load->view('templates_user/footer');
     }
@@ -441,10 +455,11 @@ class User extends CI_Controller
 
     public function form_pinjamarsip()
     {
+        $data["title"]="Tambah Arsip Dipinjam";
         $data['datakategoripinjam'] = $this->m_user->getpinjam();
-        $this->load->view('templates_user/header');
-        $this->load->view('templates_user/sidebar');
-        $this->load->view('templates_user/topbar');
+        $this->load->view('templates/header',$data);
+        $this->load->view('user/sidebar');
+       
         $this->load->view('user/form_pinjamarsip', $data);
         $this->load->view('templates_user/footer');
     }
@@ -457,12 +472,13 @@ class User extends CI_Controller
 
     public function buku_agenda()
     {
+        $data["title"]="Buku Agenda";  
         $data['surat_masuk'] = $this->m_user->getSuratMasuk($this->id);
         $data['surat_keluar'] = $this->m_user->getSuratKeluar($this->id);
         $data['instansi'] = $this->m_user->get_instansi();
-        $this->load->view('templates_user/header');
-        $this->load->view('templates_user/sidebar');
-        $this->load->view('templates_user/topbar');
+        $this->load->view('templates/header',$data);
+        $this->load->view('user/sidebar');
+       
         $this->load->view('user/buku_agenda', $data);
         $this->load->view('templates_user/footer');
     }
@@ -470,22 +486,24 @@ class User extends CI_Controller
     // edit lokasi map
     public function edit_lokasi($id)
     {
+        $data["title"]="Edit Lokasi";
         $data['val'] = $this->m_user->update_datamasuk($id);
         $data['value'] = $id;
-        $this->load->view('templates_user/header');
-        $this->load->view('templates_user/sidebar');
-        $this->load->view('templates_user/topbar');
+        $this->load->view('templates/header',$data);
+        $this->load->view('user/sidebar');
+       
         $this->load->view('user/edit_map', $data);
         $this->load->view('templates_user/footer');
         # code...
     }
     public function edit_lokasi_sk($id)
     {
+        $data["title"]="Edit LOkasi Surat Keluar";
         $data['value'] = $id;
         $data['val'] = $this->m_user->update_datakeluar($id);
-        $this->load->view('templates_user/header');
-        $this->load->view('templates_user/sidebar');
-        $this->load->view('templates_user/topbar');
+        $this->load->view('templates/header',$data);
+        $this->load->view('user/sidebar');
+       
         $this->load->view('user/edit_map_sk', $data);
         $this->load->view('templates_user/footer');
         # code...
@@ -505,16 +523,6 @@ class User extends CI_Controller
         # code...
     }
 
-    public function pengaturan_instansi()
-    {
-        $data = $this->m_user->get_instansi();
-
-        $this->load->view('templates_user/header');
-        $this->load->view('templates_user/sidebar');
-        $this->load->view('templates_user/topbar');
-        $this->load->view('user/set_instansi', $data);
-        $this->load->view('templates_user/footer');
-    }
 
     public function update_instansi()
     {
@@ -585,9 +593,9 @@ class User extends CI_Controller
         //    $this->form_validation->set_rules('file', 'File', 'required|trim');
 
         if ($this->form_validation->run() == false) {
-            $this->load->view('templates_user/header');
-            $this->load->view('templates_user/sidebar');
-            $this->load->view('templates_user/topbar');
+            $data["title"]="Edit Profil";
+            $this->load->view('templates/header',$data);
+            $this->load->view('user/sidebar');
             $this->load->view('user/sunting');
             $this->load->view('templates_user/footer');
         } else {
@@ -640,7 +648,7 @@ class User extends CI_Controller
         if ($data->num_rows() > 0  && !empty($query)) {
             $output .= '
 				<div class="col-lg-12 mb-2 p-0">
-				<div class="card bg-primary text-white shadow">
+				<div class="card bg-info text-white shadow">
 				<div class="card-body">
 				<div class="row">
 				<div class="col-8">
@@ -648,9 +656,9 @@ class User extends CI_Controller
 				  <div class="text-white-50 medium">Telah Ditemukan ' . $total . ' Data Terkait</div>
 				  </div>
 				  <div class="col-4">
-				  <a href="' . base_url('user/laporan_suratmasuk') . '" class="btn float-right btn-lg btn-warning ">
+				  <a href="' . base_url('user/laporan_suratmasuk') . '" class="btn float-right btn-sm btn-dark ">
 				  <span class="icon text-white-50">
-					<i class="fas fa-arrow-right"></i>
+					<i class="mdi mdi-arrow-right"></i>
 				  </span>	
 				</a>
 				  </div>
@@ -661,7 +669,7 @@ class User extends CI_Controller
     ';
         } else {
             $output .= '<div class="col-lg-12 mb-2 p-0">
-			<div class="card bg-primary text-white shadow">
+			<div class="card bg-info text-white shadow">
 			  <div class="card-body">
 			  <div class="row">
 			  <div class="col-6">
@@ -693,7 +701,7 @@ class User extends CI_Controller
         if ($data->num_rows() > 0  && !empty($query)) {
             $output .= '
 			<div class="col-lg-12 mb-2 p-0">
-			<div class="card bg-success text-white shadow">
+			<div class="card bg-info text-white shadow">
 			<div class="card-body">
 			<div class="row">
 			<div class="col-8">
@@ -701,9 +709,9 @@ class User extends CI_Controller
 			  <div class="text-white-50 medium">Telah Ditemukan ' . $total . ' Data Terkait</div>
 			  </div>
 			  <div class="col-4">
-			  <a href="' . base_url('user/laporan_suratkeluar') . '" class="btn float-right btn-lg btn-warning ">
+			  <a href="' . base_url('user/laporan_suratkeluar') . '" class="btn float-right btn-sm btn-dark ">
 			  <span class="icon text-white-50">
-				<i class="fas fa-arrow-right"></i>
+				<i class="mdi mdi-arrow-right"></i>
 			  </span>	
 			</a>
 			  </div>
@@ -714,7 +722,7 @@ class User extends CI_Controller
     ';
         } else {
             $output .= '<div class="col-lg-12 mb-2 p-0">
-			<div class="card bg-success text-white shadow">
+			<div class="card bg-info text-white shadow">
 			  <div class="card-body">
 				Pencarian di Surat Keluar
 				<div class="text-white-50 medium">Telah Ditemukan 0 Data</div>
@@ -749,9 +757,9 @@ class User extends CI_Controller
 			  <div class="text-white-50 medium">Telah Ditemukan ' . $total . ' Data Terkait</div>
 			  </div>
 			  <div class="col-4">
-			  <a href="' . base_url('user/jadwal_retensi') . '" class="btn float-right btn-lg btn-warning ">
+			  <a href="' . base_url('user/jadwal_retensi') . '" class="btn float-right btn-sm btn-dark ">
 			  <span class="icon text-white-50">
-				<i class="fas fa-arrow-right"></i>
+				<i class="mdi mdi-arrow-right"></i>
 			  </span>	
 			</a>
 			  </div>
@@ -787,7 +795,7 @@ class User extends CI_Controller
         if ($data->num_rows() > 0  && !empty($query)) {
             $output .= '
 			<div class="col-lg-12 mb-2 p-0">
-			<div class="card bg-secondary text-white shadow">
+			<div class="card bg-info text-white shadow">
 			<div class="card-body">
 			<div class="row">
 			<div class="col-8">
@@ -795,9 +803,9 @@ class User extends CI_Controller
 			  <div class="text-white-50 medium">Telah Ditemukan ' . $total . ' Data Terkait</div>
 			  </div>
 			  <div class="col-4">
-			  <a href="' . base_url('user/pinjam') . '" class="btn float-right btn-lg btn-warning ">
+			  <a href="' . base_url('user/pinjam') . '" class="btn float-right btn-sm btn-dark ">
 			  <span class="icon text-white-50">
-				<i class="fas fa-arrow-right"></i>
+				<i class="mdi mdi-arrow-right"></i>
 			  </span>	
 			</a>
 			  </div>
@@ -808,7 +816,7 @@ class User extends CI_Controller
     ';
         } else {
             $output .= '<div class="col-lg-12 mb-2 p-0">
-			<div class="card bg-secondary text-white shadow">
+			<div class="card bg-info text-white shadow">
 			  <div class="card-body">
 				Pencarian di Surat Dipinjam
 				<div class="text-white-50 medium">Telah Ditemukan 0 Data</div>
@@ -825,11 +833,12 @@ class User extends CI_Controller
 
     public function edit_klasisfikasi_sm($id)
     {
+        $data["title"]="Edit Klasifikasi Surat Masuk";
         $data['value'] = $id;
         $data['val'] = $this->m_user->update_datamasuk($id);
-        $this->load->view('templates_user/header');
-        $this->load->view('templates_user/sidebar');
-        $this->load->view('templates_user/topbar');
+        $this->load->view('templates/header',$data);
+        $this->load->view('user/sidebar');
+       
         $this->load->view('user/klasifikasi_sm', $data);
         $this->load->view('templates_user/footer');
         # code...
@@ -838,9 +847,10 @@ class User extends CI_Controller
     {
         $data['value'] = $id;
         $data['val'] = $this->m_user->update_datakeluar($id);
-        $this->load->view('templates_user/header');
-        $this->load->view('templates_user/sidebar');
-        $this->load->view('templates_user/topbar');
+        $data["title"]="Edit Klasifikassi Surat Keluar";
+        $this->load->view('templates/header',$data);
+        $this->load->view('user/sidebar');
+       
         $this->load->view('user/klasifikasi_sk', $data);
         $this->load->view('templates_user/footer');
         # code...

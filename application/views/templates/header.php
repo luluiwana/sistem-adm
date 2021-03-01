@@ -2,44 +2,45 @@
 <html lang="en">
 
 <head>
-
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
-
-  <title>SIEREN</title>
-
-  <!-- Custom fonts for this template-->
-  <link href="<?php echo base_url('files/'); ?>vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-
-  <!-- Custom styles for this template-->
-  <link href="<?php echo base_url('files/'); ?>css/sb-admin-2.min.css" rel="stylesheet">
-
-  <!-- Custom styles for this page -->
-  <link href="<?php echo base_url('files/'); ?>vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-
-  <!-- include summernote css/js -->
-  <link href="<?= base_url('files/js/summernote/') ?>summernote.css" rel="stylesheet">
-
-
-  <style>
-    .bg {
-      background-image: url(<?= base_url('files/img/logo-um.png') ?>);
-      /* background-size: auto; */
-      background-size: 350px 350px;
-      background-position: bottom;
-      background-repeat: no-repeat;
-    }
-  </style>
-
-
-
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title><?=$title?></title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="<?=base_url('assets/vendors/iconfonts/mdi/css/materialdesignicons.css')?>">
+    <!-- endinject -->
+    <!-- vendor css for this page -->
+    <!-- End vendor css for this page -->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="<?=base_url('assets/css/shared/style.css')?>">
+    <!-- endinject -->
+    <!-- Layout style -->
+    <link rel="stylesheet" href="<?=base_url('assets/css/demo_1/style.css')?>">
+    <!-- Layout style -->
+    <!-- <link rel="shortcut icon" href="<?=base_url('assets/images/favicon.ico')?>" /> -->
 </head>
 
-<body id="page-top">
+<body class="header-fixed">
+    <!-- partial:partials/_header.html -->
+    <nav class="t-header">
+        <div class="t-header-brand-wrapper">
+            <a href="index.html">
+                <img class="logo" src="<?=base_url('assets/images/logo.svg')?>" alt="">
+                <img class="logo-mini" src="<?=base_url('assets/images/logo_mini.svg')?>" alt="">
+            </a>
+        </div>
+        <div class="t-header-content-wrapper">
+            <div class="t-header-content">
+                <button class="t-header-toggler t-header-mobile-toggler d-block d-lg-none">
+                    <i class="mdi mdi-menu"></i>
+                </button>
+                <ul class="nav mr-auto">
+                   <li><h6><?=$title?></h6></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- partial -->
+    <div class="page-body">
+     
 
-  <!-- Page Wrapper -->
-  <div id="wrapper">
+           

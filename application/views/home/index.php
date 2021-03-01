@@ -12,20 +12,19 @@
                 <div class="row p-2">
                     <div class="col-3"></div>
                     <div class="col-6  pb-0 float-right card-body">
-                        <h4 class="text-center"><b>Selamat Datang di Sieren</b></h4>
-                        <h6 class="text-center">Sistem Kearsipan Elektronik Berbasis Web Codeigniter</h6>
+                        <h4 class="text-center mb-4">Selamat Datang <?=$this->session->userdata('nama');?></h4>
                     </div>
 
                 </div>
                 <div class="col-xs-7 mb-3  col-sm-7 mx-auto ">
+                 <div class="t-header-search-box">
                     <div class="input-group">
-                        <div class="input-group-append">
-                            <button class="btn btn-primary " disabled type="button">
-                                <i class="fas fa-search fa-sm"></i>
-                            </button>
-                        </div>
-                        <input type="text" id='search_text' name="search_text" class="form-control bg-light border-0 small" placeholder="Search ... " aria-label="Search">
+                        <input type="text" class="form-control" id='search_text' name="search_text" placeholder="Cari Arsip..."
+                            autocomplete="off">
+                        <button class="btn btn-primary btn-sm" type="submit"><i class="mdi mdi-arrow-right-thick"></i></button>
                     </div>
+                </div>
+                   
                 </div>
             </div>
         </div>
@@ -56,7 +55,7 @@
 
         <!-- Earnings (Monthly) Card Example -->
         <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card border-left-info shadow h-100 py-2">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
@@ -65,9 +64,7 @@
                             </div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $sm ?></div>
                         </div>
-                        <div class="col-auto">
-                            <img src="<?php echo base_url('files/img/'); ?>inbox.png" alt="logo um" class="float-left mr-2" width="50"></img>
-                        </div>
+                        
                     </div>
                 </div>
             </div>
@@ -75,7 +72,7 @@
 
         <!-- Earnings (Annual) Card Example -->
         <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-success shadow h-100 py-2">
+            <div class="card border-left-info shadow h-100 py-2">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
@@ -84,9 +81,7 @@
                             </div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $sk ?></div>
                         </div>
-                        <div class="col-auto">
-                            <img src="<?php echo base_url('files/img/'); ?>outbox.png" alt="logo um" class="float-left mr-2" width="50"></img>
-                        </div>
+                        
                     </div>
                 </div>
             </div>
@@ -108,9 +103,7 @@
 
                             </div>
                         </div>
-                        <div class="col-auto">
-                            <img src="<?php echo base_url('files/img/'); ?>archive.png" alt="logo um" class="float-left mr-2" width="40"></img>
-                        </div>
+                       
                     </div>
                 </div>
             </div>
@@ -118,7 +111,7 @@
 
         <!-- Pending Requests Card Example -->
         <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-warning shadow h-100 py-2">
+            <div class="card border-left-info shadow h-100 py-2">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
@@ -127,9 +120,7 @@
                             </div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $ret ?></div>
                         </div>
-                        <div class="col-auto">
-                            <img src="<?php echo base_url('files/img/'); ?>retensi.png" alt="logo um" class="float-left mr-2" width="50"></img>
-                        </div>
+                        
                     </div>
                 </div>
             </div>
@@ -138,5 +129,5 @@
     <!-- /.container-fluid -->
 </div>
 
-</div>
+<!-- </div> -->
 <!-- End of Main Content -->

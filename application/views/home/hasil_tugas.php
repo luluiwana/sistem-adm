@@ -33,6 +33,8 @@ tr.hide-table-padding td {
 	<span aria-hidden="true">&times;</span></button></div>';
           }
             ?>
+            <a href="<?=base_url('home/lihat_tugas/'.$id_tugas)?>" class="btn btn-primary mb-3"><i
+        class="mdi mdi-chevron-double-left"></i> Kembali ke Tugas</a>
         <div class="card shadow mb-4">
             <div class="card-header py-3">
                 Identitas Mahasiswa
@@ -77,7 +79,7 @@ tr.hide-table-padding td {
                     <tr>
                         <td rowspan="3">
                             <!-- Trigger the modal with a button -->
-                            <button type="button" class="btn btn-primary btn-sm mt-4" data-toggle="modal"
+                            <button type="button" class="btn btn-primary btn-sm mt-4 text-white" data-toggle="modal"
                                 data-target="#<?=$button?>">Ubah Nilai</button>
 
                             <!-- Modal -->
@@ -97,6 +99,7 @@ tr.hide-table-padding td {
                                                         <td>Nilai</td>
                                                         <td>
                                                             <input type="hidden" name="id_user" value="<?=$row->id?>">
+                                                            <input type="hidden" name="id_tugas" value="<?=$row->id_tgs?>">
                                                             <input type="number" name="nilai" id=""
                                                                 placeholder="Masukkan Nilai" class="form-control"
                                                                 required>
@@ -111,7 +114,7 @@ tr.hide-table-padding td {
                                                     </tr>
                                                     <tr>
                                                         <td colspan="2">
-                                                            <input type="submit" class="btn btn-primary form-control"
+                                                            <input type="submit" class="btn btn-primary form-control text-white"
                                                                 value="Ubah Nilai">
                                                         </td>
                                                     </tr>
@@ -152,7 +155,7 @@ tr.hide-table-padding td {
                                                     </tr>
                                                     <tr>
                                                         <td colspan="2">
-                                                            <input type="submit" class="btn btn-primary form-control"
+                                                            <input type="submit" class="btn btn-primary form-control text-white"
                                                                 value="Ubah Nilai">
                                                         </td>
                                                     </tr>
