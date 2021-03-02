@@ -983,21 +983,22 @@ class User extends CI_Controller
         $this->load->view('templates_user/footer');
 
     }
-    public function submit_tugas()
+    public function submit_tugas($id_tugas)
     {
         date_default_timezone_set('Asia/Jakarta');
         $data = [
             'id_user' => $this->id,
+            'id_tugas' => $id_tugas,
             'status' => "Selesai",
             'tgl_selesai' => date('Y-m-d H:i:s')
         ];
         $this->M_user->submit_tugas($data);
-        redirect('user');
+        redirect('user/tugas');
     }
-    public function download_tugas()
+    public function download_tugas($id_tugas)
     {
         $this->load->helper('download');
-        $filename = $this->M_user->file_tugas();
+        $filename = $this->M_user->file_tugas($id_tugas);
         $path = file_get_contents(base_url() . "files/tugas/" . $filename); // get file name
         force_download($filename, $path); // start download`
     }
