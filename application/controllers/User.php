@@ -32,8 +32,6 @@ class User extends CI_Controller
         $data['ret'] = $c->num_rows();
         $data['pin'] = $d->num_rows();
         $data['mhs'] = $this->M_user->getMhsById($this->id);
-        $data['isTugas'] = $this->M_user->isTugas();
-        $data['getTugas'] = $this->M_user->getTugas();
 
         $this->load->view('templates/header',$data);
         $this->load->view('user/sidebar');
@@ -937,7 +935,7 @@ class User extends CI_Controller
     {
         $data['value'] = $id;
         $data['val'] = $this->m_user->update_datakeluar($id);
-        $data["title"]="Edit Klasifikassi Surat Keluar";
+        $data["title"]="Edit Klasifikasi Surat Keluar";
         $this->load->view('templates/header',$data);
         $this->load->view('user/sidebar');
        
@@ -975,6 +973,16 @@ class User extends CI_Controller
         redirect("user/buku_agenda");
         # code...
     }
+    public function tugas()
+    {
+        $data["title"]="Tugas";
+        $data['tugas']=$this->M_user->getTugas();
+        $this->load->view('templates/header', $data);
+        $this->load->view('user/sidebar');
+        $this->load->view('user/tugas', $data);
+        $this->load->view('templates_user/footer');
+
+    }
     public function submit_tugas()
     {
         date_default_timezone_set('Asia/Jakarta');
@@ -990,7 +998,7 @@ class User extends CI_Controller
     {
         $this->load->helper('download');
         $filename = $this->M_user->file_tugas();
-        $path = file_get_contents(base_url() . "files/" . $filename); // get file name
+        $path = file_get_contents(base_url() . "files/tugas/" . $filename); // get file name
         force_download($filename, $path); // start download`
     }
 }

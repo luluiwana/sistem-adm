@@ -15,6 +15,8 @@
     <!-- endinject -->
     <!-- Layout style -->
     <link rel="stylesheet" href="<?=base_url('assets/css/demo_1/style.css')?>">
+  <link href="<?= base_url('files/js/summernote/') ?>summernote.css" rel="stylesheet">
+
     <!-- Layout style -->
     <!-- <link rel="shortcut icon" href="<?=base_url('assets/images/favicon.ico')?>" /> -->
 </head>

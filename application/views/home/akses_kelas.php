@@ -3,16 +3,17 @@
         <div class="card">
             <div class="card-header bg-dark text-white">Daftar Tugas</div>
             <div class="card-body">
-                <a href="<?=base_url('home/tambah_tugas/'.$id_kelas)?>" class="btn btn-primary mt-3 mb-3">Tambah Tugas</a>
                 <table class="table table-hover">
-                    <?php foreach($tugas as $row):?>
+                    <?php $i=1; foreach($tugas as $row):?>
                     <tr>
+                    <td><?=$i?>.</td>
                         <td class="table-wrap"><a
                                 href="<?=base_url('home/lihat_tugas/'.$row->id_tugas)?>"><?=$row->judul_tugas?></a></td>
                       
                     </tr>
-                    <?php endforeach;?>
+                    <?php $i++; endforeach;?>
                 </table>
+                <a href="<?=base_url('home/tambah_tugas/'.$id_kelas)?>" class="btn btn-primary mt-3 mb-3">Tambah Tugas</a>
 
             </div>
         </div>

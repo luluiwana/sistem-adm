@@ -24,7 +24,7 @@ function deadline($tgl)
 <div class="card">
     <div class="card-header bg-dark text-white">Hasil Tugas</div>
     <div class="card-body">
-        <table class="table table-hover">
+        <table class="table table-bordered table-responsive">
             <thead>
                 <th>NIM</th>
                 <th>Nama</th>
@@ -42,7 +42,7 @@ function deadline($tgl)
                     <td><?=$row->whatsapp?></td>
                     <td><?= ($row->status=="Selesai") ?  "<label class='badge badge-success'>Selesai</label>" :  "<label class='badge badge-warning'>Proses</label>" ;?></td>
                     <td><?=$row->nilai?></td>
-                    <td><?=$row->komentar?></td>
+                    <td class="table-wrap"><?=$row->komentar?></td>
                     <td><a href="<?=base_url('home/hasil_tugas/'.$row->id.'/'.$row->id_tgs)?>" class="btn btn-sm btn-info p-1">Lihat Hasil<i class="mdi mdi-arrow-right ml-2">
                             </i></a> </td>
                 </tr>

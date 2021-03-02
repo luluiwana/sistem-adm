@@ -7,74 +7,7 @@
 <!-- Begin Page Content -->
 <div class="container-fluid my-auto">
     <!-- Page Heading -->
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card mb-4 py-1 border-left-primary ">
-                <div class="row p-2">
-                    <div class="col-12  pb-0 float-right card-body">
-                        <?php foreach ($mhs as $row) {
-                        $nama = $row->nama;
-                        $status=$row->status;
-                        $nilai = $row->nilai;
-                        $komentar = $row->komentar;
-                         }?>
-                        <h4 class="text-center mb-5"><b>Selamat Datang <?=$nama?> </b></h4>
-
-                        <?php if ($isTugas=="none") :?>
-                        <div class="alert alert-primary p-1 text-center text-dark">
-                            Belum ada tugas
-                        </div>
-                        <?php else :?>
-                        <?php if ($status=="Selesai") :?>
-                        <div class="alert alert-primary p-1 text-center text-dark">
-                            Tugas sudah selesai
-                            <?php if ($nilai==NULL):?>
-                            <br />Menunggu hasil penilaian
-                            <?php endif;?>
-                        </div>
-                        <?php if ($nilai!=NULL):?>
-                        <div class="text-dark p-3 col-md-12" style="border:1px solid lightgray; ">
-                            <?php foreach ($getTugas as $row) :?>
-                            <span style="font-weight: bold;font-size: larger;">Nilai Anda <?=$nilai?></span>
-                            <p><?=$komentar?></p>
-                            <?php endforeach;?>
-                        </div>
-                        <?php endif;?>
-                        <?php else :?>
-                        <div class="alert alert-primary p-1 text-center text-dark">
-                            Anda memiliki 1 tugas baru
-                        </div>
-                        <!-- begin:: detail tugas -->
-                        <div class="text-dark p-3" style="border:1px solid lightgray; ">
-                            <?php foreach ($getTugas as $row) :?>
-                            <span
-                                style="color: black;font-weight: bold;font-size: larger;"><?=$row->judul_tugas?></span>
-                            <p><?=$row->deskripsi_tugas?></p>
-                            <a href="<?=base_url('user/download_tugas')?>" class="btn btn-sm btn-info">Download Lampiran
-                                Tugas</a>
-                            <a href="<?=base_url('user/submit_tugas')?>"
-                                class="btn btn-sm btn-primary float-right">Kumpulkan tugas</a>
-                            <?php endforeach;?>
-                        </div>
-                        <!-- end:: detail tugas -->
-                        <?php endif;?>
-                        <?php endif;?>
-
-                        <!-- begin:: pengaturan alert -->
-                        <!-- <div class="alert alert-danger p-1 text-center text-dark">
-                                Anda belum menyelesaikan tugas   
-                            </div> -->
-                        <!-- end:: pengaturan alert -->
-                        <!-- begin::detail tugas -->
-
-
-
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
+    
     <div class="col-xs-7 mb-3  col-sm-7 mx-auto mt-5">
         <div class="t-header-search-box">
             <div class="input-group">

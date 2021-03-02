@@ -60,7 +60,7 @@
 				<img id="img-hidden" src="<?= base_url('files/img/logo-um.png') ?>" class='d-none'>
 				<div class="form-group col-md-4">
 					<label for="exampleFormControlInput1">Scan Dokumen</label>
-					<button type="button" class="btn btn-primary form-control mb-3" data-toggle="modal" data-target="#scanner">Scan Dokumen</button>
+					<button type="button" class="btn btn-primary form-control mb-3 text-white" data-toggle="modal" data-target="#scanner">Scan Dokumen</button>
 				</div>
 
 			</div>
@@ -81,7 +81,7 @@
 
 				<div class="form-group col-md-4">
 					<label for="exampleFormControlInput1">Keterangan Klasifikasi</label>
-					<button type="button" class="btn btn-primary form-control mb-3" data-toggle="modal" data-target="#modal_klasifikasi">Masukkan Keterangan Klasifikasi</button>
+					<button type="button" class="btn btn-primary form-control mb-3 text-white" data-toggle="modal" data-target="#modal_klasifikasi">Masukkan Keterangan Klasifikasi</button>
 				</div>
 
 			</div>

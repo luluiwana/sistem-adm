@@ -105,7 +105,7 @@ class M_data extends CI_Model
             "surat" => $this->input->post('surat'),
             "tanggal_mulai" => $this->input->post('tanggal_mulai'),
             "tanggal_berakhir" => $this->input->post('tanggal_berakhir'),
-            'id_user' => '0'
+            'id_user' => $this->session->userdata('id')
         ];
 
         $this->db->insert('retensi', $data);
@@ -142,7 +142,7 @@ class M_data extends CI_Model
             'guide' => "",
             'map' => '',
             'nomor_berkas' => '',
-            'id_user' => '0'
+            'id_user' => $this->session->userdata('id')
         ];
 
         $this->db->insert('surat_masuk', $data);
@@ -183,7 +183,7 @@ class M_data extends CI_Model
             'guide' => "",
             'map' => '',
             'nomor_berkas' => '',
-            'id_user' => '0'
+            'id_user' => $this->session->userdata('id')
 
         ];
 
@@ -222,7 +222,7 @@ class M_data extends CI_Model
             "unit_kerja" => $this->input->post('unit_kerja'),
             "tanggal_kembali" => $this->input->post('tanggal_kembali'),
             "dokumen_dipinjam" => $this->input->post('id_kategori'),
-            'id_user' => '0',
+            'id_user' => $this->session->userdata('id'),
             'status' => 'Belum Dikembalikan'
         ];
 
@@ -478,10 +478,10 @@ class M_data extends CI_Model
     public function getSuratMasuk()
     {
         $this->db->select('*');
-        $this->db->from('surat_masuk');
         // $this->db->where('surat_rapat', 0);
         $this->db->join('user', 'surat_masuk.id_user = user.id');
-        return $this->db->get()->result_array();
+        return $this->db->get('surat_masuk')->result_array();
+        
     }
     public function getRapat()
     {
@@ -639,14 +639,11 @@ class M_data extends CI_Model
         $this->db->where('id_tugas', $id);
         $this->db->update('tugas', $data);
     }
-    public function getMhsByTugas($id_tugas,$id_kelas)
+    public function getMhsByTugas($id_tugas)
     {
-        // SELECT * FROM tugas,user left OUTER JOIN nilai ON user.id=nilai.id_user WHERE user.kelas=1 AND tugas.id_tugas=12
-        $this->db->select("*, tugas.id_tugas as id_tgs");
-       $this->db->join("nilai","user.id=nilai.id_user","left outer");
-        $this->db->where("user.kelas",$id_kelas);
-        $this->db->where("tugas.id_tugas",$id_tugas);
-        return $this->db->get("tugas, user")->result();
+        // SELECT * FROM tugas INNER JOIN user ON tugas.id_kelas=user.kelas LEFT OUTER JOIN nilai ON nilai.id_tugas=tugas.id_tugas AND nilai.id_user=user.id WHERE tugas.id_tugas=13
+        $query = $this->db->query("SELECT *, tugas.id_tugas as id_tgs FROM tugas INNER JOIN user ON tugas.id_kelas=user.kelas LEFT OUTER JOIN nilai ON nilai.id_tugas=tugas.id_tugas AND nilai.id_user=user.id WHERE tugas.id_tugas=$id_tugas");
+        return $query->result();
     }
     public function lastTugas()
     {
@@ -687,12 +684,13 @@ class M_data extends CI_Model
     }
     public function getMhsById($id,$id_tugas)
     {
-        $query = $this->db->query("SELECT *, tugas.id_tugas as id_tgs FROM tugas,user as u LEFT OUTER JOIN nilai as n ON u.id=n.id_user WHERE u.id=$id AND tugas.id_tugas=$id_tugas");
+        $query = $this->db->query("SELECT *, tugas.id_tugas as id_tgs FROM tugas INNER JOIN user ON tugas.id_kelas=user.kelas LEFT OUTER JOIN nilai ON nilai.id_tugas=tugas.id_tugas AND nilai.id_user=user.id WHERE tugas.id_tugas=$id_tugas AND user.id=$id");
         return $query->result();    
     }
-    public function updateNilai($data, $id)
+    public function updateNilai($data, $id, $id_tugas)
     {
         $this->db->where('id_user', $id);
+        $this->db->where('id_tugas', $id_tugas);
         $this->db->update('nilai', $data);
     }
     public function addNilai($data)

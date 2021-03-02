@@ -384,32 +384,16 @@ class M_user extends CI_Model
         $query = $this->db->query("SELECT * FROM user as u LEFT OUTER JOIN nilai as n ON u.id=n.id_user WHERE u.id=" . $id);
         return $query->result();
     }
-    public function isTugas() //cek sudah ada tugas atau belum
-    {
-        $this->db->select('count(*) as jml');
-        $row = $this->db->get('tugas')->row();
-        if ($row->jml == 0) {
-            return "none";
-        } else {
-            return "ada";
-        }
-    }
     public function getTugas()
-    {
-        $this->db->select('*');
-        $query = $this->db->get('tugas');
+    {   $id = $this->session->userdata('id');
+        $query = $this->db->query("SELECT *, tugas.id_tugas as id_tgs FROM tugas INNER JOIN user ON tugas.id_kelas=user.kelas LEFT OUTER JOIN nilai ON nilai.id_tugas=tugas.id_tugas AND nilai.id_user=user.id WHERE user.id=$id");
         return $query->result();
     }
     public function submit_tugas($data)
     {
-        $this->db->insert('nilai', $data);
     }
     public function file_tugas()
     {
-        $this->db->select('*');
-        $query = $this->db->get('tugas');
-        $row = $query->row();
-        return $row->lampiran;
     }
 
     public function getUnit()
@@ -426,7 +410,6 @@ class M_user extends CI_Model
     }
 
     public function addUnit($data)
-
     {
         $this->db->insert('unit_kerja', $data);
         return  $this->db->affected_rows();
@@ -434,7 +417,6 @@ class M_user extends CI_Model
     }
 
     public function addMasalah($data)
-
     {
         $this->db->insert('pokok_masalah', $data);
         return  $this->db->affected_rows();

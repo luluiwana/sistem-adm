@@ -47,6 +47,7 @@ class Home extends CI_Controller
     {
         $data['title'] = 'Surat Masuk';
         $data['surat_masuk'] = $this->M_data->getSuratMasuk();
+        // print_r($data['surat_masuk']);die;
         $this->load->view('templates/header', $data);
         $this->load->view('home/sidebar');
         $this->load->view('home/laporan_suratmasuk');
@@ -530,7 +531,7 @@ class Home extends CI_Controller
     //pengaturan instansi
     public function pengaturan_instansi()
     {
-        $data = $this->M_data->get_instansi();
+        $data['instansi'] = $this->M_data->get_instansi();
         $data['title'] = 'Pengaturan Instansi';
         $this->load->view('templates/header', $data);
         $this->load->view('home/sidebar');
@@ -1069,7 +1070,7 @@ class Home extends CI_Controller
         $data['title']="Lihat Tugas";
         $data['tugas']=$this->M_data->getTugasById($id_tugas);
         $data['kelas']=$this->M_data->getKelasByTugas($id_tugas);
-        $data['mhs']=$this->M_data->getMhsByTugas($id_tugas,$data['kelas']);
+        $data['mhs']=$this->M_data->getMhsByTugas($id_tugas);
         $this->load->view('templates/header', $data);
         $this->load->view('home/sidebar');
         $this->load->view('home/lihat_tugas');
@@ -1086,19 +1087,20 @@ class Home extends CI_Controller
         $data['retensi'] = $this->M_data->getRetensiById($id);
         $data['penyusutan'] = $this->M_data->getPenyusutanById($id);
         $data['mhs'] = $this->M_data->getMhsById($id,$id_tugas);
+        // print_r($data['mhs']);die;
         $this->load->view('templates/header', $data);
         $this->load->view('home/sidebar');
         $this->load->view('home/hasil_tugas');
         $this->load->view('templates/footer');
     }
-    public function update_nilai($id)
+    public function update_nilai($id,$id_tugas)
     {
         $data = [
             'nilai' => $this->input->post('nilai'),
             'komentar' => $this->input->post('komentar')
         ];
-        $this->M_data->updateNilai($data, $id);
-                redirect('home/lihat_tugas/'.$data['id_tugas']);
+        $this->M_data->updateNilai($data, $id, $id_tugas);
+        redirect('home/lihat_tugas/'.$id_tugas);
     }
     public function tambah_nilai()
     {

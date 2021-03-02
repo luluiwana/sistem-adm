@@ -67,14 +67,19 @@
                         <td><?=$row->username?></td>
                     </tr>
                     <tr>
-                        <td>Kelas</td>
-                        <td>:</td>
-                        <td><?=$row->kelas?></td>
-                    </tr>
-                    <tr>
                         <td>Tanggal Selesai</td>
                         <td>:</td>
                         <td><?=$status?></td>
+                    </tr>
+                    <tr>
+                        <td>Nilai</td>
+                        <td>:</td>
+                        <td><?=$row->nilai?></td>
+                    </tr>
+                    <tr>
+                        <td>Komentar</td>
+                        <td>:</td>
+                        <td><?=$row->komentar?></td>
                     </tr>
                     <tr>
                         <td rowspan="3">
@@ -136,7 +141,7 @@
                                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                                         </div>
                                         <div class="modal-body">
-                                            <form action="<?=base_url('home/update_nilai/'.$row->id)?>" method="post">
+                                            <form action="<?=base_url('home/update_nilai/'.$row->id.'/'.$row->id_tgs)?>" method="post">
                                                 <table class="table table-borderless">
                                                     <tr>
                                                         <td>Nilai</td>
@@ -187,9 +192,7 @@
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="tab" href="#retensi1">Retensi</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#penyusutan">Penyusutan</a>
-                    </li>
+                    
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="tab" href="#peminjaman">Peminjaman</a>
                     </li>
@@ -330,28 +333,7 @@
                             </table>
                         </div>
                     </div>
-                    <div class="tab-pane container fade" id="penyusutan">
-                        <div class="table-responsive" style="padding-top:20px">
-                            <h5 class="text-center" style="font-weight:bold; color:black">Penyusutan</h5>
-                            <table class="table table-bordered" width="100%" cellspacing="0">
-                                <thead>
-                                    <tr style="font-weight:bold">
-                                        <td>No urut</td>
-                                        <td>Perihal Surat</td>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php foreach ($penyusutan as $dt) : ?>
-                                        <tr>
-                                            <td><?php echo $dt->no_urut; ?></td>
-                                            <td><?php echo $dt->surat; ?></td>
-                                        </tr>
-
-                                    <?php endforeach; ?>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                   
                     <div class="tab-pane container fade" id="peminjaman">
                         <div class="table-responsive" style="padding-top:20px">
                             <h5 class="text-center" style="font-weight:bold; color:black">Peminjaman</h5>

@@ -1,18 +1,15 @@
         <style>
-        td.details-control {
+td.details-control {
     background: url('../resources/details_open.png') no-repeat center center;
     cursor: pointer;
 }
+
 tr.details td.details-control {
     background: url('../resources/details_close.png') no-repeat center center;
 }
         </style>
         <!-- Begin Page Content -->
         <div class="container-fluid">
-
-            <div class="alert alert-success" role="alert">
-                Data Surat Masuk
-            </div>
 
             <?php
           if ($this->session->flashdata('success')) {
@@ -28,17 +25,18 @@ tr.details td.details-control {
                 <!-- Page Heading -->
                 <!-- DataTales Example -->
                 <div class="card shadow mb-4">
-                    <div class="card-header py-3">
-                        <h6 class="m-1 font-weight-bold text-primary"></h6><br>
-                        <a href="<?php echo base_url('home/form_suratmasuk') ?>"
-                            class="btn btn-primary btn-sm float-left">Tambah Data</a>
+                    <div class="card-header py-3 bg-dark text-white">
+                        Data Surat Masuk
+
                     </div>
                     <div class="card-body">
+                        <a href="<?php echo base_url('home/form_suratmasuk') ?>"
+                            class="btn btn-primary btn-sm float-left">Tambah Data</a>
                         <div class="table-responsive">
                             <table class="table table-bordered" id="surat_masuk" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
-                                        <td>no urut</td>
+                                        <td>No urut</td>
                                         <td>Editor</td>
                                         <td>Dari</td>
                                         <td>Alamat</td>
@@ -53,7 +51,7 @@ tr.details td.details-control {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <!-- <?php foreach ($surat_masuk as $dt) : ?>
+                                    <?php foreach ($surat_masuk as $dt) : ?>
                                     <tr>
                                         <td><?php echo $dt['no_urut']; ?></td>
                                         <td><?php echo $dt['nama']; ?></td>
@@ -74,7 +72,7 @@ tr.details td.details-control {
                                         </td>
                                     </tr>
 
-                                    <?php endforeach; ?> -->
+                                    <?php endforeach; ?>
                                 </tbody>
                             </table>
                         </div>
@@ -86,32 +84,29 @@ tr.details td.details-control {
         </div>
         <!-- End of Main Content -->
 
-<script type="text/javascript">
-    var table;
-    $(document).ready(function() {
- 
-        //datatables
-        table = $('#surat_masuk').DataTable({ 
- 
-            "processing": true, 
-            "serverSide": true, 
-            "order": [], 
-             
-            "ajax": {
-                "url": "<?php echo site_url('home/get_data_user')?>",
-                "type": "POST"
-            },
- 
-             
-            "columnDefs": [
-            { 
-                "targets": [ 0 ], 
-                "orderable": false, 
-            },
-            ],
- 
-        });
- 
+        <script type="text/javascript">
+var table;
+$(document).ready(function() {
+
+    //datatables
+    table = $('#surat_masuk').DataTable({
+
+        "processing": true,
+        "serverSide": true,
+        "order": [],
+
+        "ajax": {
+            "url": "<?php echo site_url('home/get_data_user')?>",
+            "type": "POST"
+        },
+
+
+        "columnDefs": [{
+            "targets": [0],
+            "orderable": false,
+        }, ],
+
     });
- 
-</script>
+
+});
+        </script>
