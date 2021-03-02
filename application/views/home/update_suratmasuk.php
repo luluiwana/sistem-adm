@@ -116,7 +116,7 @@
 
                     <div class="form-group">
                         <label for="exampleFormControlInput1">Isi Ringkasan</label>
-                        <textarea class="summernote" name="editordata" ><?=$surat_masuk['isi_ringkasan']?></textarea>
+                        <textarea id="summernote" name="editordata" ><?=$surat_masuk['isi_ringkasan']?></textarea>
                     </div>
                     <div style="margin:0">
                         <input type="hidden" name="rapat" value="0" checked />

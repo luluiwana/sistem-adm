@@ -351,8 +351,9 @@ class M_user extends CI_Model
         $this->db->join('user', 'surat_masuk.id_user = user.id ');
         return $this->db->get()->result_array();
     }
-    public function getRapat($id)
+    public function getRapat()
     {
+        $id = $this->session->userdata('id');
         $query = $this->db->query("select * FROM surat_masuk as m JOIN user as u WHERE m.id_user=u.id AND m.surat_rapat=1 AND m.id_user=$id  UNION SELECT * FROM surat_keluar as k JOIN user as u WHERE k.id_user=u.id AND k.surat_rapat=1 and k.id_user=$id ORDER BY tgl_rapat  DESC ");
 
 

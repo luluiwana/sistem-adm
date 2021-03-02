@@ -58,7 +58,7 @@ $('#summernote').summernote({
     height: 100,
 });
 
-$("#summernote").summernote("code", "<?php if (!empty($text['isi_ringkasan'])) echo $text['isi_ringkasan']; ?>");
+
  </script>
 
  <script>
