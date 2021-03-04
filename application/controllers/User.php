@@ -37,7 +37,7 @@ class User extends CI_Controller
         $this->load->view('user/sidebar');
         
         $this->load->view('user/index', $data);
-        $this->load->view('templates_user/footer');
+        $this->load->view('templates/footer');
     }
 
     public function laporan_suratmasuk()
@@ -48,7 +48,7 @@ class User extends CI_Controller
         $this->load->view('user/sidebar');
        
         $this->load->view('user/laporan_suratmasuk', $data);
-        $this->load->view('templates_user/footer');
+        $this->load->view('templates/footer');
     }
     public function rapat_pimpinan()
     {
@@ -58,7 +58,7 @@ class User extends CI_Controller
         $this->load->view('user/sidebar');
         
         $this->load->view('user/laporan_rapat', $data);
-        $this->load->view('templates_user/footer');
+        $this->load->view('templates/footer');
     }
     public function rapat_exp($time)
     {
@@ -80,7 +80,7 @@ class User extends CI_Controller
         $this->load->view('user/sidebar');
        
         $this->load->view('user/laporan_suratkeluar', $data);
-        $this->load->view('templates_user/footer');
+        $this->load->view('templates/footer');
     }
 
     public function form_suratmasuk()
@@ -91,7 +91,7 @@ class User extends CI_Controller
         $this->load->view('user/sidebar');
        
         $this->load->view('user/form_suratmasuk', $data);
-        $this->load->view('templates_user/footer');
+        $this->load->view('templates/footer');
     }
 
     public function form_suratkeluar()
@@ -102,7 +102,7 @@ class User extends CI_Controller
         $this->load->view('user/sidebar');
        
         $this->load->view('user/form_suratkeluar', $data);
-        $this->load->view('templates_user/footer');
+        $this->load->view('templates/footer');
     }
 
     public function proses_tambahdatamasuk()
@@ -295,7 +295,7 @@ class User extends CI_Controller
         $this->load->view('user/sidebar');
        
         $this->load->view('user/update_suratkeluar', $data);
-        $this->load->view('templates_user/footer', $data);
+        $this->load->view('templates/footer', $data);
     }
 
     public function update_datamasuk($no_urut)
@@ -307,7 +307,7 @@ class User extends CI_Controller
         $this->load->view('user/sidebar');
        
         $this->load->view('user/update_suratmasuk', $data);
-        $this->load->view('templates_user/footer', $data);
+        $this->load->view('templates/footer', $data);
     }
 
     public function disposisi($id)
@@ -318,7 +318,7 @@ class User extends CI_Controller
         $this->load->view('user/sidebar');
        
         $this->load->view('user/disposisi', $data);
-        $this->load->view('templates_user/footer');
+        $this->load->view('templates/footer');
     }
 
     public function export_disposisi()
@@ -362,8 +362,8 @@ class User extends CI_Controller
         $this->load->view('templates/header',$data);
         $this->load->view('user/sidebar');
        
-        $this->load->view('templates_user/pinjam', $data);
-        $this->load->view('templates_user/footer');
+        $this->load->view('templates/pinjam', $data);
+        $this->load->view('templates/footer');
     }
 
     public function proses_tambahdatakeluar()
@@ -403,7 +403,7 @@ class User extends CI_Controller
         $this->load->view('user/sidebar');
        
         $this->load->view('user/jadwal_retensi', $data);
-        $this->load->view('templates_user/footer');
+        $this->load->view('templates/footer');
     }
 
     public function penyusutan()
@@ -414,7 +414,7 @@ class User extends CI_Controller
         $this->load->view('user/sidebar');
        
         $this->load->view('user/penyusutan', $data);
-        $this->load->view('templates_user/footer');
+        $this->load->view('templates/footer');
     }
 
     public function form_penyusutan()
@@ -425,7 +425,7 @@ class User extends CI_Controller
         $this->load->view('user/sidebar');
        
         $this->load->view('user/form_penyusutan', $data);
-        $this->load->view('templates_user/footer');
+        $this->load->view('templates/footer');
     }
 
     public function form_jadwalretensi()
@@ -436,7 +436,7 @@ class User extends CI_Controller
         $this->load->view('user/sidebar');
        
         $this->load->view('user/form_jadwalretensi', $data);
-        $this->load->view('templates_user/footer');
+        $this->load->view('templates/footer');
     }
 
     public function proses_tambahpenyusutan()
@@ -459,7 +459,7 @@ class User extends CI_Controller
         $this->load->view('user/sidebar');
        
         $this->load->view('user/form_pinjamarsip', $data);
-        $this->load->view('templates_user/footer');
+        $this->load->view('templates/footer');
     }
 
     public function proses_tambahpinjamdata()
@@ -478,7 +478,7 @@ class User extends CI_Controller
         $this->load->view('user/sidebar');
        
         $this->load->view('user/buku_agenda', $data);
-        $this->load->view('templates_user/footer');
+        $this->load->view('templates/footer');
     }
 
     // edit lokasi map
@@ -491,7 +491,7 @@ class User extends CI_Controller
         $this->load->view('user/sidebar');
        
         $this->load->view('user/edit_map', $data);
-        $this->load->view('templates_user/footer');
+        $this->load->view('templates/footer');
         # code...
     }
     public function edit_lokasi_sk($id)
@@ -503,7 +503,7 @@ class User extends CI_Controller
         $this->load->view('user/sidebar');
        
         $this->load->view('user/edit_map_sk', $data);
-        $this->load->view('templates_user/footer');
+        $this->load->view('templates/footer');
         # code...
     }
 
@@ -685,7 +685,7 @@ class User extends CI_Controller
             $this->load->view('templates/header',$data);
             $this->load->view('user/sidebar');
             $this->load->view('user/sunting');
-            $this->load->view('templates_user/footer');
+            $this->load->view('templates/footer');
         } else {
             $username    =     $this->input->post('name');
             $password    =     $this->input->post('password1');
@@ -928,7 +928,7 @@ class User extends CI_Controller
         $this->load->view('user/sidebar');
        
         $this->load->view('user/klasifikasi_sm', $data);
-        $this->load->view('templates_user/footer');
+        $this->load->view('templates/footer');
         # code...
     }
     public function edit_klasisfikasi_sk($id)
@@ -940,7 +940,7 @@ class User extends CI_Controller
         $this->load->view('user/sidebar');
        
         $this->load->view('user/klasifikasi_sk', $data);
-        $this->load->view('templates_user/footer');
+        $this->load->view('templates/footer');
         # code...
     }
 
@@ -980,7 +980,7 @@ class User extends CI_Controller
         $this->load->view('templates/header', $data);
         $this->load->view('user/sidebar');
         $this->load->view('user/tugas', $data);
-        $this->load->view('templates_user/footer');
+        $this->load->view('templates/footer');
 
     }
     public function submit_tugas($id_tugas)

@@ -299,5 +299,6 @@ $('#disposisi_category').on('change', function() {
         console.log(nilai_pinjam);
     });
 </script>
+</body>
 
 </html>
