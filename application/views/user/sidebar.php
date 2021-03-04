@@ -1,10 +1,9 @@
-<?php
-$username = $this->session->userdata('username');
-?>
+
    <!-- partial:partials/_sidebar.html -->
         <div class="sidebar">
             <div class="user-profile">
                 <div class="display-avatar animated-avatar">
+                <?php $username = $this->session->userdata('username');?>
                     <img class="profile-img img-lg rounded-circle" src="https://api.um.ac.id/akademik/operasional/GetFoto.ptikUM?nim=<?=$username?>&angkatan=20<?=substr($username,0,2)?>"
                         alt="profile image">
                 </div>

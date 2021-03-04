@@ -387,14 +387,18 @@ class M_user extends CI_Model
     }
     public function getTugas()
     {   $id = $this->session->userdata('id');
-        $query = $this->db->query("SELECT *, tugas.id_tugas as id_tgs FROM tugas INNER JOIN user ON tugas.id_kelas=user.kelas LEFT OUTER JOIN nilai ON nilai.id_tugas=tugas.id_tugas AND nilai.id_user=user.id WHERE user.id=$id");
+        $query = $this->db->query("SELECT *, tugas.id_tugas as id_tgs FROM tugas INNER JOIN user ON tugas.id_kelas=user.kelas LEFT OUTER JOIN nilai ON nilai.id_tugas=tugas.id_tugas AND nilai.id_user=user.id WHERE user.id=$id order by tugas.id_tugas desc");
         return $query->result();
     }
-    public function submit_tugas($data)
-    {
+    public function submit_tugas($data){
+        $this->db->insert('nilai',$data);
+    
     }
-    public function file_tugas()
+    public function file_tugas($id_tugas)
     {
+        $this->db->where("id_tugas",$id_tugas);
+        $row=$this->db->get("tugas")->row();
+        return $row->lampiran;
     }
 
     public function getUnit()

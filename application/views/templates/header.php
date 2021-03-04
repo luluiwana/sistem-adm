@@ -27,10 +27,7 @@
     <!-- partial:partials/_header.html -->
     <nav class="t-header">
         <div class="t-header-brand-wrapper">
-            <a href="index.html">
-                <img class="logo" src="<?= base_url('assets/images/logo.svg') ?>" alt="">
-                <img class="logo-mini" src="<?= base_url('assets/images/logo_mini.svg') ?>" alt="">
-            </a>
+            <img class="logo" src="<?= base_url('assets/images/logo.png') ?>" alt="">
         </div>
         <div class="t-header-content-wrapper">
             <div class="t-header-content">
