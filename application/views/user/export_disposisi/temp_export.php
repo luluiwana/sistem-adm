@@ -113,35 +113,35 @@
             <table border="0" width="575">
                 <tr>
                     <td style="vertical-align: top;">
-                        1. Mohon mendapat saran/masukan <br>
-                        2. Mohon Pentunjuk <br>
-                        3. Mohon Keputusan <br>
-                        4. Untuk Perhatian <br>
-                        5. Siapkan Konsep <br>
-                        6. Siapkan Laporan <br>
-                        7. Sudah diselesaikan <br>
-                        8. Edarkan / Kirimkan <br>
-                        9. Gandakan <br>
-                        10. Simpan / Arsip <br>
-                        11. Tunggu <br>
-                        12. Diajukan <br>
-                        13. Mohon Paragraf<br>
-                        14. Mohon Tanda Tangan <br>
+                        <input type="checkbox" style="margin-top:5px">
+                        Mohon mendapat saran/masukan <br Mohon Pentunjuk <br>
+                        <input type="checkbox" style="margin-top:5px"> Mohon Keputusan <br>
+                        <input type="checkbox" style="margin-top:5px"> Untuk Perhatian <br>
+                        <input type="checkbox" style="margin-top:5px"> Siapkan Konsep <br>
+                        <input type="checkbox" style="margin-top:5px"> Siapkan Laporan <br>
+                        <input type="checkbox" style="margin-top:5px"> Sudah diselesaikan <br>
+                        <input type="checkbox" style="margin-top:5px"> Edarkan / Kirimkan <br>
+                        <input type="checkbox" style="margin-top:5px"> Gandakan <br>
+                        <input type="checkbox" style="margin-top:5px"> Simpan / Arsip <br>
+                        <input type="checkbox" style="margin-top:5px"> Tunggu <br>
+                        <input type="checkbox" style="margin-top:5px"> Diajukan <br>
+                        <input type="checkbox" style="margin-top:5px"> Mohon Paragraf<br>
+                        <input type="checkbox" style="margin-top:5px"> Mohon Tanda Tangan <br>
                     </td>
                     <td style="vertical-align: top;">
-                        15. Selesaikan Sesuai Konsep<br>
-                        16. Setuju Diselesaikan</span> <br>
-                        17. Teliti Diselesaikan<br>
-                        18. Untuk Datan<br>
-                        19. Mohon Koreksi Konsep<br>
-                        20. Mohon Periksa Catatan<br>
-                        21. Teliti / Ikuti Perkembangan<br>
-                        22. Harap Dicek & Dilaporkan<br>
-                        23. Sudah Diketahuin<br>
-                        24. Sudah di Tanda Tangani<br>
-                        25. Mohon Diproses<br>
-                        26. Mohon Persetujuan<br>
-                        27. Mohon SPPD<br>
+                        <input type="checkbox" style="margin-top:5px"> Selesaikan Sesuai Konsep<br>
+                        <input type="checkbox" style="margin-top:5px"> Setuju Diselesaikan</span> <br>
+                        <input type="checkbox" style="margin-top:5px"> Teliti Diselesaikan<br>
+                        <input type="checkbox" style="margin-top:5px"> Untuk Datang<br>
+                        <input type="checkbox" style="margin-top:5px"> Mohon Koreksi Konsep<br>
+                        <input type="checkbox" style="margin-top:5px"> Mohon Periksa Catatan<br>
+                        <input type="checkbox" style="margin-top:5px"> Teliti / Ikuti Perkembangan<br>
+                        <input type="checkbox" style="margin-top:5px"> Harap Dicek & Dilaporkan<br>
+                        <input type="checkbox" style="margin-top:5px"> Sudah Diketahui<br>
+                        <input type="checkbox" style="margin-top:5px"> Sudah di Tanda Tangani<br>
+                        <input type="checkbox" style="margin-top:5px"> Mohon Diproses<br>
+                        <input type="checkbox" style="margin-top:5px"> Mohon Persetujuan<br>
+                        <input type="checkbox" style="margin-top:5px"> Mohon SPPD<br>
                     </td>
                 </tr>
 

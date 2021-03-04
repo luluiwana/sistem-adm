@@ -21,7 +21,7 @@ class User extends CI_Controller
     }
     public function index()
     {
-        $data["title"]="Dashboard";
+        $data["title"] = "Dashboard";
         $a = $this->db->get_where('surat_masuk', array('id_user' => $this->id));
         $b = $this->db->get_where('surat_keluar', array('id_user' => $this->id));
         $c = $this->db->get_where('retensi', array('id_user' => $this->id));
@@ -33,30 +33,30 @@ class User extends CI_Controller
         $data['pin'] = $d->num_rows();
         $data['mhs'] = $this->M_user->getMhsById($this->id);
 
-        $this->load->view('templates/header',$data);
+        $this->load->view('templates/header', $data);
         $this->load->view('user/sidebar');
-        
+
         $this->load->view('user/index', $data);
         $this->load->view('templates_user/footer');
     }
 
     public function laporan_suratmasuk()
     {
-        $data["title"]="Surat Masuk";
+        $data["title"] = "Surat Masuk";
         $data['surat_masuk'] = $this->m_user->getSuratMasuk($this->id);
-        $this->load->view('templates/header',$data);
+        $this->load->view('templates/header', $data);
         $this->load->view('user/sidebar');
-       
+
         $this->load->view('user/laporan_suratmasuk', $data);
         $this->load->view('templates_user/footer');
     }
     public function rapat_pimpinan()
     {
-        $data["title"]="Buku Agenda Rapat";
+        $data["title"] = "Buku Agenda Rapat";
         $data['surat_masuk'] = $this->M_user->getRapat();
-        $this->load->view('templates/header',$data);
+        $this->load->view('templates/header', $data);
         $this->load->view('user/sidebar');
-        
+
         $this->load->view('user/laporan_rapat', $data);
         $this->load->view('templates_user/footer');
     }
@@ -74,33 +74,33 @@ class User extends CI_Controller
 
     public function laporan_suratkeluar()
     {
-        $data["title"]="Surat Keluar";
+        $data["title"] = "Surat Keluar";
         $data['surat_keluar'] = $this->m_user->getSuratKeluar($this->id);
-        $this->load->view('templates/header',$data);
+        $this->load->view('templates/header', $data);
         $this->load->view('user/sidebar');
-       
+
         $this->load->view('user/laporan_suratkeluar', $data);
         $this->load->view('templates_user/footer');
     }
 
     public function form_suratmasuk()
     {
-        $data["title"]="Tambah Surat Masuk";
+        $data["title"] = "Tambah Surat Masuk";
         $data['surat_masuk'] = $this->m_user->Laporan_SuratMasuk($this->id);
-        $this->load->view('templates/header',$data);
+        $this->load->view('templates/header', $data);
         $this->load->view('user/sidebar');
-       
+
         $this->load->view('user/form_suratmasuk', $data);
         $this->load->view('templates_user/footer');
     }
 
     public function form_suratkeluar()
     {
-        $data["title"]="Tambah Surat Keluar";
+        $data["title"] = "Tambah Surat Keluar";
         $data['surat_masuk'] = $this->m_user->Laporan_SuratKeluar($this->id);
-        $this->load->view('templates/header',$data);
+        $this->load->view('templates/header', $data);
         $this->load->view('user/sidebar');
-       
+
         $this->load->view('user/form_suratkeluar', $data);
         $this->load->view('templates_user/footer');
     }
@@ -288,35 +288,35 @@ class User extends CI_Controller
 
     public function update_datakeluar($no_urut)
     {
-        $data["title"]="Edit Surat Keluar";
+        $data["title"] = "Edit Surat Keluar";
         $data['surat_masuk'] = $this->m_user->update_datakeluar($no_urut);
         $data['text'] = $this->m_user->update_datakeluar($no_urut);
-        $this->load->view('templates/header',$data);
+        $this->load->view('templates/header', $data);
         $this->load->view('user/sidebar');
-       
+
         $this->load->view('user/update_suratkeluar', $data);
         $this->load->view('templates_user/footer', $data);
     }
 
     public function update_datamasuk($no_urut)
     {
-        $data["title"]="Edit Surat Masuk";
+        $data["title"] = "Edit Surat Masuk";
         $data['surat_masuk'] = $this->m_user->update_datamasuk($no_urut);
         $data['text'] = $this->m_user->update_datamasuk($no_urut);
-        $this->load->view('templates/header',$data);
+        $this->load->view('templates/header', $data);
         $this->load->view('user/sidebar');
-       
+
         $this->load->view('user/update_suratmasuk', $data);
         $this->load->view('templates_user/footer', $data);
     }
 
     public function disposisi($id)
     {
-        $data["title"]="Disposisi";
+        $data["title"] = "Disposisi";
         $data['id'] = $id;
-        $this->load->view('templates/header',$data);
+        $this->load->view('templates/header', $data);
         $this->load->view('user/sidebar');
-       
+
         $this->load->view('user/disposisi', $data);
         $this->load->view('templates_user/footer');
     }
@@ -357,11 +357,11 @@ class User extends CI_Controller
 
     public function pinjam()
     {
-        $data["title"]="Rekap Surat Dipinjam";
+        $data["title"] = "Rekap Surat Dipinjam";
         $data['pinjam'] = $this->m_user->suratdipinjam();
-        $this->load->view('templates/header',$data);
+        $this->load->view('templates/header', $data);
         $this->load->view('user/sidebar');
-       
+
         $this->load->view('templates_user/pinjam', $data);
         $this->load->view('templates_user/footer');
     }
@@ -397,44 +397,44 @@ class User extends CI_Controller
 
     public function jadwal_retensi()
     {
-        $data["title"]="Jadwal Retensi Arsip";
+        $data["title"] = "Jadwal Retensi Arsip";
         $data['retensi'] = $this->m_user->Laporan_dataretensi($this->id);
-        $this->load->view('templates/header',$data);
+        $this->load->view('templates/header', $data);
         $this->load->view('user/sidebar');
-       
+
         $this->load->view('user/jadwal_retensi', $data);
         $this->load->view('templates_user/footer');
     }
 
     public function penyusutan()
     {
-        $data["title"]="Penyusutan";
+        $data["title"] = "Penyusutan";
         $data['penyusutan'] = $this->m_user->Laporan_penyusutan($this->id);
-        $this->load->view('templates/header',$data);
+        $this->load->view('templates/header', $data);
         $this->load->view('user/sidebar');
-       
+
         $this->load->view('user/penyusutan', $data);
         $this->load->view('templates_user/footer');
     }
 
     public function form_penyusutan()
     {
-        $data["title"]="Tambah Penyusutan";
+        $data["title"] = "Tambah Penyusutan";
         $data['penyusutan'] = $this->m_user->getpenyusutan();
-        $this->load->view('templates/header',$data);
+        $this->load->view('templates/header', $data);
         $this->load->view('user/sidebar');
-       
+
         $this->load->view('user/form_penyusutan', $data);
         $this->load->view('templates_user/footer');
     }
 
     public function form_jadwalretensi()
     {
-        $data["title"]="Tambah Retensi";
+        $data["title"] = "Tambah Retensi";
         $data['penyusutan'] = $this->m_user->getpenyusutan();
-        $this->load->view('templates/header',$data);
+        $this->load->view('templates/header', $data);
         $this->load->view('user/sidebar');
-       
+
         $this->load->view('user/form_jadwalretensi', $data);
         $this->load->view('templates_user/footer');
     }
@@ -453,11 +453,12 @@ class User extends CI_Controller
 
     public function form_pinjamarsip()
     {
-        $data["title"]="Tambah Arsip Dipinjam";
-        $data['datakategoripinjam'] = $this->m_user->getpinjam();
-        $this->load->view('templates/header',$data);
+        $data["title"] = "Tambah Arsip Dipinjam";
+        $data['datakategoripinjam'] = $this->m_user->getpinjam($this->id);
+        $data['datakategoripinjam_2'] = $this->m_user->getpinjam_k($this->id);
+        $this->load->view('templates/header', $data);
         $this->load->view('user/sidebar');
-       
+
         $this->load->view('user/form_pinjamarsip', $data);
         $this->load->view('templates_user/footer');
     }
@@ -470,13 +471,13 @@ class User extends CI_Controller
 
     public function buku_agenda()
     {
-        $data["title"]="Buku Agenda";  
+        $data["title"] = "Buku Agenda";
         $data['surat_masuk'] = $this->m_user->getSuratMasuk($this->id);
         $data['surat_keluar'] = $this->m_user->getSuratKeluar($this->id);
         $data['instansi'] = $this->m_user->get_instansi();
-        $this->load->view('templates/header',$data);
+        $this->load->view('templates/header', $data);
         $this->load->view('user/sidebar');
-       
+
         $this->load->view('user/buku_agenda', $data);
         $this->load->view('templates_user/footer');
     }
@@ -484,24 +485,24 @@ class User extends CI_Controller
     // edit lokasi map
     public function edit_lokasi($id)
     {
-        $data["title"]="Edit Lokasi";
+        $data["title"] = "Edit Lokasi";
         $data['val'] = $this->m_user->update_datamasuk($id);
         $data['value'] = $id;
-        $this->load->view('templates/header',$data);
+        $this->load->view('templates/header', $data);
         $this->load->view('user/sidebar');
-       
+
         $this->load->view('user/edit_map', $data);
         $this->load->view('templates_user/footer');
         # code...
     }
     public function edit_lokasi_sk($id)
     {
-        $data["title"]="Edit LOkasi Surat Keluar";
+        $data["title"] = "Edit LOkasi Surat Keluar";
         $data['value'] = $id;
         $data['val'] = $this->m_user->update_datakeluar($id);
-        $this->load->view('templates/header',$data);
+        $this->load->view('templates/header', $data);
         $this->load->view('user/sidebar');
-       
+
         $this->load->view('user/edit_map_sk', $data);
         $this->load->view('templates_user/footer');
         # code...
@@ -681,8 +682,8 @@ class User extends CI_Controller
         //    $this->form_validation->set_rules('file', 'File', 'required|trim');
 
         if ($this->form_validation->run() == false) {
-            $data["title"]="Edit Profil";
-            $this->load->view('templates/header',$data);
+            $data["title"] = "Edit Profil";
+            $this->load->view('templates/header', $data);
             $this->load->view('user/sidebar');
             $this->load->view('user/sunting');
             $this->load->view('templates_user/footer');
@@ -921,12 +922,12 @@ class User extends CI_Controller
 
     public function edit_klasisfikasi_sm($id)
     {
-        $data["title"]="Edit Klasifikasi Surat Masuk";
+        $data["title"] = "Edit Klasifikasi Surat Masuk";
         $data['value'] = $id;
         $data['val'] = $this->m_user->update_datamasuk($id);
-        $this->load->view('templates/header',$data);
+        $this->load->view('templates/header', $data);
         $this->load->view('user/sidebar');
-       
+
         $this->load->view('user/klasifikasi_sm', $data);
         $this->load->view('templates_user/footer');
         # code...
@@ -935,10 +936,10 @@ class User extends CI_Controller
     {
         $data['value'] = $id;
         $data['val'] = $this->m_user->update_datakeluar($id);
-        $data["title"]="Edit Klasifikasi Surat Keluar";
-        $this->load->view('templates/header',$data);
+        $data["title"] = "Edit Klasifikasi Surat Keluar";
+        $this->load->view('templates/header', $data);
         $this->load->view('user/sidebar');
-       
+
         $this->load->view('user/klasifikasi_sk', $data);
         $this->load->view('templates_user/footer');
         # code...
@@ -975,13 +976,12 @@ class User extends CI_Controller
     }
     public function tugas()
     {
-        $data["title"]="Tugas";
-        $data['tugas']=$this->M_user->getTugas();
+        $data["title"] = "Tugas";
+        $data['tugas'] = $this->M_user->getTugas();
         $this->load->view('templates/header', $data);
         $this->load->view('user/sidebar');
         $this->load->view('user/tugas', $data);
         $this->load->view('templates_user/footer');
-
     }
     public function submit_tugas()
     {

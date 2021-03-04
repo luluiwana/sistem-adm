@@ -37,12 +37,13 @@
                     <table class="table table-hover" id="jadwal_rapat" width="100%" cellspacing="0">
                         <thead>
                             <tr>
+                                <td><i class="fa fa-"></i></td>
                                 <td>No</td>
                                 <td>Tanggal</td>
                                 <td>Pukul</td>
                                 <td>Kegiatan</td>
                                 <td>Tempat</td>
-                                <td>Keterangan</td>
+
                                 <td colspan="1">Setting</td>
                             </tr>
                         </thead>
@@ -60,13 +61,13 @@
 
                                     <?php if ($dt->dari == "" || $dt->dari == "-") { ?>
                                         <td>
-                                            <a href="<?php echo base_url() ?>home/update_datakeluar/<?php echo $dt->no_urut; ?>" class="badge badge-primary"> Edit </a>
-                                            <a href="<?php echo base_url() ?>home/hapus_datakeluar<?php echo $dt->no_urut; ?>" class="badge badge-danger"> Hapus </a>
+                                            <a href="<?php echo base_url() ?>user/update_datakeluar/<?php echo $dt->no_urut; ?>" class="badge badge-primary"> Edit </a>
+                                            <a href="<?php echo base_url() ?>user/hapus_datakeluar<?php echo $dt->no_urut; ?>" class="badge badge-danger"> Hapus </a>
                                         </td>
                                     <?php } else { ?>
                                         <td>
-                                            <a href="<?php echo base_url() ?>home/update_datamasuk/<?php echo $dt->no_urut; ?>" class="badge badge-primary"> Edit </a>
-                                            <a href="<?php echo base_url() ?>home/hapus_datamasuk/<?php echo $dt->no_urut; ?>" class="badge badge-danger"> Hapus </a>
+                                            <a href="<?php echo base_url() ?>user/update_datamasuk/<?php echo $dt->no_urut; ?>" class="badge badge-primary"> Edit </a>
+                                            <a href="<?php echo base_url() ?>user/hapus_datamasuk/<?php echo $dt->no_urut; ?>" class="badge badge-danger"> Hapus </a>
                                         </td>
                                     <?php } ?>
                                 </tr>

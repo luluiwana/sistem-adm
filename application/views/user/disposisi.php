@@ -114,6 +114,19 @@
 				<option value="12">12. Mohon Paraf</option>
 				<option value="13">13. Diajukan</option>
 				<option value="14">14. Mohon Tanda Tangan</option>
+				<option value="15">15. Selesaikan Sesuai Konsep</option>
+				<option value="16">16. Setuju Diselesaikan</option>
+				<option value="17">17. Teliti Diselesaikan</option>
+				<option value="18">18. Untuk Datang</option>
+				<option value="19">19. Mohon Koreksi Konsep</option>
+				<option value="20">20. Mohon Periksa Catatan</option>
+				<option value="21">21. Teliti / Ikuti Perkembangan</option>
+				<option value="22">22. Harap Dicek & Dilaporkan</option>
+				<option value="23">23. Sudah Diketahui</option>
+				<option value="24">24. Sudah di Tanda Tangani</option>
+				<option value="25">25. Mohon Diproses</option>
+				<option value="26">26. Mohon Persetujuan</option>
+				<option value="27">27. TMohon SPPD</option>
 			</select>
 		</div>
 

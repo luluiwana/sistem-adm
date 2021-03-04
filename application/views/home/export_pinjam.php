@@ -42,7 +42,7 @@ $str = date('Y-m-d')
     <tr>
         <td></td>
         <td>Tanda Tangan</td>
-        <td colspan="2"></td>
+        <td height='35px' colspan="2"></td>
     </tr>
     <tr>
         <td colspan="4">
@@ -109,7 +109,7 @@ $str = date('Y-m-d')
     <tr>
         <td></td>
         <td>Tanda Tangan</td>
-        <td colspan="2"></td>
+        <td height='35px' colspan="2"></td>
     </tr>
     <tr>
         <td colspan="4">
@@ -174,7 +174,7 @@ $str = date('Y-m-d')
     <tr>
         <td></td>
         <td>Tanda Tangan</td>
-        <td colspan="2"></td>
+        <td height='35px' colspan="2"></td>
     </tr>
     <tr>
         <td colspan="4">

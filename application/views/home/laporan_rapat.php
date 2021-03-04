@@ -93,22 +93,22 @@
                                         <table class="table table-borderless table-sm">
                                             <tr>
                                                 <td style="width:15%">No. Surat</td>
-                                                <td>:</td>
+
                                                 <td><?php echo $dt->no_surat; ?></td>
                                             </tr>
                                             <tr>
                                                 <td>Editor</td>
-                                                <td>:</td>
+
                                                 <td><?php echo $dt->nama; ?></td>
                                             </tr>
                                             <tr>
                                                 <td>Dari</td>
-                                                <td>:</td>
+
                                                 <td><?php echo $dt->dari; ?></td>
                                             </tr>
                                             <tr>
                                                 <td>Alamat</td>
-                                                <td>:</td>
+
                                                 <td><?php echo $dt->alamat; ?></td>
                                             </tr>
                                             <tr>
@@ -118,35 +118,31 @@
                                             </tr>
                                             <tr>
                                                 <td>Tanggal Surat</td>
-                                                <td>:</td>
+
                                                 <td><?php echo $dt->tanggal_surat; ?></td>
                                             </tr>
                                             <tr>
                                                 <td>Tanggal Simpan</td>
-                                                <td>:</td>
+
                                                 <td><?php echo $dt->tanggal_simpan; ?></td>
                                             </tr>
                                             <tr>
                                                 <td>Kategori</td>
-                                                <td>:</td>
+
                                                 <td><?php echo $dt->kategori; ?></td>
                                             </tr>
                                             <tr>
                                                 <td><b>Isi Ringkasan</b></td>
-                                                <td>:</td>
+
                                             </tr>
                                             <tr>
-                                                <td colspan="3">
+                                                <td colspan="3" class="text-wrap">
                                                     <?= $dt->isi_ringkasan ?>
                                                 </td>
                                             </tr>
                                         </table>
                                     </td>
-                                    <td colspan="4">
-                                        <table class="table table-borderless table-sm">
 
-                                        </table>
-                                    </td>
                                 </tr>
 
 

@@ -12,7 +12,7 @@ class Home extends CI_Controller
         parent::__construct();
         if (!$this->session->userdata('level')) {
             redirect('auth/login');
-        } elseif ($this->session->userdata('level')== 'admin') {
+        } elseif ($this->session->userdata('level') == 'admin') {
             $this->load->model('M_data');
             $username = $this->session->userdata('username');
             $nama = $this->session->userdata('nama');
@@ -59,7 +59,7 @@ class Home extends CI_Controller
         $data['surat_masuk'] = $this->M_data->getRapat();
         $this->load->view('templates/header', $data);
         $this->load->view('home/sidebar');
-         
+
         $this->load->view('home/laporan_rapat');
         $this->load->view('templates/footer');
     }
@@ -82,7 +82,7 @@ class Home extends CI_Controller
         $data['surat_keluar'] = $this->M_data->getSuratKeluar();
         $this->load->view('templates/header', $data);
         $this->load->view('home/sidebar');
-         
+
         $this->load->view('home/laporan_suratkeluar');
         $this->load->view('templates/footer');
     }
@@ -93,7 +93,7 @@ class Home extends CI_Controller
         $data['penyusutan'] = $this->M_data->getpenyusutan();
         $this->load->view('templates/header', $data);
         $this->load->view('home/sidebar');
-         
+
         $this->load->view('home/form_penyusutan');
         $this->load->view('templates/footer');
     }
@@ -105,7 +105,7 @@ class Home extends CI_Controller
         $data['retensi'] = $this->M_data->getretensi();
         $this->load->view('templates/header', $data);
         $this->load->view('home/sidebar');
-         
+
         $this->load->view('home/form_jadwalretensi');
         $this->load->view('templates/footer');
     }
@@ -116,7 +116,7 @@ class Home extends CI_Controller
         $data['surat_masuk'] = $this->M_data->Laporan_SuratMasuk();
         $this->load->view('templates/header', $data);
         $this->load->view('home/sidebar');
-         
+
         $this->load->view('home/form_suratmasuk');
         $this->load->view('templates/footer');
     }
@@ -127,7 +127,7 @@ class Home extends CI_Controller
         $data['surat_masuk'] = $this->M_data->Laporan_SuratKeluar();
         $this->load->view('templates/header', $data);
         $this->load->view('home/sidebar');
-         
+
         $this->load->view('home/form_suratkeluar');
         $this->load->view('templates/footer');
     }
@@ -138,7 +138,7 @@ class Home extends CI_Controller
         $data['retensi'] = $this->M_data->Laporan_dataretensi();
         $this->load->view('templates/header', $data);
         $this->load->view('home/sidebar');
-         
+
         $this->load->view('home/jadwal_retensi');
         $this->load->view('templates/footer');
     }
@@ -149,7 +149,7 @@ class Home extends CI_Controller
         $data['penyusutan'] = $this->M_data->Laporan_penyusutan();
         $this->load->view('templates/header', $data);
         $this->load->view('home/sidebar');
-         
+
         $this->load->view('home/penyusutan');
         $this->load->view('templates/footer');
     }
@@ -160,7 +160,7 @@ class Home extends CI_Controller
         $data['title'] = '';
         $this->load->view('templates/header', $data);
         $this->load->view('home/sidebar');
-         
+
         $this->load->view('home/disposisi', $data);
         $this->load->view('templates/footer');
     }
@@ -171,7 +171,7 @@ class Home extends CI_Controller
         $data['pinjam'] = $this->M_data->suratdipinjam();
         $this->load->view('templates/header', $data);
         $this->load->view('home/sidebar');
-         
+
         $this->load->view('templates/pinjam');
         $this->load->view('templates/footer');
     }
@@ -255,7 +255,7 @@ class Home extends CI_Controller
         $data['datakategoripinjam'] = $this->M_data->getpinjam();
         $this->load->view('templates/header', $data);
         $this->load->view('home/sidebar');
-         
+
         $this->load->view('home/form_pinjamarsip', $data);
         $this->load->view('templates/footer');
     }
@@ -296,7 +296,7 @@ class Home extends CI_Controller
         $data['penyusutan'] = $this->M_data->Laporan_penyusutan($no_urut);
         $this->load->view('templates/header', $data);
         $this->load->view('home/sidebar');
-         
+
         $this->load->view('home/penyusutan', $data);
         $this->load->view('templates/footer');
     }
@@ -314,7 +314,7 @@ class Home extends CI_Controller
         $data['retensi'] = $this->M_data->Laporan_dataretensi($no_urut);
         $this->load->view('templates/header', $data);
         $this->load->view('home/sidebar');
-         
+
         $this->load->view('home/jadwal_retensi', $data);
         $this->load->view('templates/footer');
     }
@@ -332,7 +332,7 @@ class Home extends CI_Controller
         $data['text'] = $this->M_data->update_datamasuk($no_urut);
         $this->load->view('templates/header', $data);
         $this->load->view('home/sidebar');
-         
+
         $this->load->view('home/update_suratmasuk', $data);
         $this->load->view('templates/footer', $data);
     }
@@ -416,7 +416,7 @@ class Home extends CI_Controller
         $data['text'] = $this->M_data->update_datakeluar($no_urut);
         $this->load->view('templates/header', $data);
         $this->load->view('home/sidebar');
-         
+
         $this->load->view('home/update_suratkeluar', $data);
         $this->load->view('templates/footer', $data);
     }
@@ -532,10 +532,12 @@ class Home extends CI_Controller
     public function pengaturan_instansi()
     {
         $data['instansi'] = $this->M_data->get_instansi();
+        $data['pokok_masalah'] = $this->M_data->getMasalah();
+        $data['unit'] = $this->M_data->getUnit();
         $data['title'] = 'Pengaturan Instansi';
         $this->load->view('templates/header', $data);
         $this->load->view('home/sidebar');
-         
+
         $this->load->view('home/set_instansi', $data);
         $this->load->view('templates/footer');
     }
@@ -585,7 +587,7 @@ class Home extends CI_Controller
         $data['instansi'] = $this->M_data->get_instansi();
         $this->load->view('templates/header', $data);
         $this->load->view('home/sidebar');
-         
+
         $this->load->view('home/buku_agenda', $data);
         $this->load->view('templates/footer');
     }
@@ -599,7 +601,7 @@ class Home extends CI_Controller
         $data['value'] = $id;
         $this->load->view('templates/header', $data);
         $this->load->view('home/sidebar');
-         
+
         $this->load->view('home/edit_map', $data);
         $this->load->view('templates/footer');
         # code...
@@ -611,7 +613,7 @@ class Home extends CI_Controller
         $data['val'] = $this->M_data->update_datakeluar($id);
         $this->load->view('templates/header', $data);
         $this->load->view('home/sidebar');
-         
+
         $this->load->view('home/edit_map_sk', $data);
         $this->load->view('templates/footer');
         # code...
@@ -633,7 +635,7 @@ class Home extends CI_Controller
 
     public function edit_profil()
     {
-        $data['title']="Edit Profil";
+        $data['title'] = "Edit Profil";
         $this->form_validation->set_rules('name', 'Username', 'required|trim');
         $this->form_validation->set_rules('password1', 'Password', 'required|trim');
         $this->form_validation->set_rules('password2', 'Password', 'required|trim|min_length[3]|matches[password3]', [
@@ -854,7 +856,7 @@ class Home extends CI_Controller
 			  <div class="text-white-50 medium">Telah Ditemukan ' . $total . ' Data Terkait</div>
 			  </div>
 			  <div class="col-4">
-			  <a href="' . base_url('home/pinjam') .'" class="btn float-right btn-sm btn-dark ">
+			  <a href="' . base_url('home/pinjam') . '" class="btn float-right btn-sm btn-dark ">
 				  <span class="icon text-white-50">
 					<i class="mdi mdi-arrow-right"></i>
 				  </span>	
@@ -882,6 +884,97 @@ class Home extends CI_Controller
         # code...
     }
 
+    public function addUnit()
+    {
+        $data = [
+            'unit' => $this->input->post('pokok')
+        ];
+        $status =  $this->M_data->addUnit($data);
+        if ($status == 1) {
+            $this->session->set_flashdata('unit', 'Berhasil Tambah Data');
+            redirect('home/pengaturan_instansi');
+        } else {
+            $this->session->set_flashdata('unit', 'Gagal Tambah Data');
+            redirect('home/pengaturan_instansi');
+        }
+    }
+
+    public function addMasalah()
+    {
+        $data = [
+            'masalah' => $this->input->post('masalah')
+        ];
+        $status =  $this->M_data->addMasalah($data);
+        if ($status == 1) {
+            $this->session->set_flashdata('unit', 'Berhasil Tambah Data');
+            redirect('home/pengaturan_instansi');
+        } else {
+            $this->session->set_flashdata('unit', 'Gagal Tambah Data');
+            redirect('home/pengaturan_instansi');
+        }
+    }
+
+    public function editUnit()
+    {
+        $data = [
+            'unit' => $this->input->post('pokok_2'),
+            'id' => $this->input->post('id_unit')
+        ];
+        $status =  $this->M_data->editUnit($data);
+        if ($status == 1) {
+            $this->session->set_flashdata('unit', 'Berhasil Tambah Data');
+            redirect('home/pengaturan_instansi');
+        } else {
+            echo 1;
+
+            redirect('home/pengaturan_instansi');
+        }
+        # code...
+    }
+    public function editMasalah()
+    {
+        $data = [
+            'masalah' => $this->input->post('masalah_2'),
+            'id' => $this->input->post('id_masalah')
+        ];
+        $status =  $this->M_data->editMasalah($data);
+        if ($status == 1) {
+            $this->session->set_flashdata('unit', 'Berhasil Tambah Data');
+            redirect('home/pengaturan_instansi');
+        } else {
+            $this->session->set_flashdata('unit', 'Gagal Tambah Data');
+            redirect('home/pengaturan_instansi');
+        }
+        # code...
+    }
+
+    public function deleteUnit($id)
+    {
+
+        $status =  $this->M_data->deleteUnit($id);
+        if ($status == 1) {
+            $this->session->set_flashdata('unit', 'Berhasil Tambah Data');
+            redirect('home/pengaturan_instansi');
+        } else {
+            $this->session->set_flashdata('unit', 'Gagal Tambah Data');
+            redirect('home/pengaturan_instansi');
+        }
+        # code...
+    }
+    public function deleteMasalah($id)
+    {
+
+        $status =  $this->M_data->deleteMasalah($id);
+        if ($status == 1) {
+            $this->session->set_flashdata('unit', 'Berhasil Tambah Data');
+            redirect('home/pengaturan_instansi');
+        } else {
+            $this->session->set_flashdata('unit', 'Gagal Tambah Data');
+            redirect('home/pengaturan_instansi');
+        }
+        # code...
+    }
+
     public function edit_klasisfikasi_sm($id)
     {
         $data['title'] = 'Edit Klasifikasi Surat Masuk';
@@ -889,7 +982,7 @@ class Home extends CI_Controller
         $data['val'] = $this->M_data->update_datamasuk($id);
         $this->load->view('templates/header', $data);
         $this->load->view('home/sidebar');
-         
+
         $this->load->view('home/klasifikasi_sm', $data);
         $this->load->view('templates/footer');
         # code...
@@ -901,7 +994,7 @@ class Home extends CI_Controller
         $data['val'] = $this->M_data->update_datakeluar($id);
         $this->load->view('templates/header', $data);
         $this->load->view('home/sidebar');
-         
+
         $this->load->view('home/klasifikasi_sk', $data);
         $this->load->view('templates/footer');
         # code...
@@ -939,17 +1032,17 @@ class Home extends CI_Controller
     public function add_kelas()
     {
         $data = [
-            'nama_kelas'=>$this->input->post('nama_kelas'),
-            'status'=>1
+            'nama_kelas' => $this->input->post('nama_kelas'),
+            'status' => 1
         ];
-        
+
         $this->db->insert('kelas', $data);
         redirect('home/kelas');
     }
     public function update_kelas($id)
     {
         $data = [
-            'nama_kelas'=>$this->input->post('nama_kelas')
+            'nama_kelas' => $this->input->post('nama_kelas')
         ];
         $this->db->where('id_kelas', $id);
         $this->db->update('kelas', $data);
@@ -964,7 +1057,7 @@ class Home extends CI_Controller
     public function kelas()
     {   // if ada tugas:tampilkan tugas, else: buat tugas baru
         $data['title'] = 'Kelas';
-        $data['kelas']=$this->M_data->getKelas();
+        $data['kelas'] = $this->M_data->getKelas();
         $this->load->view('templates/header', $data);
         $this->load->view('home/sidebar');
         $this->load->view('home/kelas');
@@ -972,10 +1065,10 @@ class Home extends CI_Controller
     }
     public function akses_kelas($id)
     {
-        $data['title']=$this->M_data->getNamaKelasById($id);
-        $data['mhs']=$this->M_data->getMhsByKelas($id);
-        $data['id_kelas']=$id;
-        $data['tugas']=$this->M_data->getTugas($id);
+        $data['title'] = $this->M_data->getNamaKelasById($id);
+        $data['mhs'] = $this->M_data->getMhsByKelas($id);
+        $data['id_kelas'] = $id;
+        $data['tugas'] = $this->M_data->getTugas($id);
         $this->load->view('templates/header', $data);
         $this->load->view('home/sidebar');
         $this->load->view('home/akses_kelas');
@@ -983,8 +1076,8 @@ class Home extends CI_Controller
     }
     public function tambah_tugas($id_kelas)
     {
-        $data['title']="Tambah Tugas";
-        $data['id_kelas']=$id_kelas;
+        $data['title'] = "Tambah Tugas";
+        $data['id_kelas'] = $id_kelas;
         $this->load->view('templates/header', $data);
         $this->load->view('home/sidebar');
         $this->load->view('home/tambah_tugas');
@@ -994,7 +1087,7 @@ class Home extends CI_Controller
     {
         $config['upload_path'] = './files/tugas/';
         $config['allowed_types'] = 'rar|zip|pdf';
-        $config['file_name'] = 'tugas'.$id_kelas.$this->M_data->lastTugas();
+        $config['file_name'] = 'tugas' . $id_kelas . $this->M_data->lastTugas();
         $config['overwrite'] = true;
         // $config['max_size'] = 20000;
 
@@ -1010,11 +1103,11 @@ class Home extends CI_Controller
                 'judul_tugas' => $this->input->post('judul_tugas'),
                 'deskripsi_tugas' => $this->input->post('deskripsi_tugas'),
                 'dateline' => $this->input->post('dateline'),
-                'lampiran' => 'tugas'.$id_kelas.$this->M_data->lastTugas().$ext,
+                'lampiran' => 'tugas' . $id_kelas . $this->M_data->lastTugas() . $ext,
                 'id_kelas' => $id_kelas
             ];
             $this->M_data->addTugas($lampiran);
-            redirect('home/akses_kelas/'.$id_kelas);
+            redirect('home/akses_kelas/' . $id_kelas);
         }
     }
 
@@ -1031,7 +1124,7 @@ class Home extends CI_Controller
     {
         $config['upload_path'] = './files/tugas/';
         $config['allowed_types'] = 'zip|pdf|rar';
-        $config['file_name'] = 'tugas'.$this->M_data->getKelasByTugas($id).$id;
+        $config['file_name'] = 'tugas' . $this->M_data->getKelasByTugas($id) . $id;
         $config['overwrite'] = true;
         // $config['max_size'] = 20000;
 
@@ -1044,7 +1137,7 @@ class Home extends CI_Controller
                 'deskripsi_tugas' => $this->input->post('deskripsi_tugas')
             ];
             $this->M_data->UpdateTugas($lampiran, $id);
-            redirect('home/lihat_tugas/'.$id);
+            redirect('home/lihat_tugas/' . $id);
         } else {
             $data = array('image_metadata' => $this->upload->data());
             $ext = $this->upload->data('file_ext');
@@ -1052,55 +1145,55 @@ class Home extends CI_Controller
                 'judul_tugas' => $this->input->post('judul_tugas'),
                 'dateline' => $this->input->post('dateline'),
                 'deskripsi_tugas' => $this->input->post('deskripsi_tugas'),
-                'lampiran' => 'tugas'.$this->M_data->getKelasByTugas($id).$id.$ext
+                'lampiran' => 'tugas' . $this->M_data->getKelasByTugas($id) . $id . $ext
             ];
             $this->M_data->UpdateTugas($lampiran, $id);
-            redirect('home/lihat_tugas/'.$id);
+            redirect('home/lihat_tugas/' . $id);
         }
     }
     public function delete_tugas($id)
     {
-        $id_kelas=$this->M_data->getKelasByTugas($id);
+        $id_kelas = $this->M_data->getKelasByTugas($id);
         $this->db->where('id_tugas', $id);
         $this->db->delete('tugas');
-        redirect('home/akses_kelas/'.$id_kelas);
+        redirect('home/akses_kelas/' . $id_kelas);
     }
     public function lihat_tugas($id_tugas)
     {
-        $data['title']="Lihat Tugas";
-        $data['tugas']=$this->M_data->getTugasById($id_tugas);
-        $data['kelas']=$this->M_data->getKelasByTugas($id_tugas);
-        $data['mhs']=$this->M_data->getMhsByTugas($id_tugas);
+        $data['title'] = "Lihat Tugas";
+        $data['tugas'] = $this->M_data->getTugasById($id_tugas);
+        $data['kelas'] = $this->M_data->getKelasByTugas($id_tugas);
+        $data['mhs'] = $this->M_data->getMhsByTugas($id_tugas);
         $this->load->view('templates/header', $data);
         $this->load->view('home/sidebar');
         $this->load->view('home/lihat_tugas');
         $this->load->view('templates/footer');
     }
-    public function hasil_tugas($id,$id_tugas)
+    public function hasil_tugas($id, $id_tugas)
     {
-        $data['id_tugas']=$id_tugas;
-        $data['title']="Hasil Tugas";
+        $data['id_tugas'] = $id_tugas;
+        $data['title'] = "Hasil Tugas";
         $data['surat_masuk'] = $this->M_data->getSuratMasukById($id);
         $data['surat_keluar'] = $this->M_data->getSuratKeluarById($id);
         $data['surat_pinjam'] = $this->M_data->getSuratPinjamById($id);
         $data['surat_rapat'] = $this->M_data->getRapatById($id);
         $data['retensi'] = $this->M_data->getRetensiById($id);
         $data['penyusutan'] = $this->M_data->getPenyusutanById($id);
-        $data['mhs'] = $this->M_data->getMhsById($id,$id_tugas);
+        $data['mhs'] = $this->M_data->getMhsById($id, $id_tugas);
         // print_r($data['mhs']);die;
         $this->load->view('templates/header', $data);
         $this->load->view('home/sidebar');
         $this->load->view('home/hasil_tugas');
         $this->load->view('templates/footer');
     }
-    public function update_nilai($id,$id_tugas)
+    public function update_nilai($id, $id_tugas)
     {
         $data = [
             'nilai' => $this->input->post('nilai'),
             'komentar' => $this->input->post('komentar')
         ];
         $this->M_data->updateNilai($data, $id, $id_tugas);
-        redirect('home/lihat_tugas/'.$id_tugas);
+        redirect('home/lihat_tugas/' . $id_tugas);
     }
     public function tambah_nilai()
     {
@@ -1114,13 +1207,13 @@ class Home extends CI_Controller
             'tgl_selesai' => date('Y-m-d H:i:s')
         ];
         $this->M_data->addNilai($data);
-        redirect('home/lihat_tugas/'.$data['id_tugas']);
+        redirect('home/lihat_tugas/' . $data['id_tugas']);
     }
     public function download_tugas($id_tugas)
     {
         $this->load->helper('download');
         $filename = $this->M_data->file_tugas($id_tugas);
-        $path = file_get_contents(base_url()."files/tugas/".$filename); // get file name
+        $path = file_get_contents(base_url() . "files/tugas/" . $filename); // get file name
         force_download($filename, $path); // start download`
     }
     public function get_data_user()
@@ -1131,20 +1224,20 @@ class Home extends CI_Controller
         foreach ($list as $field) {
             $no++;
             $row = array();
-            $row[]=$field->no_urut;
-            $row[]=$field->nama;
-            $row[]=$field->dari;
-            $row[]=$field->alamat;
-            $row[]=$field->no_surat;
-            $row[]=$field->lampiran;
-            $row[]=$field->tanggal_surat;
-            $row[]=$field->perihal;
-            $row[]=$field->tanggal_simpan;
-            $row[]=$field->kategori;
-            $row[]=$field->isi_ringkasan;
+            $row[] = $field->no_urut;
+            $row[] = $field->nama;
+            $row[] = $field->dari;
+            $row[] = $field->alamat;
+            $row[] = $field->no_surat;
+            $row[] = $field->lampiran;
+            $row[] = $field->tanggal_surat;
+            $row[] = $field->perihal;
+            $row[] = $field->tanggal_simpan;
+            $row[] = $field->kategori;
+            $row[] = $field->isi_ringkasan;
             $data[] = $row;
         }
- 
+
         $output = array(
             "draw" => $_POST['draw'],
             "recordsTotal" => $this->User_model->count_all(),
