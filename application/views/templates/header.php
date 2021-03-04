@@ -18,7 +18,7 @@
     <link href="<?= base_url('files/js/summernote/') ?>summernote.css" rel="stylesheet">
 
     <!-- Layout style -->
-    <!-- <link rel="shortcut icon" href="<?=base_url('assets/images/favicon.ico')?>" /> -->
+    <link rel="shortcut icon" href="<?=base_url('assets/images/favicon.ico')?>" />
 </head>
 
 <body class="header-fixed">
