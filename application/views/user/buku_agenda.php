@@ -19,26 +19,19 @@
                 </div>
                 <hr>
                 <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <table class="table table-bordered" id="buku_agenda" width="100%" cellspacing="0">
                         <thead>
                             <tr>
+                                <td>#</td>
                                 <td width="2">No</td>
-                                <td>Editor</td>
                                 <td>Dari / Kepada</td>
                                 <td>Jenis Surat</td>
                                 <td>Tanggal Surat</td>
-                                <td>Sistem</td>
-                                <td>Kode Simpan</td>
+
                                 <td>Tanggal Simpan</td>
-                                <td>No Surat</td>
-                                <td>Isi Ringkasan</td>
+
                                 <td>Preview File</td>
                                 <td>Lampiran File</td>
-                                <td>Guide Primer</td>
-                                <td>Guide Sekunder</td>
-                                <td>Guide Tersier</td>
-                                <td>Folder</td>
-                                <td>Berkas Nomor</td>
                                 <td>Edit Klasifikasi</td>
                                 <td>Edit Lokasi</td>
                             </tr>
@@ -47,25 +40,18 @@
                             <?php
                             $i = 1;
                             foreach ($surat_masuk as $dt) : ?>
-                                <tr>
+                                <tr data-child-ringkasan='<?= htmlspecialchars($dt["isi_ringkasan"]) ?>' data-child-nama='<?php echo $dt['nama']; ?>' data-child-kategori='<?= $dt["kategori"] ?>' data-child-nomor='<?= $dt["no_surat"] ?>' data-child-kode='<?= $dt["kode_simpan"] ?>' data-child-primer='<?= $dt["laci"] ?>' data-child-sekunder='<?= $dt["Guide"] ?>' data-child-tersier='<?= $dt["tersier"] ?>' data-child-folder='<?= $dt["Map"] ?>' data-child-berkas='<?= $dt["nomor_berkas"] ?>'>
+                                    <td class="detailed"><i class="fas fa-arrow-alt-circle-down"></i></td>
                                     <td><?= $i; ?></td>
-                                    <td><?= $dt['nama'] ?></td>
                                     <td><?php echo $dt['dari']; ?></td>
                                     <!-- <td><?php echo $dt['no_surat']; ?></td> -->
                                     <td>Surat Masuk</td>
                                     <td><?php echo $dt['tanggal_surat']; ?></td>
-                                    <td><?php echo $dt['kategori']; ?></td>
-                                    <td><?php echo $dt['kode_simpan']; ?></td>
+
                                     <td><?php echo $dt['tanggal_simpan']; ?></td>
-                                    <td><?php echo $dt['no_surat']; ?></td>
-                                    <td><?php echo $dt['isi_ringkasan']; ?></td>
-                                    <td><button type="button" id='bt_<?= $dt["no_urut"] ?>' class="btn btn-sm btn-primary form-control mb-3" data-toggle="modal" onclick="showImage('<?= $dt['no_urut'] ?>')" data-target="#modal_klasifikasi" value="<?= $dt["berkas"] ?>">Preview</button></td>
+                                    <td><button type="button" id='bt_<?= $dt["no_urut"] ?>' class="btn btn-sm  btn-info form-control " data-toggle="modal" onclick="showImage('<?= $dt['no_urut'] ?>')" data-target="#modal_klasifikasi" value="<?= $dt["berkas"] ?>">Preview</button></td>
                                     <td><a download class=" btn btn-info text-white btn-sm" href=" <?= base_url('lampiran/' . $dt["berkas"])  ?>">Download</a></td>
-                                    <td><?= $dt['laci']; ?></td>
-                                    <td><?= $dt['Guide']; ?></td>
-                                    <td><?= $dt['tersier']; ?></td>
-                                    <td><?= $dt['Map']; ?></td>
-                                    <td><?= $dt['nomor_berkas']; ?></td>
+
                                     <td><a href=" <?= base_url('user/edit_klasisfikasi_sm/' . $dt["no_urut"]) ?>" class=" btn btn-info text-white btn-sm">Klasifikasi</a></td>
                                     <td><a href=" <?= base_url('user/edit_lokasi/' . $dt["no_urut"]) ?>" class=" btn btn-info text-white btn-sm">Edit </a></td>
                                 </tr>
@@ -76,25 +62,18 @@
                             <?php
 
                             foreach ($surat_keluar as $dt) : ?>
-                                <tr>
+                                <tr data-child-ringkasan='<?= htmlspecialchars($dt["isi_ringkasan"]) ?>' data-child-nama='<?php echo $dt['nama']; ?>' data-child-kategori='<?= $dt["kategori"] ?>' data-child-nomor='<?= $dt["no_surat"] ?>' data-child-kode='<?= $dt["kode_simpan"] ?>' data-child-primer='<?= $dt["laci"] ?>' data-child-sekunder='<?= $dt["Guide"] ?>' data-child-tersier='<?= $dt["tersier"] ?>' data-child-folder='<?= $dt["Map"] ?>' data-child-berkas='<?= $dt["nomor_berkas"] ?>'>
+                                    <td class="detailed"><i class="fas fa-arrow-alt-circle-down"></i></td>
                                     <td><?= $i; ?></td>
-                                    <td><?= $dt['nama'] ?></td>
                                     <td><?php echo $dt['kepada']; ?></td>
                                     <!-- <td><?php echo $dt['no_surat']; ?></td> -->
                                     <td>Surat Keluar</td>
                                     <td><?php echo $dt['tanggal_surat']; ?></td>
-                                    <td><?php echo $dt['kategori']; ?></td>
-                                    <td><?php echo $dt['kode_simpan']; ?></td>
+
                                     <td><?php echo $dt['tanggal_simpan']; ?></td>
-                                    <td><?php echo $dt['no_surat']; ?></td>
-                                    <td><?php echo $dt['isi_ringkasan']; ?></td>
-                                    <td><button type="button" id='bt_<?= $dt["no_urut"] ?>' class="btn btn-sm btn-primary form-control mb-3" data-toggle="modal" onclick="showImage('<?= $dt['no_urut'] ?>')" data-target="#modal_klasifikasi" value="<?= $dt["berkas"] ?>">Preview</button></td>
+                                    <td><button type="button" id='bt_<?= $dt["no_urut"] ?>' class="btn btn-sm btn-info form-control " data-toggle="modal" onclick="showImage('<?= $dt['no_urut'] ?>')" data-target="#modal_klasifikasi" value="<?= $dt["berkas"] ?>">Preview</button></td>
                                     <td><a download class=" btn btn-info text-white btn-sm" href=" <?= base_url('lampiran/' . $dt["berkas"]) ?>">Download</a></td>
-                                    <td><?= $dt['laci']; ?></td>
-                                    <td><?= $dt['Guide']; ?></td>
-                                    <td><?= $dt['tersier']; ?></td>
-                                    <td><?= $dt['Map']; ?></td>
-                                    <td><?= $dt['nomor_berkas']; ?></td>
+
                                     <td><a href=" <?= base_url('user/edit_klasisfikasi_sk/' . $dt["no_urut"]) ?>" class=" btn btn-info text-white btn-sm">Klasifikasi</a></td>
                                     <td><a href=" <?= base_url('user/edit_lokasi_sk/' . $dt["no_urut"]) ?>" class=" btn btn-info text-white btn-sm">Edit</a></td>
                                 </tr>

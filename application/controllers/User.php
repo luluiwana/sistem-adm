@@ -87,6 +87,7 @@ class User extends CI_Controller
     {
         $data["title"] = "Tambah Surat Masuk";
         $data['surat_masuk'] = $this->m_user->Laporan_SuratMasuk($this->id);
+        $data['masalah'] = $this->m_user->getMasalah();
         $this->load->view('templates/header', $data);
         $this->load->view('user/sidebar');
 
@@ -98,6 +99,7 @@ class User extends CI_Controller
     {
         $data["title"] = "Tambah Surat Keluar";
         $data['surat_masuk'] = $this->m_user->Laporan_SuratKeluar($this->id);
+        $data['masalah'] = $this->m_user->getMasalah();
         $this->load->view('templates/header', $data);
         $this->load->view('user/sidebar');
 
@@ -291,6 +293,7 @@ class User extends CI_Controller
         $data["title"] = "Edit Surat Keluar";
         $data['surat_masuk'] = $this->m_user->update_datakeluar($no_urut);
         $data['text'] = $this->m_user->update_datakeluar($no_urut);
+        $data['masalah'] = $this->m_user->getMasalah();
         $this->load->view('templates/header', $data);
         $this->load->view('user/sidebar');
 
@@ -303,6 +306,7 @@ class User extends CI_Controller
         $data["title"] = "Edit Surat Masuk";
         $data['surat_masuk'] = $this->m_user->update_datamasuk($no_urut);
         $data['text'] = $this->m_user->update_datamasuk($no_urut);
+        $data['masalah'] = $this->m_user->getMasalah();
         $this->load->view('templates/header', $data);
         $this->load->view('user/sidebar');
 
@@ -362,7 +366,7 @@ class User extends CI_Controller
         $this->load->view('templates/header', $data);
         $this->load->view('user/sidebar');
 
-        $this->load->view('templates/pinjam', $data);
+        $this->load->view('templates_user/pinjam', $data);
         $this->load->view('templates/footer');
     }
 
@@ -456,6 +460,7 @@ class User extends CI_Controller
         $data["title"] = "Tambah Arsip Dipinjam";
         $data['datakategoripinjam'] = $this->m_user->getpinjam($this->id);
         $data['datakategoripinjam_2'] = $this->m_user->getpinjam_k($this->id);
+        $data['unit'] = $this->m_user->getUnit();
         $this->load->view('templates/header', $data);
         $this->load->view('user/sidebar');
 
@@ -683,6 +688,8 @@ class User extends CI_Controller
 
         if ($this->form_validation->run() == false) {
             $data["title"] = "Edit Profil";
+            $data['kelas'] = $this->m_user->getKelas();
+            $data['bio'] = $this->m_user->getUser($this->id);
             $this->load->view('templates/header', $data);
             $this->load->view('user/sidebar');
             $this->load->view('user/sunting');
@@ -943,6 +950,25 @@ class User extends CI_Controller
         $this->load->view('user/klasifikasi_sk', $data);
         $this->load->view('templates/footer');
         # code...
+    }
+    public function getCustomRapat()
+    {
+        $data['instansi'] = $this->m_user->get_instansi();
+        $data['surat_masuk'] = $this->m_user->getCustomRapat($this->id);
+        $this->load->library('pdf');
+        $this->pdf->setPaper('A4', 'potrait');
+        $this->pdf->filename = "Jadwal Rapat " . $this->input->post('date_a') . " - " . $this->input->post('date_b') . ".pdf";
+        //	$this->pdf->stream('laporan-data-siswa.pdf', array('Attachment' => 0));
+        $this->pdf->load_view('home/export_rapat', $data);
+        // $this->load->view("home/export_disposisi/temp_export");
+        # code...
+
+    }
+
+    public function updBio()
+    {
+        $data = $this->m_user->updBio($this->id);
+        redirect('user/edit_profil');
     }
 
     public function upd_klasifikasi_sm($id)

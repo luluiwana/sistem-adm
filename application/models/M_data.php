@@ -260,9 +260,9 @@ class M_data extends CI_Model
         return $query->result();
     }
 
-    public function getpinjam($id)
+    public function getpinjam()
     {
-        $query = $this->db->query("SELECT * FROM surat_masuk where $id ORDER BY perihal ASC");
+        $query = $this->db->query("SELECT * FROM surat_masuk  ORDER BY perihal ASC");
         return $query->result();
     }
 

@@ -52,7 +52,7 @@
 
                                     <td><?php echo $dt['tanggal_simpan']; ?></td>
 
-                                    <td><button type="button" id=' bt_<?= $dt["no_urut"] ?>' class="btn btn-sm btn-primary form-control mb-3" data-toggle="modal" onclick="showImage('<?= $dt['no_urut'] ?>')" data-target="#modal_klasifikasi" value="<?= $dt["berkas"] ?>">Preview</button></td>
+                                    <td><button type="button" id=' bt_<?= $dt["no_urut"] ?>' class="btn btn-sm btn-info  form-control " data-toggle="modal" onclick="showImage('<?= $dt['no_urut'] ?>')" data-target="#modal_klasifikasi" value="<?= $dt["berkas"] ?>">Preview</button></td>
                                     <td><a download class=" btn btn-info text-white btn-sm" href=" <?= base_url('lampiran/' . $dt["berkas"])  ?>">Download</a></td>
 
                                     <td><a href=" <?= base_url('home/edit_klasisfikasi_sm/' . $dt["no_urut"]) ?>" class=" btn btn-info text-white btn-sm">Klasifikasi</a></td>
@@ -75,7 +75,7 @@
 
                                     <td><?php echo $dt['tanggal_simpan']; ?></td>
 
-                                    <td><button type="button" id='bt_<?= $dt["no_urut"] ?>' class="btn btn-sm btn-primary form-control mb-3" data-toggle="modal" onclick="showImage('<?= $dt['no_urut'] ?>')" data-target="#modal_klasifikasi" value="<?= $dt["berkas"] ?>">Preview</button></td>
+                                    <td><button type="button" id='bt_<?= $dt["no_urut"] ?>' class="btn btn-sm btn-info form-control " data-toggle="modal" onclick="showImage('<?= $dt['no_urut'] ?>')" data-target="#modal_klasifikasi" value="<?= $dt["berkas"] ?>">Preview</button></td>
                                     <td><a download class=" btn btn-info text-white btn-sm" href=" <?= base_url('lampiran/' . $dt["berkas"]) ?>">Download</a></td>
 
                                     <td><a href=" <?= base_url('home/edit_klasisfikasi_sk/' . $dt["no_urut"]) ?>" class=" btn btn-info text-white btn-sm">Klasifikasi </a></td>

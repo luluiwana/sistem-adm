@@ -143,6 +143,20 @@ class Home extends CI_Controller
         $this->load->view('templates/footer');
     }
 
+    public function getCustomRapat()
+    {
+        $data['instansi'] = $this->M_data->get_instansi();
+        $data['surat_masuk'] = $this->M_data->getCustomRapat();
+        $this->load->library('pdf');
+        $this->pdf->setPaper('A4', 'potrait');
+        $this->pdf->filename = "Jadwal Rapat " . $this->input->post('date_a') . " - " . $this->input->post('date_b') . ".pdf";
+        //	$this->pdf->stream('laporan-data-siswa.pdf', array('Attachment' => 0));
+        $this->pdf->load_view('home/export_rapat', $data);
+        // $this->load->view("home/export_disposisi/temp_export");
+        # code...
+
+    }
+
     public function penyusutan()
     {
         $data['title'] = 'Penyusutan';

@@ -386,19 +386,26 @@ class M_user extends CI_Model
         return $query->result();
     }
     public function getTugas()
-    {   $id = $this->session->userdata('id');
+    {
+        $id = $this->session->userdata('id');
         $query = $this->db->query("SELECT *, tugas.id_tugas as id_tgs FROM tugas INNER JOIN user ON tugas.id_kelas=user.kelas LEFT OUTER JOIN nilai ON nilai.id_tugas=tugas.id_tugas AND nilai.id_user=user.id WHERE user.id=$id order by tugas.id_tugas desc");
         return $query->result();
     }
-    public function submit_tugas($data){
-        $this->db->insert('nilai',$data);
-    
+    public function submit_tugas($data)
+    {
+        $this->db->insert('nilai', $data);
     }
     public function file_tugas($id_tugas)
     {
-        $this->db->where("id_tugas",$id_tugas);
-        $row=$this->db->get("tugas")->row();
+        $this->db->where("id_tugas", $id_tugas);
+        $row = $this->db->get("tugas")->row();
         return $row->lampiran;
+    }
+
+    public function getKelas()
+    {
+        // SELECT *,count(user.username) FROM kelas LEFT OUTER JOIN user ON kelas.id_kelas=user.kelas GROUP BY kelas.id_kelas
+        return $this->db->get('kelas')->result();
     }
 
     public function getUnit()
@@ -441,8 +448,6 @@ class M_user extends CI_Model
         $this->db->update('pokok_masalah', $data);
         return  $this->db->affected_rows();
     }
-
-
     public function deleteUnit($id)
     {
         $this->db->where('id', $id);
@@ -455,5 +460,39 @@ class M_user extends CI_Model
         $this->db->where('id', $id);
         $this->db->delete('pokok_masalah');
         return  $this->db->affected_rows();
+    }
+
+    public function updBio($id)
+    {
+        $data = [
+            'nama' => $this->input->post('nama_mhs'),
+            'kelas' => $this->input->post('kelas'),
+            'whatsapp' => $this->input->post('telp_mhs')
+        ];
+        $this->db->where('id', $id);
+        $this->db->update('user', $data);
+        $data2['nama'] = $this->input->post('nama_mhs');
+        $this->session->set_userdata($data2);
+        return  $this->db->affected_rows();
+    }
+
+    public function getUser($id)
+    {
+        $this->db->where('id', $id);
+        $result = $this->db->get('user')->row_array();
+        return $result;
+    }
+
+    public function getCustomRapat($id)
+    {
+
+        $date_a = $this->input->post('date_a');
+        $date_1 = date('Y-m-d', strtotime($date_a));
+        $date_b = $this->input->post('date_b');
+        $date_2 = date('Y-m-d', strtotime($date_b));
+
+        $query = $this->db->query("select * FROM surat_masuk as m JOIN user as u WHERE m.id_user=u.id AND m.surat_rapat=1 AND m.tgl_rapat BETWEEN '$date_1' AND '$date_2' and u.id = '$id'  UNION SELECT * FROM surat_keluar as k JOIN user as u WHERE k.id_user=u.id AND k.surat_rapat=1 AND k.tgl_rapat BETWEEN '$date_1' AND '$date_2' and u.id = '$id'");
+
+        return $query->result();
     }
 }

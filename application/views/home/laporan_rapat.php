@@ -50,7 +50,7 @@
                     </div>
                 </div>
                 <div class="table-responsive">
-                    <table class="table table-hover" id="jadwal_rapat" width="100%" cellspacing="0">
+                    <table class="table table-hover" width="100%" cellspacing="0">
                         <thead>
                             <tr>
                                 <td style="padding-right:22px">#</td>

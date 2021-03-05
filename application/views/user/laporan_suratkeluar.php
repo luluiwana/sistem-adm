@@ -26,34 +26,26 @@
                   <table class="table table-bordered" id="surat_keluar" width="100%" cellspacing="0">
                     <thead>
                       <tr>
-                        <td>no urut</td>
-                        <td>Editor</td>
+                        <td>#</td>
+                        <td>No urut</td>
                         <td>Kepada</td>
-                        <td>Alamat</td>
-                        <td>No Surat</td>
                         <td>Lampiran</td>
                         <td>Tanggal Surat</td>
                         <td>Perihal</td>
                         <td>Tanggal Simpan</td>
-                        <td>Kategori</td>
-                        <td>Isi Ringkasan</td>
                         <td colspan="1">Setting</td>
                       </tr>
                     </thead>
                     <tbody>
                       <?php foreach ($surat_keluar as $dt) : ?>
-                        <tr>
+                        <tr data-child-ringkasan='<?= htmlspecialchars($dt["isi_ringkasan"]) ?>' data-child-alamat='<?php echo $dt['alamat']; ?>' data-child-nomor='<?php echo $dt['no_surat']; ?>' data-child-nama='<?php echo $dt['nama']; ?>' data-child-kategori='<?= $dt["kategori"] ?>'>
+                          <td class="detailed"><i class="fas fa-arrow-alt-circle-down"></i></td>
                           <td><?php echo $dt['no_urut']; ?></td>
-                          <td><?php echo $dt['nama']; ?></td>
                           <td><?php echo $dt['kepada']; ?></td>
-                          <td><?php echo $dt['alamat']; ?></td>
-                          <td><?php echo $dt['no_surat']; ?></td>
                           <td><?php echo $dt['lampiran']; ?></td>
                           <td><?php echo $dt['tanggal_surat']; ?></td>
                           <td><?php echo $dt['perihal']; ?></td>
                           <td><?php echo $dt['tanggal_simpan']; ?></td>
-                          <td><?php echo $dt['kategori']; ?></td>
-                          <td><?php echo $dt['isi_ringkasan']; ?></td>
                           <td>
                             <a href="<?php echo base_url() ?>user/update_datakeluar/<?php echo $dt['no_urut']; ?>" class="badge badge-primary"> Edit </a>
                             <a href="<?php echo base_url() ?>user/hapus_datakeluar/<?php echo $dt['no_urut']; ?>" class="badge badge-danger"> Hapus </a>

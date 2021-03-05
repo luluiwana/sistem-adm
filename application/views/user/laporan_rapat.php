@@ -20,21 +20,26 @@
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-1 font-weight-bold text-primary"></h6><br>
-                <div class="btn-group" role="group">
-                    <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Ekspor PDF
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                        <a href="<?= base_url('user/rapat_exp/Harian') ?>" class="dropdown-item">Harian</a>
-                        <a href="<?= base_url('user/rapat_exp/Mingguan') ?>" class="dropdown-item">Mingguan</a>
-                        <a href="<?= base_url('user/rapat_exp/Bulanan') ?>" class="dropdown-item">Bulanan</a>
+                <form action="<?= base_url('user/getCustomRapat') ?>" method="POST">
+                    <h6 class=" font-weight-bold text-primary">Rekap Jadwal Rapat</h6>
+                    <div class="row">
+                        <div class="form-group col-md-3">
+                            <label for="inputZip">Tanggal Awal</label>
+                            <input type="date" class="form-control" name="date_a">
+                        </div>
+
+                        <div class="form-group col-md-3">
+                            <label for="inputZip">Tanggal Akhir</label>
+                            <input type="date" class="form-control" name="date_b">
+                        </div>
+
                     </div>
-                </div>
+                    <input type="submit" class="btn btn-md btn-primary" value="Cetak Data">
+                </form>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-hover" id="jadwal_rapat" width="100%" cellspacing="0">
+                    <table class="table table-hover" width="100%" cellspacing="0">
                         <thead>
                             <tr>
                                 <td><i class="fa fa-"></i></td>
