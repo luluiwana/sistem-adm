@@ -24,14 +24,11 @@
 				<label for="exampleFormControlInput1">Kepada</label>
 				<input type="text" class="form-control" placeholder="Masukkan Nama Perusahaan yang dituju" name="kepada" required>
 			</div>
-			<div class="form-group">
-				<label for="exampleFormControlInput1">Alamat</label>
-				<input type="text" class="form-control" placeholder="Masukkan Keterangan Alamat" name="alamat" required>
-			</div>
+
 			<div class="form-row">
 				<div class="form-group col-md-8">
-					<label for="kota">Kota</label>
-					<input type="text" class="form-control" name="kota" placeholder="Masukkan Keterangan Kota" required>
+					<label for="exampleFormControlInput1">Alamat</label>
+					<input type="text" class="form-control" placeholder="Masukkan Keterangan Alamat" name="alamat" required>
 				</div>
 				<div class="form-group col-md-4">
 					<label for="indeks">Indeks</label>

@@ -30,14 +30,11 @@
 					<label for="exampleFormControlInput1">Dari</label>
 					<input type="text" class="form-control" value="<?= $surat_masuk['dari'] ?>" placeholder="Masukkan Nama Pengirim" name="dari">
 				</div>
-				<div class="form-group">
-					<label for="exampleFormControlInput1">Alamat</label>
-					<input type="text" class="form-control" value="<?= $surat_masuk['alamat'] ?>" placeholder="Masukkan Keterangan Alamat" name="alamat">
-				</div>
+
 				<div class="form-row">
 					<div class="form-group col-md-8">
-						<label for="kota">Kota</label>
-						<input type="text" class="form-control" value="<?= $surat_masuk['kota'] ?>" name="kota" placeholder="Masukkan Keterangan Kota">
+						<label for="exampleFormControlInput1">Alamat</label>
+						<input type="text" class="form-control" value="<?= $surat_masuk['alamat'] ?>" placeholder="Masukkan Keterangan Alamat" name="alamat">
 					</div>
 					<div class="form-group col-md-4">
 						<label for="indeks">Indeks</label>

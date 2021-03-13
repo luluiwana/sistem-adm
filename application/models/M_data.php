@@ -266,9 +266,9 @@ class M_data extends CI_Model
         return $query->result();
     }
 
-    public function getpinjam_k($id)
+    public function getpinjam_k()
     {
-        $query = $this->db->query("SELECT * FROM surat_keluar where $id ORDER BY perihal ASC");
+        $query = $this->db->query("SELECT * FROM surat_keluar  ORDER BY perihal ASC");
         return $query->result();
     }
 
@@ -508,6 +508,19 @@ class M_data extends CI_Model
         $date_2 = date('Y-m-d', strtotime($date_b));
 
         $query = $this->db->query("select * FROM surat_masuk as m JOIN user as u WHERE m.id_user=u.id AND m.surat_rapat=1 AND m.tgl_rapat BETWEEN '$date_1' AND '$date_2'  UNION SELECT * FROM surat_keluar as k JOIN user as u WHERE k.id_user=u.id AND k.surat_rapat=1 AND k.tgl_rapat BETWEEN '$date_1' AND '$date_2'");
+
+        return $query->result();
+    }
+
+    public function getCustomAgenda()
+    {
+
+        $date_a = $this->input->post('date_a');
+        $date_1 = date('Y-m-d', strtotime($date_a));
+        $date_b = $this->input->post('date_b');
+        $date_2 = date('Y-m-d', strtotime($date_b));
+
+        $query = $this->db->query("select * FROM surat_masuk as m JOIN user as u WHERE m.id_user=u.id  AND m.tgl_rapat BETWEEN '$date_1' AND '$date_2'  UNION SELECT * FROM surat_keluar as k JOIN user as u WHERE k.id_user=u.id  AND k.tgl_rapat BETWEEN '$date_1' AND '$date_2'");
 
         return $query->result();
     }

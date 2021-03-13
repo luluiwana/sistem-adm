@@ -103,6 +103,8 @@ class Home extends CI_Controller
         $data['title'] = 'Tambah Retensi Arsip';
         $data['penyusutan'] = $this->M_data->getpenyusutan();
         $data['retensi'] = $this->M_data->getretensi();
+        $data['datakategoripinjam'] = $this->M_data->getpinjam();
+        $data['datakategoripinjam_2'] = $this->M_data->getpinjam_k();
         $this->load->view('templates/header', $data);
         $this->load->view('home/sidebar');
 
@@ -114,6 +116,7 @@ class Home extends CI_Controller
     {
         $data['title'] = 'Tambah Surat Masuk';
         $data['surat_masuk'] = $this->M_data->Laporan_SuratMasuk();
+        $data['masalah'] = $this->M_data->getMasalah();
         $this->load->view('templates/header', $data);
         $this->load->view('home/sidebar');
 
@@ -125,6 +128,7 @@ class Home extends CI_Controller
     {
         $data['title'] = 'Tambah Surat Keluar';
         $data['surat_masuk'] = $this->M_data->Laporan_SuratKeluar();
+        $data['masalah'] = $this->M_data->getMasalah();
         $this->load->view('templates/header', $data);
         $this->load->view('home/sidebar');
 
@@ -152,6 +156,31 @@ class Home extends CI_Controller
         $this->pdf->filename = "Jadwal Rapat " . $this->input->post('date_a') . " - " . $this->input->post('date_b') . ".pdf";
         //	$this->pdf->stream('laporan-data-siswa.pdf', array('Attachment' => 0));
         $this->pdf->load_view('home/export_rapat', $data);
+        // $this->load->view("home/export_disposisi/temp_export");
+        # code...
+
+    }
+    public function getCustomAgenda()
+    {
+        $data['instansi'] = $this->M_data->get_instansi();
+        $data['agenda'] = $this->M_data->getCustomAgenda();
+        // $this->load->view('home/export_agenda', $data);
+
+        $this->load->library('pdf');
+        $contxt = stream_context_create([
+            'ssl' => [
+                'verify_peer' => FALSE,
+                'verify_peer_name' => FALSE,
+                'allow_self_signed' => TRUE
+            ]
+        ]);
+        $this->pdf->setHttpContext($contxt);
+        $this->pdf->set_option('isRemoteEnabled', TRUE);
+        $this->pdf->setPaper('A4', 'potrait');
+        $this->pdf->filename = "Buku Agenda " . $this->input->post('date_a') . " - " . $this->input->post('date_b') . ".pdf";
+        $this->pdf->load_view('home/export_agenda', $data);
+
+        //	$this->pdf->stream('laporan-data-siswa.pdf', array('Attachment' => 0));
         // $this->load->view("home/export_disposisi/temp_export");
         # code...
 
@@ -267,6 +296,8 @@ class Home extends CI_Controller
     {
         $data['title'] = 'Form Pinjam Arsip';
         $data['datakategoripinjam'] = $this->M_data->getpinjam();
+        $data['datakategoripinjam_2'] = $this->M_data->getpinjam_k();
+        $data['unit'] = $this->M_data->getUnit();
         $this->load->view('templates/header', $data);
         $this->load->view('home/sidebar');
 
@@ -344,6 +375,7 @@ class Home extends CI_Controller
         $data['title'] = 'Edit Surat Masuk';
         $data['surat_masuk'] = $this->M_data->update_datamasuk($no_urut);
         $data['text'] = $this->M_data->update_datamasuk($no_urut);
+        $data['masalah'] = $this->M_data->getMasalah();
         $this->load->view('templates/header', $data);
         $this->load->view('home/sidebar');
 
@@ -428,6 +460,7 @@ class Home extends CI_Controller
         $data['title'] = 'Edit Surat Keluar';
         $data['surat_masuk'] = $this->M_data->update_datakeluar($no_urut);
         $data['text'] = $this->M_data->update_datakeluar($no_urut);
+        $data['masalah'] = $this->M_data->getMasalah();
         $this->load->view('templates/header', $data);
         $this->load->view('home/sidebar');
 

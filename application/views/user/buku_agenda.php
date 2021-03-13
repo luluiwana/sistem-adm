@@ -18,6 +18,30 @@
                     </div>
                 </div>
                 <hr>
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <form action="<?= base_url('user/getCustomAgenda') ?>" method="POST">
+                            <h6 class=" font-weight-bold text-primary">Rekap Jadwal Rapat</h6>
+                            <div class="row">
+                                <div class="form-group col-md-3">
+                                    <label for="inputZip">Tanggal Awal</label>
+                                    <input type="date" class="form-control" name="date_a">
+                                </div>
+
+                                <div class="form-group col-md-3">
+                                    <label for="inputZip">Tanggal Akhir</label>
+                                    <input type="date" class="form-control" name="date_b">
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label for="inputZip">Cetak Buku Agenda</label>
+                                    <input type="submit" class="btn btn-md btn-info form-control" value="Cetak">
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+                <hr>
                 <div class="table-responsive">
                     <table class="table table-bordered" id="buku_agenda" width="100%" cellspacing="0">
                         <thead>
@@ -28,12 +52,12 @@
                                 <td>Jenis Surat</td>
                                 <td>Tanggal Surat</td>
 
-                                <td>Tanggal Simpan</td>
+                                <td>Tanggal Agenda</td>
 
                                 <td>Preview File</td>
                                 <td>Lampiran File</td>
                                 <td>Edit Klasifikasi</td>
-                                <td>Edit Lokasi</td>
+                                <!-- <td>Edit Lokasi</td> -->
                             </tr>
                         </thead>
                         <tbody>
@@ -53,7 +77,7 @@
                                     <td><a download class=" btn btn-info text-white btn-sm" href=" <?= base_url('lampiran/' . $dt["berkas"])  ?>">Download</a></td>
 
                                     <td><a href=" <?= base_url('user/edit_klasisfikasi_sm/' . $dt["no_urut"]) ?>" class=" btn btn-info text-white btn-sm">Klasifikasi</a></td>
-                                    <td><a href=" <?= base_url('user/edit_lokasi/' . $dt["no_urut"]) ?>" class=" btn btn-info text-white btn-sm">Edit </a></td>
+                                    <!-- <td><a href=" <?= base_url('user/edit_lokasi/' . $dt["no_urut"]) ?>" class=" btn btn-info text-white btn-sm">Edit </a></td> -->
                                 </tr>
                             <?php
                                 $i++;
@@ -75,7 +99,7 @@
                                     <td><a download class=" btn btn-info text-white btn-sm" href=" <?= base_url('lampiran/' . $dt["berkas"]) ?>">Download</a></td>
 
                                     <td><a href=" <?= base_url('user/edit_klasisfikasi_sk/' . $dt["no_urut"]) ?>" class=" btn btn-info text-white btn-sm">Klasifikasi</a></td>
-                                    <td><a href=" <?= base_url('user/edit_lokasi_sk/' . $dt["no_urut"]) ?>" class=" btn btn-info text-white btn-sm">Edit</a></td>
+                                    <!-- <td><a href=" <?= base_url('user/edit_lokasi_sk/' . $dt["no_urut"]) ?>" class=" btn btn-info text-white btn-sm">Edit</a></td> -->
                                 </tr>
                             <?php
                                 $i++;

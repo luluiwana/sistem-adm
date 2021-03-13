@@ -436,6 +436,8 @@ class User extends CI_Controller
     {
         $data["title"] = "Tambah Retensi";
         $data['penyusutan'] = $this->m_user->getpenyusutan();
+        $data['datakategoripinjam'] = $this->m_user->getpinjam($this->id);
+        $data['datakategoripinjam_2'] = $this->m_user->getpinjam_k($this->id);
         $this->load->view('templates/header', $data);
         $this->load->view('user/sidebar');
 
@@ -589,7 +591,7 @@ class User extends CI_Controller
         $data = [
             'unit' => $this->input->post('pokok')
         ];
-        $status =  $this->M_data->addUnit($data);
+        $status =  $this->m_user->addUnit($data);
         if ($status == 1) {
             $this->session->set_flashdata('unit', 'Berhasil Tambah Data');
             redirect('user/pengaturan_instansi');
@@ -604,7 +606,7 @@ class User extends CI_Controller
         $data = [
             'masalah' => $this->input->post('masalah')
         ];
-        $status =  $this->M_data->addMasalah($data);
+        $status =  $this->m_user->addMasalah($data);
         if ($status == 1) {
             $this->session->set_flashdata('unit', 'Berhasil Tambah Data');
             redirect('user/pengaturan_instansi');
@@ -620,7 +622,7 @@ class User extends CI_Controller
             'unit' => $this->input->post('pokok_2'),
             'id' => $this->input->post('id_unit')
         ];
-        $status =  $this->M_data->editUnit($data);
+        $status =  $this->m_user->editUnit($data);
         if ($status == 1) {
             $this->session->set_flashdata('unit', 'Berhasil Tambah Data');
             redirect('user/pengaturan_instansi');
@@ -636,7 +638,7 @@ class User extends CI_Controller
             'masalah' => $this->input->post('masalah_2'),
             'id' => $this->input->post('id_masalah')
         ];
-        $status =  $this->M_data->editMasalah($data);
+        $status =  $this->m_user->editMasalah($data);
         if ($status == 1) {
             $this->session->set_flashdata('unit', 'Berhasil Tambah Data');
             redirect('user/pengaturan_instansi');
@@ -650,7 +652,7 @@ class User extends CI_Controller
     public function deleteUnit($id)
     {
 
-        $status =  $this->M_data->deleteUnit($id);
+        $status =  $this->m_user->deleteUnit($id);
         if ($status == 1) {
             $this->session->set_flashdata('unit', 'Berhasil Tambah Data');
             redirect('user/pengaturan_instansi');
@@ -663,7 +665,7 @@ class User extends CI_Controller
     public function deleteMasalah($id)
     {
 
-        $status =  $this->M_data->deleteMasalah($id);
+        $status =  $this->m_user->deleteMasalah($id);
         if ($status == 1) {
             $this->session->set_flashdata('unit', 'Berhasil Tambah Data');
             redirect('user/pengaturan_instansi');
@@ -960,6 +962,32 @@ class User extends CI_Controller
         $this->pdf->filename = "Jadwal Rapat " . $this->input->post('date_a') . " - " . $this->input->post('date_b') . ".pdf";
         //	$this->pdf->stream('laporan-data-siswa.pdf', array('Attachment' => 0));
         $this->pdf->load_view('home/export_rapat', $data);
+        // $this->load->view("home/export_disposisi/temp_export");
+        # code...
+
+    }
+
+    public function getCustomAgenda()
+    {
+        $data['instansi'] = $this->M_data->get_instansi();
+        $data['agenda'] = $this->m_user->getCustomAgenda($this->id);
+        // $this->load->view('home/export_agenda', $data);
+
+        $this->load->library('pdf');
+        $contxt = stream_context_create([
+            'ssl' => [
+                'verify_peer' => FALSE,
+                'verify_peer_name' => FALSE,
+                'allow_self_signed' => TRUE
+            ]
+        ]);
+        $this->pdf->setHttpContext($contxt);
+        $this->pdf->set_option('isRemoteEnabled', TRUE);
+        $this->pdf->setPaper('A4', 'potrait');
+        $this->pdf->filename = "Buku Agenda " . $this->input->post('date_a') . " - " . $this->input->post('date_b') . ".pdf";
+        $this->pdf->load_view('home/export_agenda', $data);
+
+        //	$this->pdf->stream('laporan-data-siswa.pdf', array('Attachment' => 0));
         // $this->load->view("home/export_disposisi/temp_export");
         # code...
 

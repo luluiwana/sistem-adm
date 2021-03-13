@@ -106,17 +106,19 @@
 
 				<div class="form-group">
 					<label for="exampleFormControlInput1">Isi Ringkasan</label>
-					<textarea id="summernote" name="editordata"></textarea>
+					<textarea id="summernote" name="editordata"><?= $surat_masuk['isi_ringkasan'] ?></textarea>
 				</div>
 				<div style="margin:0">
 					<input type="hidden" name="surat_rapat" value="0" checked />
 					<label data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
 						<input type="checkbox" name="surat_rapat" id="rapat" value="1" <?php if ($surat_masuk['surat_rapat'] == 1) {
-																						echo "checked";
-																					}	?>>
+																							echo "checked";
+																						}	?>>
 						<span>Surat ini merupakan surat rapat</span>
 					</label>
-					<div id="collapseOne" aria-expanded="false" class="collapse <?php if ($surat_masuk['surat_rapat'] == 1) { echo 'show';}?> ">
+					<div id="collapseOne" aria-expanded="false" class="collapse <?php if ($surat_masuk['surat_rapat'] == 1) {
+																					echo 'show';
+																				} ?> ">
 						<div class="form-row">
 							<div class="form-group col-md-5">
 								<label for="exampleFormControlInput1">Tanggal Rapat</label>
@@ -134,7 +136,7 @@
 					</div>
 				</div>
 
-				
+
 				<!-- <div class="form-group col-md-4">
 				<label for="exampleFormControlInput1">Lampiran</label>
 				<input type="file" class="form-control" placeholder="Masukan lampiran" name="userfile" size="20">
@@ -172,7 +174,12 @@
 									</div>
 									<div class="form-group col-md-4 d-none" id="subjek">
 										<label for="exampleFormControlInput1">Pokok Soal</label>
-										<input type="text" class="form-control" value="<?= $surat_masuk['pokok_soal'] ?>" placeholder="Masukan Pokok Soal" name="pokok_soal">
+										<select name="pokok_soal" id="unit_kerja" class="form-control">
+											<option value="">Pilih Dibawah ini ... </option>
+											<?php foreach ($masalah as $key) : ?>
+												<option value="<?= $key['masalah'] ?>"><?= $key['masalah'] ?></option>
+											<?php endforeach ?>
+										</select>
 									</div>
 								</div>
 								<div class="d-none" id='mod'>

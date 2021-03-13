@@ -18,7 +18,31 @@
                     </div>
                 </div>
                 <hr>
-                <a href="<?= base_url('home/export_excel') ?>" class="btn btn-primary btn-md">Export Buku Agenda</a>
+
+                <hr>
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <form action="<?= base_url('home/getCustomAgenda') ?>" method="POST">
+                            <h6 class=" font-weight-bold text-primary">Rekap Jadwal Rapat</h6>
+                            <div class="row">
+                                <div class="form-group col-md-3">
+                                    <label for="inputZip">Tanggal Awal</label>
+                                    <input type="date" class="form-control" name="date_a">
+                                </div>
+
+                                <div class="form-group col-md-3">
+                                    <label for="inputZip">Tanggal Akhir</label>
+                                    <input type="date" class="form-control" name="date_b">
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label for="inputZip">Cetak Buku Agenda</label>
+                                    <input type="submit" class="btn btn-md btn-info form-control" value="Cetak">
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
                 <hr>
                 <div class="table-responsive">
                     <table class="table table-bordered" id="buku_agenda" width="100%" cellspacing="0">
@@ -110,5 +134,6 @@
                 </div>
             </div>
         </div>
-
     </div>
+
+</div>

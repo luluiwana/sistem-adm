@@ -19,7 +19,8 @@
  <!-- build:js -->
  <script src="<?= base_url('assets/js/template.js') ?>"></script>
  <script src="<?= base_url('assets/js/dashboard.js') ?>"></script>
-
+ <script src="<?= base_url('files/js/') ?>webcam-easy.js"></script>
+ <script src="<?= base_url('files/js/') ?>camera.js"></script>
 
  <script src="<?= base_url('files/js/summernote/') ?>summernote.min.js"></script>
  <script src="<?php echo base_url('files/'); ?>js/demo/datatables-demo.js"></script>
@@ -85,11 +86,13 @@
              $('#data_4').removeClass('d-none');
              $('#data_5').addClass('d-none');
          } else if (data === "Nomor") {
-             $('#subjek').hide();
-             $("label[for='input_1']").text("Tanggal");
-             $("label[for='input_2']").text("Indeks Nama");
-             $("label[for='input_3']").text("Nomor");
-             $('#data_4').addClass('d-none');
+             $('#subjek').removeClass('d-none');
+             $('#subjek').show();
+             $("label[for='input_1']").text("Masalah Utama");
+             $("label[for='input_2']").text("Sub Masalah");
+             $("label[for='input_3']").text("Sub-sub Masalah");
+             $("label[for='input_4']").text("Kode");
+             $('#data_4').removeClass('d-none');
              $('#data_5').addClass('d-none');
          } else if (data === "Abjad") {
              $("label[for='input_1']").text("Guide Primer");
@@ -133,11 +136,13 @@
              $('#data_4').removeClass('d-none');
              $('#data_5').addClass('d-none');
          } else if ($(this).val() === "Nomor") {
-             $('#subjek').hide();
-             $("label[for='input_1']").text("Tanggal");
-             $("label[for='input_2']").text("Indeks Nama");
-             $("label[for='input_3']").text("Nomor");
-             $('#data_4').addClass('d-none');
+             $('#subjek').removeClass('d-none');
+             $('#subjek').show();
+             $("label[for='input_1']").text("Masalah Utama");
+             $("label[for='input_2']").text("Sub Masalah");
+             $("label[for='input_3']").text("Sub-sub Masalah");
+             $("label[for='input_4']").text("Kode");
+             $('#data_4').removeClass('d-none');
              $('#data_5').addClass('d-none');
          } else if ($(this).val() === "Abjad") {
              $("label[for='input_1']").text("Guide Primer");
@@ -360,26 +365,7 @@
              '<td>Kode Simpan:</td>' +
              '<td>' + kode + '</td>' +
              '</tr>' +
-             '<tr>' +
-             '<td>Guide Primer:</td>' +
-             '<td>' + primer + '</td>' +
-             '</tr>' +
-             '<tr>' +
-             '<td>Guide Sekunder:</td>' +
-             '<td>' + sekunder + '</td>' +
-             '</tr>' +
-             '<tr>' +
-             '<td>Guide Tersier:</td>' +
-             '<td>' + tersier + '</td>' +
-             '</tr>' +
-             '<tr>' +
-             '<td>Folder:</td>' +
-             '<td>' + folder + '</td>' +
-             '</tr>' +
-             '<tr>' +
-             '<td>Nomor Berkas:</td>' +
-             '<td>' + berkas + '</td>' +
-             '</tr>' +
+
              '<tr>' +
              '<td>Isi Ringkasan:</td>' +
              '<td class="text-wrap">' + ringkasan + '</td>' +
